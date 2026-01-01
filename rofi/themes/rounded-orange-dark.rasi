@@ -1,0 +1,14 @@
+* {
+	bg0:    rgba(25,25,25,0.5); // window background color
+	bg1:    rgba(30,30,30,0.5);
+	bg2:    rgba(19,19,19,0.5);
+	listborder:    rgba(70,70,70,1);
+	selected: rgba(120,20,10,0.30);
+	element2: rgba(30,30,30,0.10);
+	element1: rgba(30,30,30,0.10);
+	fg0:    #FF3300; // list text color
+	bg3:    rgba(170,2,1); //main color
+	fg3:    #6f6f6f; // search text placeholder color
+}
+
+@import "template/rounded-template.rasi"

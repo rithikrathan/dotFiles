@@ -1,0 +1,7 @@
+configuration{
+	show-icons:true;
+	sidebar-mode:false;
+}
+//@theme "/home/godz/.config/rofi/themes/rounded-orange-dark.rasi"
+//@theme "/home/godz/.local/share/rofi/themes/simple-tokyonight.rasi"
+@theme "/home/godz/.local/share/rofi/themes/submarine.rasi"

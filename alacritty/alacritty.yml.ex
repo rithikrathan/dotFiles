@@ -1,0 +1,970 @@
+# Configuration for Alacritty, the GPU enhanced terminal emulator.
+
+# Any items in the `env` entry below will be added as
+# environment variables. Some entries may override variables
+# set by alacritty itself.
+env:
+  # TERM variable
+  #
+  # This value is used to set the `$TERM` environment variable for
+  # each instance of Alacritty. If it is not present, alacritty will
+  # check the local terminfo database and use 'alacritty' if it is
+  # available, otherwise 'xterm-256color' is used.
+  TERM: xterm-256color
+  COLORTERM: truecolor
+
+mouse:
+  # interval
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
+
+  hide_when_typing: true
+
+hints:
+  enabled:
+    - regex: "(mailto:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-\u009F<>\" {-}\\\\^⟨⟩`]+"
+      command: open
+      post_processing: true
+
+      mouse:
+        enabled: true
+        mods: Command
+      hyperlinks: true
+
+key_bindings:
+  # delete one word to the left
+  - key: Back
+    mods: Control
+    chars: "\x15"
+
+  # tmux - detach
+  - key: D
+    mods: Command
+    chars: "\x02d"
+  
+  # tmux in tmux - detach
+  - key: D
+    mods: Command|Shift
+    chars: "\x02\x02d"
+
+  # tmux - kill pane
+  - key: W
+    mods: Command
+    chars: "\x02x"
+
+  # tmux in tmux - kill pane
+  - key: W
+    mods: Command|Shift
+    chars: "\x02\x02x"
+
+  # tmux - select pane to the left
+  - key: Left
+    mods: Command
+    chars: "\x02h"
+
+  # tmux in tmux - select pane to the left
+  - key: Left
+    mods: Command|Shift
+    chars: "\x02\x02h"
+
+  # tmux - select pane to the right
+  - key: Right
+    mods: Command
+    chars: "\x02l"
+
+  # tmux in tmux - select pane to the right
+  - key: Right
+    mods: Command|Shift
+    chars: "\x02\x02l"
+
+  # tmux - select pane to the up
+  - key: Up
+    mods: Command
+    chars: "\x02k"
+
+  # tmux in tmux - select pane to the up
+  - key: Up
+    mods: Command|Shift
+    chars: "\x02\x02k"
+        
+  # tmux - select pane to the down
+  - key: Down
+    mods: Command
+    chars: "\x02j"
+
+  # tmux in tmux - select pane to the down
+  - key: Down
+    mods: Command|Shift
+    chars: "\x02\x02j"
+
+  # tmux - new pane to the left
+  - key: Left
+    mods: Command|Alt
+    chars: "\x02%\x02"
+      
+  # tmux in tmux - new pane to the left
+  - key: Left
+    mods: Command|Alt|Shift
+    chars: "\x02\x02%"
+
+  # tmux - new pane to the right
+  - key: Right
+    mods: Command|Alt
+    chars: "\x02%"
+
+  # tmux in tmux - new pane to the right
+  - key: Right
+    mods: Command|Alt|Shift
+    chars: "\x02\x02%"
+
+  # tmux - new pane to the up
+  - key: Up
+    mods: Command|Alt
+    chars: "\x02\""
+
+  # tmux in tmux - new pane to the up
+  - key: Up
+    mods: Command|Alt|Shift
+    chars: "\x02\x02\""
+
+  # tmux - new pane to the down
+  - key: Down
+    mods: Command|Alt
+    chars: "\x02\""
+
+  # tmux in tmux - new pane to the down
+  - key: Down
+    mods: Command|Alt|Shift
+    chars: "\x02\x02\""
+
+  # tmux - new window
+  - key: T
+    mods: Command
+    chars: "\x02c"
+
+  # tmux in tmux - new window
+  - key: T
+    mods: Command|Shift
+    chars: "\x02\x02c"
+
+  # tmux - list sessions, windows and panes
+  - key: E
+    mods: Command
+    chars: "\x02s"
+
+  # tmux in tmux - list sessions, windows and panes
+  - key: E
+    mods: Command|Shift
+    chars: "\x02\x02s"
+
+  # tmux - reload current pane
+  - key: Backslash
+    mods: Command
+    chars: "\x02y"
+
+  # tmux in tmux - reload current pane
+  - key: Backslash
+    mods: Command|Shift
+    chars: "\x02\x02y"
+
+  # tmux - select previous pane (±§)
+  - key: 10
+    mods: Control
+    chars: "\x02;"
+
+  # tmux in tmux - select previous pane (±§)
+  - key: 10
+    mods: Control|Shift
+    chars: "\x02\x02;"
+
+  # tmux - zoom current pane
+  - key: Return
+    mods: Command
+    chars: "\x02z"
+
+  # tmux in tmux - zoom current pane
+  - key: Return
+    mods: Command|Shift
+    chars: "\x02\x02z"
+
+  # tmux - select previous window
+  - key: Tab
+    mods: Control
+    chars: "\x02\t"
+
+  # tmux in tmux - select previous window
+  - key: Tab
+    mods: Control|Shift
+    chars: "\x02\x02\t"
+
+  # tmux - select window to the left
+  - key: LBracket
+    mods: Command
+    chars: "\x02p"
+
+  # tmux in tmux - select window to the left
+  - key: LBracket
+    mods: Command|Shift
+    chars: "\x02\x02p"
+
+  # tmux - select window to the right
+  - key: RBracket
+    mods: Command
+    chars: "\x02n"
+
+  # tmux in tmux - select window to the left
+  - key: RBracket
+    mods: Command|Shift
+    chars: "\x02\x02n"
+
+  # tmux - select window 0
+  - key: Key0
+    mods: Command
+    chars: "\x020"
+
+  # tmux in tmux - select window 0
+  - key: Key0
+    mods: Command|Shift
+    chars: "\x02\x020"
+
+  # tmux - select window 1
+  - key: Key1
+    mods: Command
+    chars: "\x021"
+
+  # tmux in tmux - select window 1
+  - key: Key1
+    mods: Command|Shift
+    chars: "\x02\x021"
+
+  # tmux - select window 2
+  - key: Key2
+    mods: Command
+    chars: "\x022"
+
+  # tmux in tmux - select window 2
+  - key: Key2
+    mods: Command|Shift
+    chars: "\x02\x022"
+  # tmux - select window 3
+  - key: Key3
+    mods: Command
+    chars: "\x023"
+
+  # tmux in tmux - select window 3
+  - key: Key3
+    mods: Command|Shift
+    chars: "\x02\x023"
+  # tmux - select window 4
+  - key: Key4
+    mods: Command
+    chars: "\x024"
+  # tmux in tmux - select window 4
+  - key: Key4
+    mods: Command|Shift
+    chars: "\x02\x024"
+  # tmux - select window 5
+  - key: Key5
+    mods: Command
+    chars: "\x025"
+  # tmux in tmux - select window 5
+  - key: Key5
+    mods: Command|Shift
+    chars: "\x02\x025"
+  # tmux - select window 6
+  - key: Key6
+    mods: Command
+    chars: "\x026"
+  # tmux in tmux - select window 6
+  - key: Key6
+    mods: Command|Shift
+    chars: "\x02\x026"
+  # tmux - select window 7
+  - key: Key7
+    mods: Command
+    chars: "\x027"
+  # tmux in tmux - select window 7
+  - key: Key7
+    mods: Command|Shift
+    chars: "\x02\x027"
+  # tmux - select window 8
+  - key: Key8
+    mods: Command
+    chars: "\x028"
+  # tmux in tmux - select window 8
+  - key: Key8
+    mods: Command|Shift
+    chars: "\x02\x028"
+  # tmux - select window 9
+  - key: Key9
+    mods: Command
+    chars: "\x029"
+  # tmux in tmux - select window 9
+  - key: Key9
+    mods: Command|Shift
+    chars: "\x02\x029"
+  # tmux - resize pane left
+  - key: Left
+    mods: Command|Control
+    chars: "\x02H"
+  # tmux in tmux - resize pane left
+  - key: Left
+    mods: Command|Control|Shift
+    chars: "\x02\x02H"
+  # tmux - resize pane right
+  - key: Right
+    mods: Command|Control
+    chars: "\x02L"
+  # tmux in tmux - resize pane right
+  - key: Right
+    mods: Command|Control|Shift
+    chars: "\x02\x02L"
+  # tmux - resize pane up
+  - key: Up
+    mods: Command|Control
+    chars: "\x02K"
+  # tmux in tmux - resize pane up
+  - key: Up
+    mods: Command|Control|Shift
+    chars: "\x02\x02K"
+  # tmux - resize pane down
+  - key: Down
+    mods: Command|Control
+    chars: "\x02J"
+  # tmux in tmux - resize pane down
+  - key: Down
+    mods: Command|Control|Shift
+    chars: "\x02\x02J"
+  # page scrolling
+  - key: PageUp
+    mods: Shift
+    action: ScrollPageUp
+    mode: ~Alt
+  - key: PageDown
+    mods: Shift
+    action: ScrollPageDown
+    mode: ~Alt
+  - key: Home
+    mods: Shift
+    action: ScrollToTop
+    mode: ~Alt
+  - key: End
+    mods: Shift
+    action: ScrollToBottom
+    mode: ~Alt
+  # new alacritty window
+  - key: "N"
+    mods: Command
+    action: CreateNewWindow
+
+window:
+  # Window dimensions (changes require restart)
+  #
+  # Specified in number of columns/lines, not pixels.
+  # If both are `0`, this setting is ignored.
+  dimensions:
+    columns: 218
+    lines: 65
+
+  # Window padding (changes require restart)
+  #
+  # Blank space added around the window in pixels. This padding is not scaled
+  # by DPI and the specified value is always added at both opposing sides.
+  padding:
+    x: 6
+    y: 4
+
+  # Window decorations
+  #
+  # Values for `decorations`:
+  #     - full: Borders and title bar
+  #     - none: Neither borders nor title bar
+  #
+  # Values for `decorations` (macOS only):
+  #     - transparent: Title bar, transparent background and title bar buttons
+  #     - buttonless: Title bar, transparent background and no title bar buttons
+  decorations: full
+
+  # Background opacity
+  #
+  # Window opacity as a floating point number from `0.0` to `1.0`.
+  # The value `0.0` is completely transparent and `1.0` is opaque.
+  opacity: 0.7
+
+# Font configuration (changes require restart)
+font:
+font:
+  normal:
+    family: Inconsolata LGC Nerd Font Mono
+    style: Regular
+  bold:
+    family: Inconsolata LGC Nerd Font Mono
+    style: Bold
+  italic:
+    family: Inconsolata LGC Nerd Font Mono
+    style: Italic
+  bold_italic:
+    family: Inconsolata LGC Nerd Font Mono
+    style: Bold Italic
+  size: 12.0
+
+  # Offset is the extra space around each character. `offset.y` can be thought of
+  # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
+  offset:
+    x: 0
+    y: 0
+
+  # Glyph offset determines the locations of the glyphs within their cells with
+  # the default being at the bottom. Increasing `x` moves the glyph to the right,
+  # increasing `y` moves the glyph upwards.
+  glyph_offset:
+    x: 0
+    y: 0
+
+# Bell
+#
+# Any time the BEL code is received, Alacritty "rings" the visual bell. Once
+# rung, the terminal background will be set to white and transition back to the
+# default background color. You can control the rate of this transition by
+# setting the `duration` property (represented in milliseconds). You can also
+# configure the transition function by setting the `animation` property.
+#
+# Values for `animation`:
+#   - Ease
+#   - EaseOut
+#   - EaseOutSine
+#   - EaseOutQuad
+#   - EaseOutCubic
+#   - EaseOutQuart
+#   - EaseOutQuint
+#   - EaseOutExpo
+#   - EaseOutCirc
+#   - Linear
+#
+# Specifying a `duration` of `0` will disable the visual bell.
+#
+bell:
+  animation: Ease
+  duration: 0
+
+# Color themes
+themes:
+  # Colors (Afterglow)
+  - &afterglow # Default colors
+    primary:
+      background: "#2c2c2c"
+      foreground: "#d6d6d6"
+
+      dim_foreground: "#dbdbdb"
+      bright_foreground: "#d9d9d9"
+      dim_background: "#202020" # not sure
+      bright_background: "#3a3a3a" # not sure
+
+    # Cursor colors
+    cursor:
+      text: "#2c2c2c"
+      cursor: "#d9d9d9"
+
+    # Normal colors
+    normal:
+      black: "#1c1c1c"
+      red: "#bc5653"
+      green: "#909d63"
+      yellow: "#ebc17a"
+      blue: "#7eaac7"
+      magenta: "#aa6292"
+      cyan: "#86d3ce"
+      white: "#cacaca"
+
+    # Bright colors
+    bright:
+      black: "#636363"
+      red: "#bc5653"
+      green: "#909d63"
+      yellow: "#ebc17a"
+      blue: "#7eaac7"
+      magenta: "#aa6292"
+      cyan: "#86d3ce"
+      white: "#f7f7f7"
+
+    # Dim colors
+    dim:
+      black: "#232323"
+      red: "#74423f"
+      green: "#5e6547"
+      yellow: "#8b7653"
+      blue: "#556b79"
+      magenta: "#6e4962"
+      cyan: "#5c8482"
+      white: "#828282"
+
+  # Colors (Argonaut)
+  - &agronaut # Default colors
+    primary:
+      background: "#292C3E"
+      foreground: "#EBEBEB"
+
+    # Cursor colors
+    cursor:
+      text: "#FF261E"
+      cursor: "#FF261E"
+
+    # Normal colors
+    normal:
+      black: "#0d0d0d"
+      red: "#FF301B"
+      green: "#A0E521"
+      yellow: "#FFC620"
+      blue: "#1BA6FA"
+      magenta: "#8763B8"
+      cyan: "#21DEEF"
+      white: "#EBEBEB"
+
+    # Bright colors
+    bright:
+      black: "#6D7070"
+      red: "#FF4352"
+      green: "#B8E466"
+      yellow: "#FFD750"
+      blue: "#1BA6FA"
+      magenta: "#A578EA"
+      cyan: "#73FBF1"
+      white: "#FEFEF8"
+
+  # Colors (Ayu Dark)
+  - &ayu-dark # Default colors
+    primary:
+      background: "#0A0E14"
+      foreground: "#B3B1AD"
+
+    # Normal colors
+    normal:
+      black: "#01060E"
+      red: "#EA6C73"
+      green: "#91B362"
+      yellow: "#F9AF4F"
+      blue: "#53BDFA"
+      magenta: "#FAE994"
+      cyan: "#90E1C6"
+      white: "#C7C7C7"
+
+    # Bright colors
+    bright:
+      black: "#686868"
+      red: "#F07178"
+      green: "#C2D94C"
+      yellow: "#FFB454"
+      blue: "#59C2FF"
+      magenta: "#FFEE99"
+      cyan: "#95E6CB"
+      white: "#FFFFFF"
+
+  # Colors (Ayu Mirage)
+  - &ayu-mirage # Default colors
+    primary:
+      background: "#202734"
+      foreground: "#CBCCC6"
+
+    # Normal colors
+    normal:
+      black: "#191E2A"
+      red: "#FF3333"
+      green: "#BAE67E"
+      yellow: "#FFA759"
+      blue: "#73D0FF"
+      magenta: "#FFD580"
+      cyan: "#95E6CB"
+      white: "#C7C7C7"
+
+    # Bright colors
+    bright:
+      black: "#686868"
+      red: "#F27983"
+      green: "#A6CC70"
+      yellow: "#FFCC66"
+      blue: "#5CCFE6"
+      magenta: "#FFEE99"
+      cyan: "#95E6CB"
+      white: "#FFFFFF"
+
+  # Colors (Base16 Default Dark)
+  - &base-16-default-dark # Default colors
+    primary:
+      background: "#181818"
+      foreground: "#d8d8d8"
+
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: "#d8d8d8"
+      cursor: "#d8d8d8"
+
+    # Normal colors
+    normal:
+      black: "#181818"
+      red: "#ab4642"
+      green: "#a1b56c"
+      yellow: "#f7ca88"
+      blue: "#7cafc2"
+      magenta: "#ba8baf"
+      cyan: "#86c1b9"
+      white: "#d8d8d8"
+
+    # Bright colors
+    bright:
+      black: "#585858"
+      red: "#ab4642"
+      green: "#a1b56c"
+      yellow: "#f7ca88"
+      blue: "#7cafc2"
+      magenta: "#ba8baf"
+      cyan: "#86c1b9"
+      white: "#f8f8f8"
+
+  # Colors (Blood Moon)
+  - &blood-moon # Default colors
+    primary:
+      background: "#10100E"
+      foreground: "#C6C6C4"
+
+    # Normal colors
+    normal:
+      black: "#10100E"
+      red: "#C40233"
+      green: "#009F6B"
+      yellow: "#FFD700"
+      blue: "#0087BD"
+      magenta: "#9A4EAE"
+      cyan: "#20B2AA"
+      white: "#C6C6C4"
+
+    # Bright colors
+    bright:
+      black: "#696969"
+      red: "#FF2400"
+      green: "#03C03C"
+      yellow: "#FDFF00"
+      blue: "#007FFF"
+      magenta: "#FF1493"
+      cyan: "#00CCCC"
+      white: "#FFFAFA"
+
+  # Colors (Cobalt 2)
+  - &cobalt2
+    cursor:
+      text: "#fefff2"
+      cursor: "#f0cc09"
+
+    selection:
+      text: "#b5b5b5"
+      background: "#18354f"
+
+    primary:
+      background: "#132738"
+      foreground: "#ffffff"
+
+    normal:
+      black: "#000000"
+      red: "#ff0000"
+      green: "#38de21"
+      yellow: "#ffe50a"
+      blue: "#1460d2"
+      magenta: "#ff005d"
+      cyan: "#00bbbb"
+      white: "#bbbbbb"
+
+    bright:
+      black: "#555555"
+      red: "#f40e17"
+      green: "#3bd01d"
+      yellow: "#edc809"
+      blue: "#5555ff"
+      magenta: "#ff55ff"
+      cyan: "#6ae3fa"
+      white: "#ffffff"
+
+  # Colors (Darkside)
+  - &dark-side
+    primary:
+      background: "#222324"
+      foreground: "#BABABA"
+
+    # Normal colors
+    normal:
+      black: "#000000"
+      red: "#E8341C"
+      green: "#68C256"
+      yellow: "#F2D42C"
+      blue: "#1C98E8"
+      magenta: "#8E69C9"
+      cyan: "#1C98E8"
+      white: "#BABABA"
+
+    # Bright colors
+    bright:
+      black: "#666666"
+      red: "#E05A4F"
+      green: "#77B869"
+      yellow: "#EFD64B"
+      blue: "#387CD3"
+      magenta: "#957BBE"
+      cyan: "#3D97E2"
+      white: "#BABABA"
+
+  # Colors (Dracula)
+  - &dracula # Default colors
+    primary:
+      background: "#282a36"
+      foreground: "#f8f8f2"
+
+    # Normal colors
+    normal:
+      black: "#000000"
+      red: "#ff5555"
+      green: "#50fa7b"
+      yellow: "#f1fa8c"
+      blue: "#caa9fa"
+      magenta: "#ff79c6"
+      cyan: "#8be9fd"
+      white: "#bfbfbf"
+
+    # Bright colors
+    bright:
+      black: "#575b70"
+      red: "#ff6e67"
+      green: "#5af78e"
+      yellow: "#f4f99d"
+      blue: "#caa9fa"
+      magenta: "#ff92d0"
+      cyan: "#9aedfe"
+      white: "#e6e6e6"
+
+  # Colors (Molokai Dark)
+  - &molokai-dark # Default colors
+    primary:
+      background: "#1B1D1E"
+      foreground: "#F8F8F2"
+    # Normal colors
+    normal:
+      black: "#333333"
+      red: "#C4265E"
+      green: "#86B42B"
+      yellow: "#B3B42B"
+      blue: "#6A7EC8"
+      magenta: "#8C6BC8"
+      cyan: "#56ADBC"
+      white: "#E3E3DD"
+    # Bright colors
+    bright:
+      black: "#666666"
+      red: "#F92672"
+      green: "#A6E22E"
+      yellow: "#E2E22E"
+      blue: "#819AFF"
+      magenta: "#AE81FF"
+      cyan: "#66D9EF"
+      white: "#F8F8F2"
+
+  # Colors (Monokai Dark)
+  - &monokai-dark # Default colors
+    primary:
+      background: "#272822"
+      foreground: "#F8F8F2"
+
+    # Normal colors
+    normal:
+      black: "#272822"
+      red: "#F92672"
+      green: "#A6E22E"
+      yellow: "#F4BF75"
+      blue: "#66D9EF"
+      magenta: "#AE81FF"
+      cyan: "#A1EFE4"
+      white: "#F8F8F2"
+
+    # Bright colors
+    bright:
+      black: "#75715E"
+      red: "#F92672"
+      green: "#A6E22E"
+      yellow: "#F4BF75"
+      blue: "#66D9EF"
+      magenta: "#AE81FF"
+      cyan: "#A1EFE4"
+      white: "#F9F8F5"
+
+  # Colors (Monokai Pro)
+  - &monokai-pro # Default colors
+    primary:
+      background: "#2D2A2E"
+      foreground: "#FCFCFA"
+
+    # Normal colors
+    normal:
+      black: "#403E41"
+      red: "#FF6188"
+      green: "#A9DC76"
+      yellow: "#FFD866"
+      blue: "#FC9867"
+      magenta: "#AB9DF2"
+      cyan: "#78DCE8"
+      white: "#FCFCFA"
+
+    # Bright colors
+    bright:
+      black: "#727072"
+      red: "#FF6188"
+      green: "#A9DC76"
+      yellow: "#FFD866"
+      blue: "#FC9867"
+      magenta: "#AB9DF2"
+      cyan: "#78DCE8"
+      white: "#FCFCFA"
+
+  # Colors (New Moon)
+  - &new-moon # Default colors
+    primary:
+      background: "#2D2D2D"
+      foreground: "#B3B9C5"
+    # Normal colors
+    normal:
+      black: "#2D2D2D"
+      red: "#F2777A"
+      green: "#92D192"
+      yellow: "#FFD479"
+      blue: "#6AB0F3"
+      magenta: "#E1A6F2"
+      cyan: "#76D4D6"
+      white: "#B3B9C5"
+    # Bright colors
+    bright:
+      black: "#777C85"
+      red: "#F2777A"
+      green: "#76D4D6"
+      yellow: "#FFEEA6"
+      blue: "#6AB0F3"
+      magenta: "#E1A6F2"
+      cyan: "#76D4D6"
+      white: "#FFFFFF"
+
+  # Colors (One Dark)
+  - &one-dark
+    # Default colors
+    primary:
+      background: '0x1e2127'
+      foreground: '0xabb2bf'
+
+      # Bright and dim foreground colors
+      #
+      # The dimmed foreground color is calculated automatically if it is not present.
+      # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
+      # is `false`, the normal foreground color will be used.
+      #dim_foreground: '0x9a9a9a'
+      bright_foreground: '0xe6efff'
+
+    # Cursor colors
+    #
+    # Colors which should be used to draw the terminal cursor. If these are unset,
+    # the cursor color will be the inverse of the cell color.
+    #cursor:
+    #  text: '0x000000'
+    #  cursor: '0xffffff'
+
+    # Normal colors
+    normal:
+      black:   '0x1e2127'
+      red:     '0xe06c75'
+      green:   '0x98c379'
+      yellow:  '0xd19a66'
+      blue:    '0x61afef'
+      magenta: '0xc678dd'
+      cyan:    '0x56b6c2'
+      white:   '0x828791'
+
+    # Bright colors
+    bright:
+      black:   '0x5c6370'
+      red:     '0xe06c75'
+      green:   '0x98c379'
+      yellow:  '0xd19a66'
+      blue:    '0x61afef'
+      magenta: '0xc678dd'
+      cyan:    '0x56b6c2'
+      white:   '0xe6efff'
+
+    # Dim colors
+    #
+    # If the dim colors are not set, they will be calculated automatically based
+    # on the `normal` colors.
+    dim:
+      black:   '0x1e2127'
+      red:     '0xe06c75'
+      green:   '0x98c379'
+      yellow:  '0xd19a66'
+      blue:    '0x61afef'
+      magenta: '0xc678dd'
+      cyan:    '0x56b6c2'
+      white:   '0x828791'
+
+  # Colors (Light)
+  - &light
+    primary:
+      background: "#fffeff"
+      foreground: "#000000"
+      dim_foreground: "#676767"
+
+    # Normal colors
+    normal:
+      black: "#000000"
+      red: "#c91b00"
+      green: "#00c200"
+      yellow: "#c7c400"
+      blue: "#0225c7"
+      magenta: "#c930c7"
+      cyan: "#00c5c7"
+      white: "#c7c7c7"
+
+    # Bright colors
+    bright:
+      black: "#676767"
+      red: "#ff6d67"
+      green: "#5ff967"
+      yellow: "#fefb67"
+      blue: "#6871ff"
+      magenta: "#ff76ff"
+      cyan: "#5ffdff"
+      white: "#fffeff"
+
+  # Colors (One Dark Neo)
+  - &one-dark-neo
+    primary:
+      background: "#282c34"
+      foreground: "#a0b0bd"
+      bright_foreground: "#cccccc"
+      dim_foreground: "#676f82"
+
+    # Normal colors
+    normal:
+      black: "#282c34"
+      red: "#d17277"
+      green: "#a1c281"
+      yellow: "#c99c6e"
+      blue: "#74ade9"
+      magenta: "#bb7cd7"
+      cyan: "#6fb4c0"
+      white: "#acb2be"
+
+    # Bright colors
+    bright:
+      black: "#676f82"
+      red: "#e6676d"
+      green: "#a9d47f"
+      yellow: "#de9b64"
+      blue: "#66acff"
+      magenta: "#c671eb"
+      cyan: "#69c6d1"
+      white: "#cccccc"
+
+# Colors
+colors: *one-dark-neo
+
+draw_bold_text_with_bright_colors: true

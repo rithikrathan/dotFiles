@@ -1,0 +1,98 @@
+* {
+    font:   "Roboto 13";
+    background-color: @bg2;
+    text-color: @fg0;
+    margin:     2px;
+    padding:    1px;
+    spacing:    1px;
+}
+
+window {
+    location:north;
+    y-offset:calc(50% - 179px);
+    width:600;
+	border:5px;
+	border-color: @bg3;
+    border-radius:  15px;
+}
+
+mainbox {
+    padding:    9px;
+}
+
+inputbar {
+    background-color:@bg1;
+    border-color:@bg3;
+    border:2px;
+    border-radius:25px;
+    padding:8px 16px;
+    spacing:8px;
+    children:[ prompt, entry ];
+}
+
+prompt {
+    text-color: @fg0;
+}
+
+entry {
+    placeholder:        "Search";
+    placeholder-color:  @fg3;
+}
+
+message {
+    margin:             12px 0 0;
+    border-radius:      8px;
+    border-color:       @bg3;
+    background-color:   @bg2;
+}
+
+textbox {
+    padding:    8px 24px;
+}
+
+listview {
+	border:3px;
+	background-color:@bg1;
+	border-radius:15px;
+    border-color: @listborder;
+    margin:     10px 0 0;
+    lines:      4;
+    columns:    1;
+    fixed-height: true;
+}
+
+element {
+	background-color: @element1;
+    padding:        8px 16px;
+    spacing:        8px;
+	border:1px;
+    border-radius:  10px;
+}
+
+element normal active {
+    text-color: @bg3;
+	background-color:@element1;
+}
+
+element alternate active{
+    text-color: @bg3;
+	background-color:@element2;
+}
+
+element selected normal, element selected active {
+    background-color:   @selected;
+	border:2px;
+	border-color:@bg3;
+}
+
+element-icon {
+    size:    28px;
+    vertical-align: 0.5;
+}
+
+button{
+	border:2px;
+	border-color:@bg3;
+	border-radius:10px;
+}
+

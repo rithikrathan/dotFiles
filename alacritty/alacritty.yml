@@ -1,0 +1,196 @@
+# --- Environment & Window ---
+env:
+  TERM: xterm-256color
+  COLORTERM: truecolor
+
+window:
+  dimensions:
+    columns: 218
+    lines: 65
+  padding:
+    x: 6
+    y: 4
+  # decorations: full # Transparent title bar (macOS)
+  decorations: none # Transparent title bar (macOS)
+  opacity: 0.7             # 70% background opacity
+
+# --- Font configuration ---
+font:
+  normal:
+    family: Inconsolata LGC Nerd Font Mono
+    style: Regular
+  bold:
+    family: Inconsolata LGC Nerd Font Mono
+    style: Bold
+  italic:
+    family: Inconsolata LGC Nerd Font Mono
+    style: Italic
+  bold_italic:
+    family: Inconsolata LGC Nerd Font Mono
+    style: Bold Italic
+  size: 13.0
+
+  offset:
+    x: 0
+    y: 0
+  glyph_offset:
+    x: 0
+    y: 0
+
+# --- Mouse & Bell ---
+mouse:
+  hide_when_typing: true
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
+
+bell:
+  animation: Ease
+  duration: 0 # Visual bell disabled
+
+# --- URL Handling ---
+hints:
+  enabled:
+    - regex: "(mailto:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-\u009F<>\" {-}\\\\^⟨⟩`]+"
+      command: open
+      mouse: { enabled: true, mods: Command }
+      hyperlinks: true
+
+# 1. Define the list of themes
+themes:
+  - &monokai
+    primary:
+      background: '#000000'
+      foreground: '#FFFFFF'
+    normal:
+      black:   '#1a1a1a'
+      red:     '#f4005f'
+      green:   '#98e024'
+      yellow:  '#fa8419'
+      blue:    '#9d65ff'
+      magenta: '#f4005f'
+      cyan:    '#58d1eb'
+      white:   '#c4c5b5'
+    bright:
+      black:   '#625e4c'
+      red:     '#f4005f'
+      green:   '#98e024'
+      yellow:  '#e0d561'
+      blue:    '#9d65ff'
+      magenta: '#f4005f'
+      cyan:    '#58d1eb'
+      white:   '#f6f6ef'
+
+  - &Ra
+    primary:
+      background: '0x080809'
+      foreground: '0xab9bab'
+
+    # Normal colors
+    normal:
+      black:   '0x3f1212'
+      red:     '0xf13535'
+      green:   '0xcb1818'
+      yellow:  '0xe61919'
+      blue:    '0x516aec'
+      magenta: '0x7b59c0'
+      cyan:    '0x159393'
+      white:   '0xab9bab'
+
+    # Bright colors
+    bright:
+      black:   '0x2e1917'
+      red:     '0xe1452d'
+      green:   '0xd04d23'
+      yellow:  '0xe82212'
+      blue:    '0x516aec'
+      magenta: '0x7b59c0'
+      cyan:    '0x159393'
+      white:   '0xf7f3f7'
+
+
+# 2. Select the active theme
+# colors: *Ra
+colors:
+  # Default colors
+  primary:
+    background: '0x080809'
+    foreground: '0xddcbc8'
+
+  # Normal colors
+  normal:
+    black:   '0x3f1212'
+    red:     '0x3c70f9'
+    green:   '0xdf2121'
+    yellow:  '0xda4343'
+    blue:    '0x2cb184'
+    magenta: '0x7b59c0'
+    cyan:    '0xdf2121'
+    white:   '0xab9bab'
+
+  # Bright colors
+  bright:
+    black:   '0x2e1917'
+    red:     '0x3cc79f'
+    green:   '0xeb3434'
+    yellow:  '0xd26330'
+    blue:    '0x2870cb'
+    magenta: '0x7b59c0'
+    cyan:    '0xe13c3c'
+    white:   '0xf7f3f7'
+
+draw_bold_text_with_bright_colors: true
+
+# --- Key Bindings ---
+key_bindings:
+  # General
+  - { key: N, mods: Command| Alt, action: Minimize }
+  - { key: F11, action: ToggleFullscreen } # toggle fullscreen
+  - { key: Back, mods: Control|Shift, chars: "\x15" } # Delete words left
+  - { key: Back, mods: Control, chars: "\x17" } # delete word by word left
+
+  # tmux sessions
+  - { key: D, mods: Command|Shift, chars: "\x02d" } # Detach
+  - { key: S, mods: Command|Shift, chars: "\x02s" } # Session List (Attach/Switch)
+  # This sends a shell command to list sessions and ask which one to attach to
+  - { key: A, mods: Command|Shift, chars: "tmux ls; read -p 'Attach to ID: ' ID; tmux attach -t $ID\n" }
+
+# --- 3. TMUX TAB (WINDOW) MANAGEMENT ---
+  - { key: T,      mods: Control|Shift, chars: "\x02c" }            # New Tab
+  - { key: X,      mods: Control|Shift, chars: "\x02x" }            # Close Tab
+  - { key: R,      mods: Control|Shift, chars: "\x02," }            # Rename Tab
+  - { key: D,    mods: Control|Alt, chars: "\x02p" }            # Next Tab
+  - { key: F,    mods: Control|Alt, chars: "\x02n" }            # Previous Tab
+
+# # --- 4. TMUX PANE (SPLIT) NAVIGATION ---
+#   # These match the Smart-Navigation logic for Neovim (H=Left, J=Down, K=Up, L=Right)
+#   - { key: Left,   mods: Command|Alt,       chars: "\x02h" }            # Focus Left
+#   - { key: Right,  mods: Command|Alt,       chars: "\x02l" }            # Focus Right
+#   - { key: Up,     mods: Command|Alt,       chars: "\x02k" }            # Focus Up
+#   - { key: Down,   mods: Command|Alt,       chars: "\x02j" }            # Focus Down
+
+# # --- 5. TMUX PANE SPLITTING & ZOOM ---
+#   - { key: B,      mods: Command|Alt,       chars: "\x02\"" }           # Split Horizontally
+#   - { key: V,      mods: Command|Alt, chars: "\x02%" }            # Split Vertically
+#   - { key: F,      mods: Command,       chars: "\x02z" }            # Zoom/Toggle Pane Max
+
+  # Window Selection
+  - { key: LBracket, mods: Command, chars: "\x02p" }
+  - { key: RBracket, mods: Command, chars: "\x02n" }
+  
+  # Numbered Windows
+  - { key: Key0, mods: Control|Alt, chars: "\x020" }
+  - { key: Key1, mods: Control|Alt, chars: "\x021" }
+  - { key: Key2, mods: Control|Alt, chars: "\x022" }
+  - { key: Key3, mods: Control|Alt, chars: "\x023" }
+  - { key: Key4, mods: Control|Alt, chars: "\x024" }
+  - { key: Key5, mods: Control|Alt, chars: "\x025" }
+  - { key: Key6, mods: Control|Alt, chars: "\x026" }
+  - { key: Key7, mods: Control|Alt, chars: "\x027" }
+  - { key: Key8, mods: Control|Alt, chars: "\x028" }
+  - { key: Key9, mods: Control|Alt, chars: "\x029" }
+
+  # Scrolling
+  - { key: PageUp,   mods: Shift, action: ScrollPageUp,   mode: ~Alt }
+  - { key: PageDown, mods: Shift, action: ScrollPageDown, mode: ~Alt }
+  - { key: Home,     mods: Shift, action: ScrollToTop,    mode: ~Alt }
+  - { key: End,      mods: Shift, action: ScrollToBottom, mode: ~Alt }
