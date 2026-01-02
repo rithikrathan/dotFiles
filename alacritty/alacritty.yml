@@ -12,7 +12,7 @@ window:
     y: 4
   # decorations: full # Transparent title bar (macOS)
   decorations: none # Transparent title bar (macOS)
-  opacity: 0.7             # 70% background opacity
+  opacity: 0.8             
 
 # --- Font configuration ---
 font:
@@ -42,6 +42,15 @@ mouse:
   hide_when_typing: true
   double_click: { threshold: 300 }
   triple_click: { threshold: 300 }
+
+cursor:
+  style:
+    shape: Block
+    blinking: On
+
+  blink_interval: 270
+  blink_timeout: 0
+
 
 bell:
   animation: Ease
@@ -151,6 +160,10 @@ key_bindings:
   # tmux sessions
   - { key: D, mods: Command|Shift, chars: "\x02d" } # Detach
   - { key: S, mods: Command|Shift, chars: "\x02s" } # Session List (Attach/Switch)
+  # - { key: S, mods: Command|Shift, chars: "\x02" } # tmux commandLine
+  - { key: Q, mods: Control|Shift, chars: "\x02q" }
+  - { key: N, mods: Control|Shift, chars: "./session.sh\n" }
+  - { key: N, mods: Control, chars: "tmux new-session\n" }
   # This sends a shell command to list sessions and ask which one to attach to
   - { key: A, mods: Command|Shift, chars: "tmux ls; read -p 'Attach to ID: ' ID; tmux attach -t $ID\n" }
 
