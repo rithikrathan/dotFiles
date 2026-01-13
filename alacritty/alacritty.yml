@@ -89,7 +89,7 @@ themes:
       cyan:    '#58d1eb'
       white:   '#f6f6ef'
 
-  - &Ra
+  - &orange
     primary:
       background: '0x080809'
       foreground: '0xab9bab'
@@ -116,36 +116,60 @@ themes:
       cyan:    '0x159393'
       white:   '0xf7f3f7'
 
+  - &Ra
+    primary:
+      background: '0x080809'
+      foreground: '0xddcbc8'
 
-# 2. Select the active theme
-# colors: *Ra
+      # Normal colors
+    normal:
+      black:   '0x3f1212'
+      red:     '0x3c70f9'
+      green:   '0xdf2121'
+      yellow:  '0xda4343'
+      blue:    '0x2cb184'
+      magenta: '0x7b59c0'
+      cyan:    '0xdf2121'
+      white:   '0xab9bab'
+
+    bright:
+      black:   '0x2e1917'
+      red:     '0x3cc79f'
+      green:   '0xeb3434'
+      yellow:  '0xd26330'
+      blue:    '0x2870cb'
+      magenta: '0x7b59c0'
+      cyan:    '0xe13c3c'
+      white:   '0xf7f3f7'
+
+# colors: *Ra # select theme here
 colors:
   # Default colors
   primary:
-    background: '0x080809'
-    foreground: '0xddcbc8'
+    background: '0x010203'
+    foreground: '0xffdfdf'
 
   # Normal colors
   normal:
-    black:   '0x3f1212'
-    red:     '0x3c70f9'
-    green:   '0xdf2121'
-    yellow:  '0xda4343'
-    blue:    '0x2cb184'
-    magenta: '0x7b59c0'
-    cyan:    '0xdf2121'
-    white:   '0xab9bab'
+    black:   '0x160000'
+    red:     '0xe10707'
+    green:   '0xdb5a5a'
+    yellow:  '0xd54949'
+    blue:    '0x5b2d17'
+    magenta: '0x0f8c18'
+    cyan:    '0x8e3434'
+    white:   '0xffa100'
 
   # Bright colors
   bright:
-    black:   '0x2e1917'
-    red:     '0x3cc79f'
-    green:   '0xeb3434'
-    yellow:  '0xd26330'
-    blue:    '0x2870cb'
-    magenta: '0x7b59c0'
-    cyan:    '0xe13c3c'
-    white:   '0xf7f3f7'
+    black:   '0x18d411'
+    red:     '0xc62828'
+    green:   '0xf53434'
+    yellow:  '0x310303'
+    blue:    '0x4b7edb'
+    magenta: '0x26b326'
+    cyan:    '0xff3e3e'
+    white:   '0xe4cccc'
 
 draw_bold_text_with_bright_colors: true
 
@@ -163,9 +187,10 @@ key_bindings:
   # - { key: S, mods: Command|Shift, chars: "\x02" } # tmux commandLine
   - { key: Q, mods: Control|Shift, chars: "\x02q" }
   - { key: N, mods: Control|Shift, chars: "./session.sh\n" }
+  - { key: R, mods: Control|Alt, chars: "reset\n" }
   - { key: N, mods: Control, chars: "tmux new-session\n" }
-  # This sends a shell command to list sessions and ask which one to attach to
   - { key: A, mods: Command|Shift, chars: "tmux ls; read -p 'Attach to ID: ' ID; tmux attach -t $ID\n" }
+  - { key: V, mods: Control|Alt, action: ToggleViMode }
 
 # --- 3. TMUX TAB (WINDOW) MANAGEMENT ---
   - { key: T,      mods: Control|Shift, chars: "\x02c" }            # New Tab
