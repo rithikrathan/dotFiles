@@ -7,6 +7,6 @@ return {
 	{ 'hrsh7th/cmp-cmdline' },
 	{ 'onsails/lspkind.nvim' },
 	{ 'williamboman/mason.nvim' },
-	{ 'williamboman/mason-lspconfig.nvim' }, 	
+	{ 'williamboman/mason-lspconfig.nvim' },
 	{ 'mfussenegger/nvim-jdtls' }
 }

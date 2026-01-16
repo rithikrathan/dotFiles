@@ -1,5 +1,5 @@
 vim.opt.mouse = "a"
-vim.opt.timeoutlen = 200
+vim.opt.timeoutlen = 273
 
 --Plugin specific keymaps
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)                                                                --open a Git window
