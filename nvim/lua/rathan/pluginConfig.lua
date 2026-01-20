@@ -90,8 +90,10 @@ colorScheme.setup({
 	},
 })
 vim.cmd("colorscheme darkvoid")
+-- vim.cmd("doautocmd ColorScheme")
 
--- Lualine
+-- TODO: add a way to show flash status in lualine
+
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
@@ -108,7 +110,7 @@ require("lualine").setup({
 		lualine_b = { "branch", "filename", "aerial" },
 		lualine_c = { "searchcount" },
 		lualine_x = { "fileformat", "encoding" },
-		lualine_y = { "diagnostics", "progress", "location", "filetype" },
+		lualine_y = { "progress", "location", "filetype" },
 		lualine_z = { "mode" },
 	},
 })
@@ -259,9 +261,16 @@ cmp.setup({
 	}),
 	sources = {
 		{ name = "nvim_lsp" }, { name = "verible" }, { name = "path" },
-		{ name = "buffer" }, { name = "luasnip" }, { name = "html-css" },
-
-		{ name = "emoji" }, { name = "dictionary" }
+		{ name = "luasnip" }, { name = "html-css" },
+		{
+			name = "buffer",
+			option = {
+				get_bufnrs = function()
+					return vim.api.nvim_list_bufs()
+				end
+			}
+		},
+		{ name = "emoji" }, { name = "rg", keyword_length = 3 }, { name = "calc" }, { name = "spell" }
 	},
 })
 
@@ -297,6 +306,7 @@ vim.keymap.set({ "i" }, "<leader>fk", function() ls.expand() end)
 vim.keymap.set({ "i", "s" }, "<C-L>", function() ls.jump(1) end)
 vim.keymap.set({ "i", "s" }, "<C-J>", function() ls.jump(-1) end)
 
+
 local conform = require("conform")
 conform.setup({
 	formatters_by_ft = {
@@ -330,7 +340,7 @@ require("aerial").setup({
 })
 vim.keymap.set("n", "<leader>at", "<cmd>AerialToggle!<CR>")
 require("lsp_signature").setup({ floating_window = false, hint_enable = true, handler_opts = { border = "rounded" } })
-vim.g.fzf_layout = { window = { width = 0.9, height = 0.6, border = "rounded" } }
+vim.g.fzf_layout = { window = { width = 0.9, height = 0.9, border = "double" } }
 
 
 -- ==========================================================================
@@ -434,3 +444,17 @@ function _G.Toggle_venn()
 end
 
 vim.api.nvim_set_keymap('n', '<leader>vn', ":lua Toggle_venn()<CR>", { noremap = true })
+
+--this colour thing
+
+local ccc = require("ccc")
+local mapping = ccc.mapping
+
+ccc.setup({
+	-- Your preferred settings
+	-- Example: enable highlighter
+	highlighter = {
+		auto_enable = true,
+		lsp = true,
+	},
+})

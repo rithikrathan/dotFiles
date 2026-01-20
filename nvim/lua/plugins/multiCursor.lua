@@ -1,8 +1,33 @@
 return {
 	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		---@type Flash.Config
+		opts = {
+			modes = {
+				search = {
+					enabled = true,
+				},
+			}
+		},
+		keys = {
+			{ "<leader>fs", mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
+			{ "<leader>FS", mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+			{ "<leader>fr", mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
+			{ "<leader>fR", mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+			{ "<C-s>",      mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
+		},
+	},
+
+	{
 		"brenton-leighton/multiple-cursors.nvim",
 		version = "*", -- Use the latest tagged version
-		opts = {}, -- This causes the plugin setup function to be called
+		opts = {
+			custom_key_maps = {
+				{ "n", "<Leader>aa", function() require("multiple-cursors").align() end },
+			}
+		}, -- This causes the plugin setup function to be called
+
 		keys = {
 			{ "<A-c>", "<Cmd>MultipleCursorsAddDown<CR>",          mode = { "n", "x", "i" }, desc = "Add cursor and move down" },
 			{ "<A-u>", "<Cmd>MultipleCursorsAddUp<CR>",            mode = { "n", "x", "i" }, desc = "Add cursor and move up" },

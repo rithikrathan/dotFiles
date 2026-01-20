@@ -115,3 +115,33 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank { higroup = "IncSearch", timeout = 120 }
 	end,
 })
+
+local function fix_colors()
+	-- Standard Search
+	vim.api.nvim_set_hl(0, "Search",
+		{ bg = "#FFFF00", fg = "#000000", ctermbg = "Yellow", ctermfg = "Black", force = true })
+	vim.api.nvim_set_hl(0, "CurSearch",
+		{ bg = "#FF0000", fg = "#FFFFFF", ctermbg = "Red", ctermfg = "White", force = true })
+	vim.api.nvim_set_hl(0, "IncSearch",
+		{ bg = "#FF9E64", fg = "#000000", ctermbg = "Red", ctermfg = "Black", force = true })
+
+	-- Flash.nvim
+	vim.api.nvim_set_hl(0, "FlashLabel",
+		{ bg = "#cc00cc", fg = "#ffffff", ctermbg = "Magenta", ctermfg = "White", bold = true, force = true })
+
+	-- Multiple Cursors
+	vim.api.nvim_set_hl(0, "MultipleCursorsCursor",
+		{ bg = "#00FFFF", fg = "#000000", ctermbg = "Cyan", ctermfg = "Black", force = true })
+	vim.api.nvim_set_hl(0, "MultipleCursorsVisual",
+		{ bg = "#b294bb", fg = "#000000", ctermbg = "Magenta", ctermfg = "Black", force = true })
+end
+
+local group = vim.api.nvim_create_augroup("CustomHighlights", { clear = true })
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "*",
+	callback = fix_colors,
+	group = group, -- This prevents duplicates when you :so the file
+})
+
+fix_colors()

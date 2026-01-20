@@ -18,8 +18,6 @@ end)
 
 -- testing new keymaps
 
-
-
 --  Netrw + current buffer relative path copy
 -- normal buffers
 vim.keymap.set('n', '<C-P>', function()
@@ -209,7 +207,8 @@ vim.keymap.set("i", "<leader>fjk", "<><left>")                      --type <> an
 vim.keymap.set("n", "ct", 'vitc')                                   --change text between tags(html)
 vim.keymap.set("i", "<A-=>", ' := ')
 vim.keymap.set("n", "vt", 'vit')                                    --select text between tags(html)
-vim.keymap.set("i", "<A-o>", '<Esc>o')                              --write a new line
+vim.keymap.set("i", "<A-o>", '<Esc>o')                              --write a new line below
+vim.keymap.set("i", "<A-O>", '<Esc>O')                              --write a new line abovo
 vim.keymap.set("i", "<A-l>", "<right>")
 vim.keymap.set("i", "<A-h>", "<left>")
 vim.keymap.set("i", "<A-k>", "<C-right>")
@@ -342,3 +341,36 @@ vim.keymap.set({ "n", "i" }, "<A-p>", function()
 	print("Toggle autoPairs")
 	require("nvim-autopairs").toggle()
 end, { desc = "Toggle autopairs" })
+
+-- create backup of a file in netrw
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "netrw",
+	desc = "Bind backup keymap only in Netrw",
+	callback = function()
+		vim.keymap.set("n", "<leader>d", function()
+			local dir = vim.b.netrw_curdir
+			local target_name = vim.fn.expand("<cfile>")
+
+			if not dir or target_name == "" then
+				print("No file selected")
+				return
+			end
+
+			local file_path = dir .. "/" .. target_name
+
+			local backup_path = file_path .. ".bak"
+			vim.fn.system({ "cp", "-r", file_path, backup_path })
+
+			if vim.v.shell_error ~= 0 then
+				print("Backup failed")
+				return
+			end
+
+			vim.cmd("edit " .. vim.fn.fnameescape(dir))
+
+			vim.fn.search("\\V" .. target_name, "cw")
+
+			print("Backup created: " .. target_name .. ".bak")
+		end, { buffer = true, remap = false, desc = "Netrw: Backup file" })
+	end
+})

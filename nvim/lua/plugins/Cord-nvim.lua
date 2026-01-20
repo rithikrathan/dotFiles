@@ -1,7 +1,7 @@
 return {
 	{
 		'vyfor/cord.nvim',
-			build = ':Cord update',
-			-- opts = {}
+		build = ':Cord update',
+		-- opts = {}
 	}
 }

@@ -2,6 +2,9 @@ return {
 	--  for diagrams
 	{ "jbyuki/venn.nvim", ft = { "markdown", "text" } },
 
+	-- for colours
+	{ "uga-rosa/ccc.nvim" },
+
 	-- render markdown
 	{
 		'MeanderingProgrammer/render-markdown.nvim',
@@ -10,7 +13,7 @@ return {
 		ft = { "markdown", "text" }
 	},
 
-	-- emoji nvim
+
 	{
 		"allaman/emoji.nvim",
 		version = "1.0.0", -- optionally pin to a tag
