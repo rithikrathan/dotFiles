@@ -179,7 +179,8 @@ vim.keymap.set("n", "<leader>rw", function()
 	end
 end, { desc = "Replace word under cursor with prompt" })
 
-vim.keymap.set({ "n", "v", "t", "i" }, "<A-n>", '<CR>', { remap = true }) --map enter to alt-n
+vim.keymap.set({ "n", "v", "t", "i" }, "<A-n>", '<CR>', { remap = true })                --map enter to alt-n
+vim.keymap.set({ "n", "v", "t", "i" }, "<F5>", ':w | nohl | make<CR>', { remap = true }) --run make
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set({ "n", "i" }, "<A-[>", "zt")
 vim.keymap.set("v", "<", "<gv")

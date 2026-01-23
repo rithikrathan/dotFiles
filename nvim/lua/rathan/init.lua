@@ -105,7 +105,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "*.pde",
 	callback = function()
-		vim.bo.filetype = "java"
+		vim.bo.filetype = "processing"
 	end,
 })
 
@@ -119,15 +119,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 local function fix_colors()
 	-- Standard Search
 	vim.api.nvim_set_hl(0, "Search",
-		{ bg = "#FFFF00", fg = "#000000", ctermbg = "Yellow", ctermfg = "Black", force = true })
+		{ bg = "#5631a6", fg = "#ffffff", ctermfg = "Black", force = true })
 	vim.api.nvim_set_hl(0, "CurSearch",
-		{ bg = "#FF0000", fg = "#FFFFFF", ctermbg = "Red", ctermfg = "White", force = true })
+		{ bg = "#ff5555", fg = "#FFFFFF", ctermbg = "Red", ctermfg = "White", force = true })
 	vim.api.nvim_set_hl(0, "IncSearch",
-		{ bg = "#FF9E64", fg = "#000000", ctermbg = "Red", ctermfg = "Black", force = true })
+		{ bg = "#ff3e0b", fg = "#440000", ctermbg = "Red", ctermfg = "Black", force = true })
 
 	-- Flash.nvim
 	vim.api.nvim_set_hl(0, "FlashLabel",
-		{ bg = "#cc00cc", fg = "#ffffff", ctermbg = "Magenta", ctermfg = "White", bold = true, force = true })
+		{ bg = "#FF9E64", fg = "#000000", ctermbg = "Magenta", ctermfg = "White", bold = true, force = true })
 
 	-- Multiple Cursors
 	vim.api.nvim_set_hl(0, "MultipleCursorsCursor",
@@ -145,3 +145,12 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 
 fix_colors()
+
+-- Create an autocommand group for Processing
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "processing",
+	callback = function()
+		-- Map <leader>r to save and run the sketch
+		vim.keymap.set("n", "<leader>r", ":w <bar> make<CR>", { buffer = true, desc = "Run Processing Sketch" })
+	end,
+})
