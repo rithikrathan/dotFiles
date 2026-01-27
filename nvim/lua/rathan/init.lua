@@ -61,6 +61,35 @@ vim.opt.termguicolors = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
+-- folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldcolumn = "1"
+vim.api.nvim_set_hl(0, "Folded", { fg = "#eb7659", bg = "#201010", italic = true })
+vim.api.nvim_set_hl(0, "FoldColumn", { fg = "#eb7659", bg = "#201010" })
+vim.api.nvim_set_hl(0, "LineNrFold", { fg = "#eb7659", bg = "#201010" })
+vim.opt.fillchars = {
+	foldopen = "▾", -- Symbol for an open fold
+	foldclose = "▸", -- Symbol for a closed fold (+)
+	foldsep = "┊", -- Symbol for lines within an open fold (|)
+	fold = " " -- Filler character for empty space in the fold column
+}
+
+-- Define a custom function to generate the advanced fold text
+function _G.foldText()
+	local fs, fe = vim.v.foldstart, vim.v.foldend
+	local line = vim.fn.getline(fs)
+	local line_count = fe - fs + 1
+	local total_lines = vim.api.nvim_buf_line_count(0)
+	local percentage = math.floor((line_count / total_lines) * 100)
+	return string.format("╰┈➤  %s ... %d lines (%d%%)", line, line_count, percentage)
+end
+
+vim.opt.foldtext = "v:lua.foldText()"
+
+-- normal configurations
 vim.opt.list = true
 vim.opt.listchars = { tab = "┊ ", trail = ".", nbsp = "␣" }
 
@@ -117,6 +146,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 local function fix_colors()
+	-- fold column and text colours
+	vim.api.nvim_set_hl(0, "Folded", { fg = "#eb7659", bg = "#201010", italic = true })
+	vim.api.nvim_set_hl(0, "FoldColumn", { fg = "#eb7659", bg = "#201010" })
+	vim.api.nvim_set_hl(0, "LineNrFold", { fg = "#eb7659", bg = "#201010" })
 	-- Standard Search
 	vim.api.nvim_set_hl(0, "Search",
 		{ bg = "#5631a6", fg = "#ffffff", ctermfg = "Black", force = true })
