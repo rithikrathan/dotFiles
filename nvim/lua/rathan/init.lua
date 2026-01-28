@@ -67,9 +67,6 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.opt.foldcolumn = "1"
-vim.api.nvim_set_hl(0, "Folded", { fg = "#eb7659", bg = "#201010", italic = true })
-vim.api.nvim_set_hl(0, "FoldColumn", { fg = "#eb7659", bg = "#201010" })
-vim.api.nvim_set_hl(0, "LineNrFold", { fg = "#eb7659", bg = "#201010" })
 vim.opt.fillchars = {
 	foldopen = "▾", -- Symbol for an open fold
 	foldclose = "▸", -- Symbol for a closed fold (+)
@@ -147,7 +144,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 local function fix_colors()
 	-- fold column and text colours
-	vim.api.nvim_set_hl(0, "Folded", { fg = "#eb7659", bg = "#201010", italic = true })
+	-- vim.api.nvim_set_hl(0, "Folded", { fg = "#AF87FF", bg = "none", bold = true, italic = true })
+	-- vim.api.nvim_set_hl(0, "Folded", { fg = "#68b859", bg = "none", bold = true, italic = true })
+	-- vim.api.nvim_set_hl(0, "Folded", { fg = "#eb7659", bg = "none", bold = true, italic = true })
+	vim.api.nvim_set_hl(0, "Folded", { fg = "#eb7659", bg = "#201010", bold = true, italic = true })
 	vim.api.nvim_set_hl(0, "FoldColumn", { fg = "#eb7659", bg = "#201010" })
 	vim.api.nvim_set_hl(0, "LineNrFold", { fg = "#eb7659", bg = "#201010" })
 	-- Standard Search
@@ -167,10 +167,11 @@ local function fix_colors()
 		{ bg = "#00FFFF", fg = "#000000", ctermbg = "Cyan", ctermfg = "Black", force = true })
 	vim.api.nvim_set_hl(0, "MultipleCursorsVisual",
 		{ bg = "#b294bb", fg = "#000000", ctermbg = "Magenta", ctermfg = "Black", force = true })
+
+	vim.api.nvim_set_hl(0, "CmpBorder", { fg = "#ff5555" })
 end
 
 local group = vim.api.nvim_create_augroup("CustomHighlights", { clear = true })
-
 vim.api.nvim_create_autocmd("ColorScheme", {
 	pattern = "*",
 	callback = fix_colors,
@@ -184,6 +185,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "processing",
 	callback = function()
 		-- Map <leader>r to save and run the sketch
-		vim.keymap.set("n", "<leader>r", ":w <bar> make<CR>", { buffer = true, desc = "Run Processing Sketch" })
+		-- vim.keymap.set("n", "<leader>r", ":w <bar> make<CR>", { buffer = true, desc = "Run Processing Sketch" })
 	end,
 })

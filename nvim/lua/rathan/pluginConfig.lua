@@ -5,6 +5,7 @@ local csName = "darkvoid"
 local colorScheme = require(csName)
 local istransparent = true
 
+
 vim.api.nvim_create_user_command("ToggleTransparency",
 	function()
 		istransparent = not istransparent
@@ -33,6 +34,9 @@ vim.api.nvim_create_user_command("ToggleTransparency",
 		vim.cmd("highlight minimapRangeDiffLine ctermbg=242 ctermfg=141 guibg=#4F4F4F guifg=#AF87FF")
 	end, {}
 )
+-- #ff5555
+-- #FC1A70
+-- #AF87FF
 
 colorScheme.setup({
 	transparent = istransparent,
@@ -229,59 +233,113 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 
 -- ==========================================================================
--- 3. COMPLETION (Restored nvim-cmp logic)
+-- 3. COMPLETION
 -- ==========================================================================
 local cmp = require("cmp")
-local lspkind = require('lspkind')
+local lspkind = require("lspkind")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
-cmp.setup({
-	snippet = { expand = function(args) vim.snippet.expand(args.body) end },
-	formatting = {
-		format = lspkind.cmp_format({
-			mode = 'text_symbol',
-			maxwidth = { menu = 50, abbr = 50 },
-			ellipsis_char = '...',
-			show_labelDetails = true,
-			before = function(entry, vim_item)
-				if entry.source.name == "html-css" then
-					vim_item.menu = "[" .. (entry.completion_item.provider or "html-css") .. "]"
-				end
-				return vim_item
-			end
-		})
-	},
-	mapping = cmp.mapping.preset.insert({
-		["<A-k>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
-		["<A-j>"] = cmp.mapping.select_next_item({ behavior = "select" }),
-		["<A-i>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-u>"] = cmp.mapping.scroll_docs(-4),
-		["<C-d>"] = cmp.mapping.scroll_docs(4),
-	}),
-	sources = {
-		{ name = "nvim_lsp" }, { name = "verible" }, { name = "path" },
-		{ name = "luasnip" }, { name = "html-css" },
-		{
-			name = "buffer",
-			option = {
-				get_bufnrs = function()
-					return vim.api.nvim_list_bufs()
-				end
-			}
+vim.g.cmp_enabled = false
+vim.g.cmp_ghost = false
+
+local function apply_cmp()
+	cmp.setup({
+		enabled = vim.g.cmp_enabled,
+
+		snippet = {
+			expand = function(args)
+				vim.snippet.expand(args.body)
+			end,
 		},
-		{ name = "emoji" }, { name = "rg", keyword_length = 3 }, { name = "calc" }, { name = "spell" }
-	},
-})
+
+		completion = {
+			autocomplete = vim.g.cmp_enabled and { cmp.TriggerEvent.TextChanged } or false,
+		},
+
+		experimental = {
+			ghost_text = vim.g.cmp_ghost,
+		},
+
+		window = {
+			completion = cmp.config.window.bordered({
+				border = "rounded",
+				winhighlight = "Normal:Normal,FloatBorder:CmpBorder,CursorLine:Visual",
+				max_height = 8, -- shows only 6 entries
+				max_width = 20, -- shows only 6 entries
+			}),
+			documentation = cmp.config.window.bordered({
+				border = "rounded",
+				winhighlight = "Normal:Normal,FloatBorder:CmpBorder,CursorLine:Visual",
+				max_height = 14,
+				max_width = 69,
+			}),
+		},
+
+		formatting = {
+			format = lspkind.cmp_format({
+				mode = "text_symbol",
+				maxwidth = { menu = 50, abbr = 50 },
+				ellipsis_char = "...",
+				show_labelDetails = false,
+			}),
+		},
+
+		mapping = cmp.mapping.preset.insert({
+			["<A-k>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
+			["<A-j>"] = cmp.mapping.select_next_item({ behavior = "select" }),
+			["<A-i>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
+			["<A-c>"] = cmp.mapping.complete(),
+
+			["<C-u>"] = cmp.mapping.scroll_docs(-4),
+			["<C-d>"] = cmp.mapping.scroll_docs(4),
+
+			["<A-b>"] = cmp.mapping(function(fallback)
+				local entry = cmp.get_selected_entry()
+				if entry then
+					cmp.open_docs()
+				else
+					fallback()
+				end
+			end, { "i", "s" }),
+		}),
+
+		sources = {
+			{ name = "nvim_lsp" },
+			{ name = "verible" },
+			{ name = "path" },
+			{ name = "luasnip" },
+			{ name = "html-css" },
+			{
+				name = "buffer",
+				option = {
+					get_bufnrs = function()
+						return vim.api.nvim_list_bufs()
+					end,
+				},
+			},
+			{ name = "rg",   keyword_length = 3 },
+			{ name = "calc" },
+			{ name = "spell" },
+		},
+	})
+end
+
+apply_cmp()
+
+vim.api.nvim_create_user_command("ToggleCompletion", function()
+	vim.g.cmp_enabled = not vim.g.cmp_enabled
+	vim.g.cmp_ghost = vim.g.cmp_enabled
+	apply_cmp()
+end, {})
 
 cmp.setup.filetype("go", {
 	preselect = cmp.PreselectMode.None,
 	completion = { completeopt = "menu,menuone,noinsert,noselect" },
 })
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 -- ==========================================================================
--- 4. MINIMAP HIGHLIGHTS (Restored)
+-- 4. MINIMAP HIGHLIGHTS
 -- ==========================================================================
 vim.cmd("highlight minimapCursor ctermbg=59 ctermfg=228 guibg=#5F5F5F guifg=#ff5555")
 vim.cmd("highlight minimapCursor ctermbg=238 ctermfg=228 guibg= #121212 guifg = #d70000")
@@ -297,7 +355,7 @@ vim.cmd("highlight minimapRangeDiffAdded ctermbg=242 ctermfg=148 guibg=#4F4F4F g
 vim.cmd("highlight minimapRangeDiffLine ctermbg=242 ctermfg=141 guibg=#4F4F4F guifg=#AF87FF")
 
 -- ==========================================================================
--- 5. OTHER PLUGINS & KEYMAPS (Restored)
+-- 5. OTHER PLUGINS & KEYMAPS
 -- ==========================================================================
 local ls = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
@@ -330,7 +388,9 @@ require("html-css").setup({
 		style_sheets = { "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" }
 	}
 })
+
 require("netrw").setup({})
+
 require("nvim-toggler").setup({ inverses = { ["HIGH"] = "LOW", ["-"] = "+", ["0"] = "1" } })
 require("aerial").setup({
 	on_attach = function(bufnr)
@@ -338,7 +398,9 @@ require("aerial").setup({
 		vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
 	end
 })
+
 vim.keymap.set("n", "<leader>at", "<cmd>AerialToggle!<CR>")
+
 require("lsp_signature").setup({ floating_window = false, hint_enable = true, handler_opts = { border = "rounded" } })
 vim.g.fzf_layout = { window = { width = 0.9, height = 0.9, border = "double" } }
 

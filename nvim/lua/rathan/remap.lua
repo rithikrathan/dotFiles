@@ -117,7 +117,7 @@ vim.keymap.set("n", "<leader>r", function()
 end)
 
 -- make <anything>
-vim.keymap.set("n", "<leader>mk", function()
+vim.keymap.set("n", "<F6>", function()
 	local arg = vim.fn.input("Make: ")
 	local file_dir = vim.fn.expand("%:p:h")
 
