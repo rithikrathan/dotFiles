@@ -1,0 +1,5 @@
+# SOURCE_PATH:DESTINATION_FOLDER
+/home/godz/.config/alacritty:alacritty
+/home/godz/.config/nvim:nvim
+/home/godz/.config/rofi:rofi
+/home/godz/.tmux.conf:.tmux.conf
