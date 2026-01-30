@@ -277,7 +277,9 @@ local function apply_cmp()
 
 		formatting = {
 			format = lspkind.cmp_format({
-				mode = "text_symbol",
+				-- mode = "text_symbol",
+				-- mode = "symbol",
+				mode = "text",
 				maxwidth = { menu = 50, abbr = 50 },
 				ellipsis_char = "...",
 				show_labelDetails = false,
