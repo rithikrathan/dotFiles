@@ -106,12 +106,12 @@ function M.setup(user_config)
         Delimiter = { fg = colors.bracket },
 
         -- POPUP MENUS & FLOATING WINDOWS
-        Pmenu = { fg = colors.pmenu_fg, bg = float_bg },
+        Pmenu = { fg = colors.pmenu_fg, bg = colors.pmenu_bg },
         PmenuSel = { fg = colors.pmenu_bg, bg = colors.pmenu_sel_bg, bold = true },
         
         -- NormalFloat handles Telescope, Lazy, etc.
-        NormalFloat = { fg = colors.fg, bg = float_bgl },
-        FloatBorder = { fg = colors.border, bg = float_bgl },
+        NormalFloat = { fg = colors.fg, bg = float_bg },
+        FloatBorder = { fg = colors.border, bg = float_bg },
 
         -- STATUSLINE HIGHLIGHTS 
         -- NORMAL: 
@@ -134,6 +134,7 @@ function M.setup(user_config)
 
         -- BODY: Blends into void
         StatusBody = { fg = colors.comment, bg = colors.bgl },
+		SlRef = { fg = colors.comment, bg = colors.bgl , bold = true, italic = true },
         
         -- Treesitter
         ["@function"] = { fg = colors.func },
