@@ -9,7 +9,6 @@ vim.g.netrw_banner = 1
 vim.g.netrw_localcopydircmd = 'cp -r'
 vim.g.netrw_keepdir = true --if false update the currentworkingdirectory everytime you navigate the netrw
 vim.opt.expandtab = false
-vim.opt.signcolumn = "yes"
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.scrolloff = 5

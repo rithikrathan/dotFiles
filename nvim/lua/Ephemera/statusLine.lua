@@ -1,15 +1,25 @@
--- -- Git Logic (Defined early so statusline can find it)
+-- -- Git Logic (Async)
 _G.git_branch = ""
+
 local function update_git()
-    local h = io.popen("git branch --show-current 2> /dev/null")
-    if h then
-        local b = h:read("*a")
-        h:close()
-        _G.git_branch = (b and b ~= "") and ("  " .. b:gsub("\n", "") .. " ") or ""
-    end
+    -- vim.system runs in the background (Async)
+    vim.system({ "git", "branch", "--show-current" }, { text = true }, function(out)
+        -- The callback runs in a background thread, so we must wrap UI updates
+        -- in vim.schedule() to bring them back to the main Neovim thread.
+        vim.schedule(function()
+            if out.code == 0 then
+                local b = vim.trim(out.stdout)
+                _G.git_branch = (b ~= "") and ("  " .. b .. " ") or ""
+            else
+                _G.git_branch = ""
+            end
+            -- Force the statusline to update now that we have the data
+            vim.cmd("redrawstatus")
+        end)
+    end)
 end
 
-vim.api.nvim_create_autocmd({"BufEnter", "DirChanged"}, { callback = update_git })
+vim.api.nvim_create_autocmd({ "BufEnter", "DirChanged" }, { callback = update_git })
 
 -- Define your frames here (Proper Drumming Bongo Cat)
 local frames_set = {
@@ -21,7 +31,7 @@ local frames_set = {
 
 -- List of Static Texts (Selectable via index)
 local static_texts = {
-    "꧁   🌹 ꧂",  -- Index 1 (Default)
+    "꧁  ✧ 🌹✧ ꧂",  -- Index 1 (Default)
     " ꧁  ⎝𓆩༺  ✧ ༻  𓆪⎠꧂  ",  -- Index 2
     " ˗ˏˋ 💤 ˎˊ˗ ",  -- Index 3
     "────୨ৎ────",  -- Index 4
@@ -69,7 +79,7 @@ function _G.SetAnimMode(input_str)
         state.timer:start(0, state.interval, vim.schedule_wrap(function()
             advance_frame()
         end))
-        print("Animation Mode: TIME (".. state.interval .."ms)")
+        -- print("Animation Mode: TIME (".. state.interval .."ms)")
 
     elseif mode == "input" then
         -- Update on Cursor Move or Typing
@@ -81,7 +91,7 @@ function _G.SetAnimMode(input_str)
             group = state.augroup,
             callback = advance_frame,
         })
-        print("Animation Mode: INPUT")
+        -- print("Animation Mode: INPUT")
 
     elseif mode == "static" then
         -- Freeze on Static Text
@@ -90,9 +100,9 @@ function _G.SetAnimMode(input_str)
         state.output = static_texts[text_idx]
         
         vim.cmd("redrawstatus")
-        print("Animation Mode: STATIC (Index: " .. text_idx .. ")")
+        -- print("Animation Mode: STATIC (Index: " .. text_idx .. ")")
     else
-        print("Unknown Mode. Use: time [ms] | input | static [index]")
+        -- print("Unknown Mode. Use: time [ms] | input | static [index]")
     end
 end
 

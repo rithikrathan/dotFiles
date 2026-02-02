@@ -135,6 +135,11 @@ function M.setup(user_config)
         -- BODY: Blends into void
         StatusBody = { fg = colors.comment, bg = colors.bgl },
 		SlRef = { fg = colors.comment, bg = colors.bgl , bold = true, italic = true },
+
+		-- WELCOME SCREEN
+		WelcomeRose =  { fg = "#ff5555", bold = true }, -- Red Flower
+		WelcomeStem =  { fg = "#50fa7b", bold = true }, -- Green Stem
+		WelcomeQuote = { fg = "#a1a1a1", italic = true },
         
         -- Treesitter
         ["@function"] = { fg = colors.func },
