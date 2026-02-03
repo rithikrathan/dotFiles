@@ -1,9 +1,10 @@
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = "\\"
 vim.g.have_nerd_font = true
 vim.opt.mouse = "a"
 vim.opt.timeoutlen = 273
-
+vim.opt.signcolumn = "yes"
+vim.opt.laststatus = 3 
 vim.g.netrw_winsize = 25
 vim.g.netrw_banner = 1
 vim.g.netrw_localcopydircmd = 'cp -r'
@@ -51,19 +52,24 @@ function _G.foldText()
 end
 
 _G.create_floating_window = function()
-    local width = math.floor(vim.o.columns * 0.80)
-    local height = math.floor(vim.o.lines * 0.80)
-    local col = math.floor((vim.o.columns - width) / 2)
-    local row = math.floor((vim.o.lines - height) / 2)
+	local width = math.floor(vim.o.columns * 0.80)
+	local height = math.floor(vim.o.lines * 0.80)
+	local col = math.floor((vim.o.columns - width) / 2)
+	local row = math.floor((vim.o.lines - height) / 2)
 
-    local buf = vim.api.nvim_create_buf(false, true)
-    local win = vim.api.nvim_open_win(buf, true, {
-        relative = 'editor', width = width, height = height,
-        row = row, col = col, style = 'minimal', border = 'rounded',
-    })
-    
-    vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#ff3322' })
-    return buf, win
+	local buf = vim.api.nvim_create_buf(false, true)
+	local win = vim.api.nvim_open_win(buf, true, {
+		relative = 'editor',
+		width = width,
+		height = height,
+		row = row,
+		col = col,
+		style = 'minimal',
+		border = 'rounded',
+	})
+
+	vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#ff3322' })
+	return buf, win
 end
 
 -- some symbols for the symbol column
@@ -72,4 +78,3 @@ vim.fn.sign_define("DiagnosticSignError", { text = "❖", texthl = "DiagnosticSi
 vim.fn.sign_define("DiagnosticSignWarn", { text = "⚑", texthl = "DiagnosticSignWarn" })
 vim.fn.sign_define("DiagnosticSignHint", { text = "✯", texthl = "DiagnosticSignHint" })
 vim.fn.sign_define("DiagnosticSignInfo", { text = "⧐", texthl = "DiagnosticSignInfo" })
-

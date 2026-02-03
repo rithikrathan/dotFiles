@@ -1,3 +1,5 @@
+--==-=-=-=-=-=-=-=-=-==[AUTOCOMMANDS]==--=-=-=-=-=-=-=-=--
+
 -- Setting the filetype for SystemVerilog and Verilog
 vim.api.nvim_create_autocmd(
 	{ "BufNewFile", "BufRead" }, {
@@ -37,22 +39,27 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Netrw Tweaks
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "netrw",
-    callback = function()
-        vim.keymap.set("n", "<leader>d", function()
-            local dir = vim.b.netrw_curdir
-            local target = vim.fn.expand("<cfile>")
-            if target ~= "" then
-                vim.fn.system({ "cp", "-r", dir .. "/" .. target, dir .. "/" .. target .. ".bak" })
-                vim.cmd("edit " .. vim.fn.fnameescape(dir))
-                print("Backup created.")
-            end
-        end, { buffer = true, remap = false })
+	pattern = "netrw",
+	callback = function()
+		vim.keymap.set("n", "<leader>d", function()
+			local dir = vim.b.netrw_curdir
+			local target = vim.fn.expand("<cfile>")
+			if target ~= "" then
+				vim.fn.system({ "cp", "-r", dir .. "/" .. target, dir .. "/" .. target .. ".bak" })
+				vim.cmd("edit " .. vim.fn.fnameescape(dir))
+				print("Backup created.")
+			end
+		end, { buffer = true, remap = false })
 
-        vim.keymap.set('n', '<C-P>', function()
-            local path = vim.fn.fnamemodify(vim.b.netrw_curdir .. "/" .. vim.fn.expand('<cfile>'), ':.')
-            print(path)
-            vim.fn.setreg('+', path)
-        end, { buffer = true })
-    end
+		vim.keymap.set('n', '<C-P>', function()
+			local path = vim.fn.fnamemodify(vim.b.netrw_curdir .. "/" .. vim.fn.expand('<cfile>'), ':.')
+			print(path)
+			vim.fn.setreg('+', path)
+		end, { buffer = true })
+	end
 })
+
+
+
+--==-=-=-=-=-=-=-=-=-==[USER DEFINED COMMANDS]==--=-=-=-=-=-=-=-=--
+
