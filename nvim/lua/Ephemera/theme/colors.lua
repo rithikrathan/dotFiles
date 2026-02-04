@@ -107,6 +107,7 @@ function M.setup(user_config)
 
 	local highlight_groups = {
 		Normal = { fg = colors.fg, bg = bg_color },
+		AerialSymbolsl = { fg = colors.kw, bg = colors.bgl },
 		Cursor = { fg = colors.cursor, bg = bg_color },
 		CursorLine = { bg = colors.cursorLine },
 		LineNr = { fg = colors.line_nr },
@@ -159,13 +160,12 @@ function M.setup(user_config)
 		SepVisB = { fg = colors.pmenu_bg, bg = colors.bgl },
 
 		-- BODY: Blends into void
-		StatusBody = { fg = colors.comment, bg = colors.bgl },
+		StatusBody = { fg = colors.comment, bg = colors.bgl, bold = true, italic = true },
 		SlRef = { fg = colors.comment, bg = colors.bgl, bold = true, italic = true },
 
 		-- OIL NVIM
     
 		OilDir        = { fg = colors.bool, bold = true,italic = true },
-		
 		OilPermission = { fg = colors.comment },
 		OilSize       = { fg = colors.constant },
 		OilDate       = { fg = colors.comment },

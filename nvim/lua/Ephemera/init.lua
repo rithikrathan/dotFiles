@@ -1,3 +1,4 @@
+-- this mostly ai genreated helper functions need a lot or refactor bro
 require("Ephemera.options")              -- General vim.opt settings
 require("Ephemera.lazy")                 -- Plugin manager
 require("Ephemera.welcome").setup()      -- Local welcomeScreen
@@ -13,9 +14,12 @@ require("Ephemera.commands")              -- Autocommands and user defined comma
 vim.g.use_git_plugins = false
 vim.g.is_transparent = false
 
+-- some variables
+_G.statusMessage = "She's catfishing you bro beware" 
+-- _G.statusMessage = "@rathan"
+_G.git_branch = ""
 
 -- Git Logic (Defined early so statusline can find it)
-_G.git_branch = ""
 local function update_git()
 	local h = io.popen("git branch --show-current 2> /dev/null")
 	if h then

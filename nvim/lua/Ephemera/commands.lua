@@ -7,6 +7,7 @@ vim.api.nvim_create_autocmd(
 		command = "set filetype=systemverilog",
 	}
 )
+
 vim.api.nvim_create_autocmd(
 	{ "BufNewFile", "BufRead" }, {
 		pattern = { "*.v" },
@@ -59,7 +60,85 @@ vim.api.nvim_create_autocmd("FileType", {
 	end
 })
 
-
-
 --==-=-=-=-=-=-=-=-=-==[USER DEFINED COMMANDS]==--=-=-=-=-=-=-=-=--
+-- set status messages
+ 
+-- 1. Initialize globals
+_G.statusMessage = ""
+local last_recorded_symbol = "" 
+
+-- Status Look Up Table (SLUT)
+local status_lookup = {
+    wtf = "what the fuck mate",
+    ok = "All systems operational",
+    error = "Critical failure detected",
+    busy = "Working on it..."
+}
+
+-- Get Aerial Status (Opaque BGL Background)
+local function update_aerial_smart()
+    local has_aerial, aerial = pcall(require, "aerial")
+    if not has_aerial then return end
+
+    local output = ""
+
+    if aerial.get_location then
+        local symbols = aerial.get_location(true)
+        if symbols and #symbols > 0 then
+            local s = symbols[#symbols]
+            local icon = s.icon or s.kind
+            
+            output = "%#AerialSymbolsl#" .. icon .. "%#StatusBody# " .. s.name
+        end
+    elseif aerial.get_status then
+        output = aerial.get_status() or ""
+    end
+
+    if output == last_recorded_symbol then return end
+
+    _G.statusMessage = output
+    last_recorded_symbol = output
+    vim.cmd("redrawstatus")
+end
+
+-- 4. Create the command
+vim.api.nvim_create_user_command('SetStatus', function(opts)
+    local mode, payload = opts.args:match("^(%S+)%s*(.*)$")
+
+    -- Clean up overhead when switching modes
+    pcall(vim.api.nvim_del_augroup_by_name, "StatusSmartUpdate")
+
+    if mode == "text" then
+        _G.statusMessage = payload
+        vim.cmd("redrawstatus")
+
+    elseif mode == "msg" then
+        local msg = status_lookup[payload]
+        if msg then 
+            _G.statusMessage = msg 
+            vim.cmd("redrawstatus")
+        end
+
+    elseif mode == "aerial" then
+        -- Reset cache to force immediate update
+        last_recorded_symbol = "" 
+        
+        update_aerial_smart()
+        
+        local group = vim.api.nvim_create_augroup("StatusSmartUpdate", { clear = true })
+        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorHold", "BufEnter", "InsertLeave" }, {
+            group = group,
+            callback = update_aerial_smart
+        })
+    end
+end, {
+    nargs = '+',
+    complete = function(ArgLead, CmdLine)
+        local args = vim.split(CmdLine, "%s+")
+        if #args == 2 then return {"text", "msg", "aerial"} end
+        if #args == 3 and args[2] == "msg" then return vim.tbl_keys(status_lookup) end
+    end
+})
+
+
 

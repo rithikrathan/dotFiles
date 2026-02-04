@@ -21,23 +21,6 @@ end
 
 vim.api.nvim_create_autocmd({ "BufEnter", "DirChanged" }, { callback = update_git })
 
--- local function get_current_node()
---     local ok, aerial = pcall(require, "aerial")
---     -- Return empty if not loaded or not attached to this buffer
---     if not ok or not aerial.was_attached() then return "" end
-
---     local symbols = aerial.get_location(true)
---     local count = #symbols
-
---     if count > 0 then
---         -- We only want the last symbol (the one you are currently inside)
---         local symbol = symbols[count]
---         return string.format("%s %s", symbol.icon, symbol.name)
---     end
-
---     return ""
--- end
-
 -- Define your frames here (Proper Drumming Bongo Cat)
 local frames_set = {
 	" ₍^. .^₎⟆ ", -- Frame 1: Right Paw Tap
@@ -74,8 +57,6 @@ local function advance_frame()
 	vim.cmd("redrawstatus") -- Force update
 end
 
--- MAIN FUNCTION: Switch Animation Modes
--- modes: 'time [ms]', 'input', 'static [index]'
 function _G.SetAnimMode(input_str)
 	-- Split input into mode and argument
 	local split_data = vim.split(input_str or "", " ", { trimempty = true })
@@ -132,9 +113,7 @@ end, {
 	complete = function() return { "time", "input", "static" } end
 })
 
-function _G.MyStatusLine()
-	-- 1. WINDOW WIDTH CHECKS
-	-- local width      = vim.api.nvim_win_get_width(0)
+function _G.EphemeraStatusLine()
 	local width = vim.o.columns
 	-- Thresholds
 	local show_right = width >= 70
@@ -162,12 +141,8 @@ function _G.MyStatusLine()
 	local has_branch = _G.git_branch and _G.git_branch ~= ""
 	local branch = has_branch and _G.git_branch or ""
 
-	-- local mod = vim.bo.modified and " ᯓ ★" or ""
-	-- local mod = vim.bo.modified and " ˖᯽ ݁˖·" or ""
-	-- local mod = vim.bo.modified and "🌹" or ""
 	local mod = vim.bo.modified and " 𔒝 " or ""
 
-	-- Format: Thu Jan 29 10:02:45 PM
 	local time = os.date("| %a %b %d %I:%M %p")
 
 	-- --- COMPONENT DEFINITIONS ---
@@ -178,12 +153,20 @@ function _G.MyStatusLine()
 		"%#Sep" .. state .. "A# "
 	}
 
+	local filename = ""
+	if vim.bo.filetype == "oil" then
+		filename =  "  Explorer"
+	else
+		-- filename =  " %f"
+		filename =  " %t"
+	end
+
 	-- Section 2: Branch | Filename
 	local info_content = ""
 	if has_branch then
-		info_content = branch .. " ┆ %t"
+		info_content = branch .. " ┆" .. filename
 	else
-		info_content = " %t"
+		info_content = filename
 	end
 	table.insert(left_core_list, "%#Info" .. state .. "#" .. info_content .. mod .. "%r ")
 
@@ -193,16 +176,10 @@ function _G.MyStatusLine()
 
 	local left_core = table.concat(left_core_list)
 
-	-- 2. LEFT EXTRA (Using SlRef highlight)
-    -- local node = get_current_node()
-    -- local left_extra = "%#SlRef#" .. (node ~= "" and (" " .. node .. " ") or "")
-    local left_extra = "%#SlRef#" .. " what the fuck"
+    local left_extra = "%#SlRef#" .. _G.statusMessage
 
 	-- 3. MIDDLE SIDE
-	-- CHANGED: Now uses _G.AnimState.output
 	local middle_part = "" .. _G.AnimState.output .. ""
-	-- local middle_part = "꧁    🌹 ꧂"
-	-- local middle_part = "────୨ৎ────"
 
 	-- 4. RIGHT SIDE
 	local right_part = table.concat({
@@ -224,4 +201,4 @@ function _G.MyStatusLine()
 	return left_core .. left_extra .. "%=" .. middle_part .. "%=" .. right_part
 end
 
-vim.opt.statusline = "%!v:lua.MyStatusLine()"
+vim.opt.statusline = "%!v:lua.EphemeraStatusLine()"

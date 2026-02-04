@@ -8,11 +8,12 @@ vim.keymap.set("i", "<A-O>", '<Esc>O')
 
 -- Basic Mappings
 vim.keymap.set({ "n", "v", "t", "i" }, "<A-n>", '<CR>', { remap = true })
+vim.keymap.set({ "n", "v", "t", "i" }, "<leader>h", '"+y', { remap = true })
 vim.keymap.set({ "n", "v", "t", "i" }, "<F5>", ':w | nohl | make<CR>', { remap = true })
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set({ "n", "i" }, "<A-[>", "zt")
--- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set({ "v", "i" }, "<leader><Tab>", "<Esc>", { noremap = true, silent = true })
 vim.keymap.set("t", "<leader><Tab>", "<C-\\><C-n>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>d", "yyp", { desc = "Duplicate current line" })

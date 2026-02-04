@@ -20,7 +20,8 @@ M.config = {
 	quote = "It is only with the heart that one can see rightly; what is essential is invisible to the eye.",
 
 	buttons = {
-		{ "e", "  New File", ":ene <BAR> startinsert  " },
+		{ "n", "  New File", ":ene <BAR> startinsert  " },
+		{ "e", "🖿  Explorer", ":Oil --float"   },
 		{ "f", "  Find File", ":Telescope find_files  " },
 		{ "r", "  Recent", ":Telescope oldfiles  " },
 		{ "g", "  Grep Text", ":Telescope live_grep  " },

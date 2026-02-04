@@ -190,6 +190,9 @@ key_bindings:
   - { key: Q, mods: Control|Shift, chars: "\x02q" }
   - { key: N, mods: Control|Shift, chars: "./session.sh\n" }
   - { key: R, mods: Control|Alt, chars: "reset\n" }
+  - { key: E, mods: Control|Alt, chars: "nvim\n" }
+  - { key: C, mods: Control|Alt, chars: "nvim .\n" }
+  - { key: G, mods: Control|Alt, chars: "nvim " }
   - { key: N, mods: Control, chars: "tmux new-session\n" }
   - { key: A, mods: Command|Shift, chars: "tmux ls; read -p 'Attach to ID: ' ID; tmux attach -t $ID\n" }
   - { key: V, mods: Control|Alt, action: ToggleViMode }
