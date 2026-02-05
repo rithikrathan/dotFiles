@@ -155,7 +155,7 @@ function _G.EphemeraStatusLine()
 
 	local filename = ""
 	if vim.bo.filetype == "oil" then
-		filename =  "  Explorer"
+		filename =  " 📂 Explorer"
 	else
 		-- filename =  " %f"
 		filename =  " %t"

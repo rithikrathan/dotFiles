@@ -174,27 +174,26 @@ cmp.setup.filetype("go", {
 
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
--- -- Harpoon
--- local harpoon = require("harpoon")
--- harpoon:setup({})
--- local conf = require("telescope.config").values
--- local function toggle_telescope(harpoon_files)
--- 	local file_paths = {}
--- 	for _, item in ipairs(harpoon_files.items) do table.insert(file_paths, item.value) end
--- 	require("telescope.pickers").new({}, {
--- 		prompt_title = "Harpoon",
--- 		finder = require("telescope.finders").new_table({ results = file_paths }),
--- 		previewer = conf.file_previewer({}),
--- 		sorter = conf.generic_sorter({}),
--- 		initial_mode = "normal",
--- 	}):find()
--- end
--- vim.keymap.set("n", "<leader>e", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
---
--- -- UndoTree
--- vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
---
---
+-- treesitter
+require("nvim-treesitter.configs").setup({
+	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "python", "cpp", "java", "gdscript" },
+	sync_install = false,
+	auto_install = true,
+	highlight = { enable = true, additional_vim_regex_highlighting = false },
+	textobjects = {
+		select = {
+			enable = true,
+			lookahead = true,
+			keymaps = { ["af"] = "@function.outer", ["if"] = "@function.inner", ["ac"] = "@class.outer", ["ic"] = "@class.inner" }
+		}
+	},
+	move = {
+		enable = true,
+		goto_next_start = { ["]m"] = "@function.outer" },
+		goto_previous_start = { ["[m"] = "@function.outer" }
+	}
+})
+
 -- -- ==========================================================================
 -- -- JDTLS MASTER CONFIGURATION
 -- -- ==========================================================================
@@ -295,21 +294,8 @@ cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 -- end
 --
 -- vim.api.nvim_set_keymap('n', '<leader>vn', ":lua Toggle_venn()<CR>", { noremap = true })
---
--- --this colour thing
---
--- local ccc = require("ccc")
--- local mapping = ccc.mapping
---
--- ccc.setup({
--- 	-- Your preferred settings
--- 	-- Example: enable highlighter
--- 	highlighter = {
--- 		auto_enable = true,
--- 		lsp = true,
--- 	},
--- })
---
+
+
 -- -- quicker.nvim
 --
 -- require("quicker").setup({

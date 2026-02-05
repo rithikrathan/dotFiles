@@ -6,6 +6,9 @@ vim.keymap.set("i", "<A-k>", "<Up>", { desc = "Move cursor up" })
 vim.keymap.set("i", "<A-o>", '<Esc>o')
 vim.keymap.set("i", "<A-O>", '<Esc>O')
 
+-- Undotree
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+
 -- Basic Mappings
 vim.keymap.set({ "n", "v", "t", "i" }, "<A-n>", '<CR>', { remap = true })
 vim.keymap.set({ "n", "v", "t", "i" }, "<leader>h", '"+y', { remap = true })

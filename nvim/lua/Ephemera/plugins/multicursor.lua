@@ -24,7 +24,7 @@ return {
 		version = "*", -- Use the latest tagged version
 		opts = {
 			custom_key_maps = {
-				{ "n", "<Leader>aa", function() require("multiple-cursors").align() end },
+				{ "n", "<Leader>al", function() require("multiple-cursors").align() end },
 			}
 		}, -- This causes the plugin setup function to be called
 
@@ -39,7 +39,7 @@ return {
 			{ "<C-n>", "<Cmd>MultipleCursorsAddMatches<CR>",       mode = { "n", "x" },      desc = "Add cursors to cword" },
 			{ "<C-b>", "<Cmd>MultipleCursorsAddMatchesV<CR>",      mode = { "n", "x" },      desc = "Add cursors to cword in previous area" },
 
-			{ "<A-m>", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", mode = { "n", "x" },      desc = "Add cursor and jump to next cword" },
+			{ "<A-m>", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", mode = { "n","i", "x" },      desc = "Add cursor and jump to next cword" },
 			{ "`j",    "<Cmd>MultipleCursorsJumpNextMatch<CR>",    mode = { "n", "x" },      desc = "Jump to next cword" },
 
 			{ "`l",    "<Cmd>MultipleCursorsLock<CR>",             mode = { "n", "x" },      desc = "Lock virtual cursors" },
