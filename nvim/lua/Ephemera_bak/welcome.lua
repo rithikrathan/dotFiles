@@ -21,7 +21,7 @@ M.config = {
 
 	buttons = {
 		{ "n", "  New File", ":ene <BAR> startinsert  " },
-		{ "e", "🖿  Explorer", ":Ex"   },
+		{ "e", "🖿  Explorer", ":Oil --float"   },
 		{ "f", "  Find File", ":Telescope find_files  " },
 		{ "r", "  Recent", ":Telescope oldfiles  " },
 		{ "g", "  Grep Text", ":Telescope live_grep  " },
