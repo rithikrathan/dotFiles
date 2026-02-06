@@ -1,221 +1,179 @@
 local M = {}
-local utils = require("Ephemera.theme.utils")
 
--- Default configuration
 M.config = {
-	transparent = true,
-	glow = true,
-	show_end_of_buffer = false,
-
-	colors = {
-		-- Core colors
-		fg = "#ffeeee",
-		bg = "#04040d",
-		cursor = "#ffa0a0",
-		cursorLine = "#121212",
-		glow_color = "#ffeeee",
-		
-		-- UI elements
-		line_nr = "#ff1010",
-		visual = "#690f0f",
-		comment = "#696969",
-		eob = "#3c3c3c",
-		border = "#ff1e00",
-		title = "#ff1e00",
-		
-		-- Syntax highlighting
-		string = "#e4b2ab",
-		func = "#ff6347",
-		kw = "#ff2828",
-		identifier = "#d2d2d2",
-		type = "#ff420f",
-		type_builtin = "#ff420f",
-		search_highlight = "#ffaa00",
-		operator = "#d63e3e",
-		bracket = "#ff6969",
-		preprocessor = "#4b8902",
-		bool = "#ffa07a",
-		constant = "#f59064",
-		
-		-- Popup menus
-		pmenu_bg = "#17171d",
-		pmenu_sel_bg = "#fa3e19",
-		pmenu_fg = "#fc6142",
-		
-		-- Background layers
-		bgl = "#090909",
-		
-		-- Git colors
-		added = "#baffc9",
-		changed = "#ffffba",
-		removed = "#ffb3ba",
-		
-		-- Diagnostics
-		error = "#ff0000",
-		warning = "#ffee00",
-		hint = "#00ffee",
-		info = "#14ff6a",
-		
-		-- Bufferline
-		bufferline_selection = "#fd1b1b",
-		
-		-- Extended palette
-		orange = { "#ff9e64", "#ff8800", "#ff5500", "#db4b4b" },
-		red = { "#ff0000", "#ff4444", "#ff6565", "#c53b53" },
-		green = { "#00ff99", "#50fa7b", "#73daca", "#2e8b57" },
-		blue = { "#00e1ff", "#61afef", "#7aa2f7", "#3d59a1" },
-		purple = { "#ff00ff", "#bd93f9", "#c678dd", "#9d7cd8" },
-		
-		-- Plugin configuration
-		plugins = {
-			gitsigns = true,
-			nvim_cmp = true,
-			treesitter = true,
-			nvimtree = true,
-			telescope = true,
-			lualine = true,
-			bufferline = true,
-			oil = true,
-			whichkey = true,
-			nvim_notify = true,
-		},
-	},
+    transparent = true,
+    glow = true,
+    show_end_of_buffer = false,
+    colors = {
+        fg = "#ffeeee", bg = "#04040d", cursor = "#ffa0a0", cursorLine = "#121212",
+        glow_color = "#ffeeee", line_nr = "#ff1010", visual = "#690f0f",
+        comment = "#696969", string = "#e4b2ab", func = "#ff6347", kw = "#ff2828",
+        identifier = "#d2d2d2", type = "#ff420f", type_builtin = "#ff420f",
+        search_highlight = "#ffaa00", operator = "#d63e3e", bracket = "#ff6969",
+        preprocessor = "#4b8902", bool = "#ffa07a", constant = "#f59064",
+        added = "#baffc9", changed = "#ffffba", removed = "#ffb3ba",
+        pmenu_bg = "#17171d", pmenu_sel_bg = "#fa3e19", pmenu_fg = "#fc6142",
+        bgl = "#090909", eob = "#3c3c3c", border = "#ff1e00", title = "#ff1e00",
+        bufferline_selection = "#fd1b1b", error = "#ff0000", warning = "#ffee00",
+        hint = "#00ffee", info = "#14ff6a",
+    },
 }
 
-M.extend = function(user_config)
-	M.config = vim.tbl_deep_extend("force", M.config, user_config or {})
-end
-
--- Toggle Transparency Command
-M.toggle_transparency = function()
-	M.config.transparent = not M.config.transparent
-	M.setup()
-	print("Transparency: " .. (M.config.transparent and "ON" or "OFF"))
-end
-
--- Apply the colorscheme
 function M.setup(user_config)
-	M.config = vim.tbl_deep_extend("force", M.config, user_config or {})
-	local colors = M.config.colors
+    M.config = vim.tbl_deep_extend("force", M.config, user_config or {})
+    local colors = M.config.colors
+    local bg_color = M.config.transparent and "NONE" or colors.bg
+    local float_bg = M.config.transparent and "NONE" or colors.pmenu_bg
 
-	-- Dynamic Backgrounds for Transparency
-	local bg_color = M.config.transparent and "NONE" or colors.bg
-	local float_bg = M.config.transparent and "NONE" or colors.pmenu_bg
+    local highlight_groups = {
+        -- BASE UI
+        Normal = { fg = colors.fg, bg = bg_color },
+        Cursor = { fg = colors.cursor, bg = bg_color },
+        CursorLine = { bg = colors.cursorLine },
+        LineNr = { fg = colors.line_nr },
+        Visual = { bg = colors.visual },
+        Comment = { fg = colors.comment, italic = true, bold = true },
+        String = { fg = colors.string },
+        Function = { fg = colors.func },
+        Keyword = { fg = colors.kw },
+        Identifier = { fg = colors.identifier },
+        Type = { fg = colors.type },
+        PreProc = { fg = colors.preprocessor },
+        Boolean = { fg = colors.bool },
+        Constant = { fg = colors.constant },
+        Operator = { fg = colors.operator },
+        Delimiter = { fg = colors.bracket },
+        Search = { bg = "#5631a6", fg = "#ffffff", bold = true },
+        CurSearch = { bg = "#ff5555", fg = "#090909", bold = true },
+        Pmenu = { fg = colors.pmenu_fg, bg = colors.pmenu_bg },
+        PmenuSel = { fg = colors.pmenu_bg, bg = colors.pmenu_sel_bg, bold = true },
+        NormalFloat = { fg = colors.fg, bg = float_bg },
+        FloatBorder = { fg = colors.border, bg = float_bg },
 
-	local highlight_groups = {
-		-- Basic editor highlights
-		Normal = { fg = colors.fg, bg = bg_color },
-		NormalFloat = { fg = colors.fg, bg = float_bg },
-		FloatBorder = { fg = colors.border, bg = float_bg },
-		Cursor = { fg = colors.cursor, bg = bg_color },
-		CursorLine = { bg = colors.cursorLine },
-		LineNr = { fg = colors.line_nr },
-		EndOfBuffer = { fg = M.config.show_end_of_buffer and colors.eob or colors.bg, bg = bg_color },
-		Visual = { bg = colors.visual },
-		
-		-- Messages and UI
-		MsgArea = { fg = colors.constant, bg = bg_color, italic = true, bold = true },
-		ModeMsg = { fg = colors.constant, bold = true },
-		
-		-- Syntax highlighting
-		Comment = { fg = colors.comment, italic = true },
-		String = { fg = colors.string },
-		Function = { fg = colors.func },
-		Keyword = { fg = colors.kw },
-		Identifier = { fg = colors.identifier },
-		Type = { fg = colors.type },
-		PreProc = { fg = colors.preprocessor },
-		Boolean = { fg = colors.bool },
-		Constant = { fg = colors.constant },
-		Operator = { fg = colors.operator },
-		Delimiter = { fg = colors.bracket },
-		
-		-- Search
-		Search = { fg = colors.search_highlight, bg = "NONE", bold = true },
-		IncSearch = { fg = colors.search_highlight, bg = "NONE", bold = true },
-		CurSearch = { bg = colors.search_highlight, fg = colors.bg, bold = true },
-		
-		-- Popup menus
-		Pmenu = { fg = colors.pmenu_fg, bg = colors.pmenu_bg },
-		PmenuSel = { fg = colors.pmenu_bg, bg = colors.pmenu_sel_bg, bold = true },
-		
-		-- Folding
-		Folded = { fg = colors.string, bg = utils.get_bg_color("#201010", M.config), bold = true, italic = true },
-		FoldColumn = { fg = colors.kw, bg = colors.bgl },
-		
-		-- Statusline custom highlights
-		StatusBody = { fg = colors.comment, bg = colors.bgl, bold = true, italic = true },
-		ModeNorm = { fg = colors.bg, bg = colors.kw, italic = true, bold = true },
-		ModeIns = { fg = colors.bg, bg = colors.func, italic = true, bold = true },
-		ModeVis = { fg = colors.bg, bg = colors.type, italic = true, bold = true },
-		
-		-- Oil.nvim
-		OilDir = { fg = colors.bool, bold = true, italic = true },
-		OilFile = { fg = colors.string, italic = true, bold = true },
-		OilPermission = { fg = colors.comment },
-		OilSize = { fg = colors.constant },
-		OilDate = { fg = colors.comment },
-		OilSocket = { fg = colors.type },
-		OilLink = { fg = colors.string },
-		
-		-- Welcome screen
-		WelcomeRose = { fg = "#ff5555", bold = true },
-		WelcomeStem = { fg = "#50fa7b", bold = true },
-		WelcomeQuote = { fg = "#a1a1a1", italic = true },
-		
-		-- Flash.nvim
-		FlashLabel = { bg = colors.orange[1], fg = "#000000", bold = true },
-		
-		-- Multiple cursors
-		MultipleCursorsCursor = { bg = "#00FFFF", fg = "#000000" },
-		MultipleCursorsVisual = { bg = "#b294bb", fg = "#000000" },
-		
-		-- LSP Diagnostics
-		DiagnosticError = { fg = colors.error },
-		DiagnosticWarn = { fg = colors.warning },
-		DiagnosticHint = { fg = colors.hint },
-		DiagnosticInfo = { fg = colors.info },
-		DiagnosticVirtualTextError = { fg = colors.error },
-		DiagnosticVirtualTextWarn = { fg = colors.warning },
-		DiagnosticVirtualTextHint = { fg = colors.hint },
-		DiagnosticVirtualTextInfo = { fg = colors.info },
-		
-		DiagnosticUnderlineError = { underline = true, sp = colors.error },
-		DiagnosticUnderlineWarn = { underline = true, sp = colors.warning },
-		DiagnosticUnderlineHint = { underline = true, sp = colors.hint },
-		DiagnosticUnderlineInfo = { underline = true, sp = colors.info },
-		
-		-- Completion
-		CmpBorder = { fg = colors.border },
-	}
+        -- TREESITTER (Full list)
+        ["@function"] = { fg = colors.func },
+        ["@method"] = { fg = colors.func },
+        ["@keyword"] = { fg = colors.kw },
+        ["@variable"] = { fg = colors.identifier },
+        ["@type"] = { fg = colors.type },
+        ["@string"] = { fg = colors.string },
+        ["@constant"] = { fg = colors.constant },
+        ["@operator"] = { fg = colors.operator },
+        ["@punctuation.bracket"] = { fg = colors.bracket },
+        ["@punctuation.delimiter"] = { fg = colors.bracket },
+        ["@comment"] = { fg = colors.comment },
+        ["@tag"] = { fg = colors.func },
 
-	local function apply_highlight(group_name, config)
-		-- Apply glow effect if enabled
-		if M.config.glow and (
-				group_name == "Function" or group_name == "Keyword"
-				or group_name == "Identifier" or group_name == "Operator"
-				or group_name == "@function" or group_name == "@keyword"
-				or group_name == "@identifier" or group_name == "@operator"
-			) then
-			config.guisp = colors.glow_color
-			config.bold = true
-		end
-		
-		utils.apply_highlights({ [group_name] = config }, colors, M.config)
-	end
+        -- TELESCOPE (All missing groups added)
+        TelescopeNormal = { fg = colors.fg, bg = "NONE" },
+        TelescopeBorder = { fg = colors.border, bg = "NONE" },
+        TelescopePromptNormal = { fg = colors.pmenu_fg, bg = "NONE" },
+        TelescopePromptBorder = { fg = colors.border, bg = "NONE" },
+        TelescopePromptTitle = { fg = colors.title, bg = "NONE", bold = true },
+        TelescopePromptCounter = { fg = colors.cursor, bg = "NONE" },
+        TelescopeSelectionCaret = { fg = colors.operator, bg = colors.visual },
+        TelescopeSelection = { fg = colors.fg, bg = colors.visual, bold = true },
+        TelescopeMatching = { fg = colors.operator, bg = "NONE", bold = true },
 
-	-- Apply all highlights
-	for group_name, config in pairs(highlight_groups) do
-		apply_highlight(group_name, config)
-	end
+        -- BUFFERLINE
+        BufferLineFill = { bg = "NONE", fg = colors.fg },
+        BufferLineBackground = { bg = "NONE", fg = colors.fg },
+        BufferLineBufferSelected = { bg = "NONE", fg = colors.bufferline_selection, bold = true },
+        BufferLineSeparator = { bg = "NONE", fg = colors.line_nr },
+        BufferLineIndicatorSelected = { bg = colors.bg, fg = colors.bufferline_selection },
 
-	-- Create User Command for toggling
-	vim.api.nvim_create_user_command("ToggleTransparency", M.toggle_transparency, {})
+        -- GITSIGNS
+        GitSignsAdd = { fg = colors.added, bg = "NONE" },
+        GitSignsChange = { fg = colors.changed, bg = "NONE" },
+        GitSignsDelete = { fg = colors.removed, bg = "NONE" },
 
-	-- Plugin specific highlights
-	if package.loaded["Ephemera.theme.config"] then
-		require("Ephemera.theme.config").setup(M.config)
-	end
+        -- NVIM-CMP
+        CmpItemAbbr = { fg = colors.fg, bg = "NONE" },
+        CmpItemAbbrMatch = { fg = colors.cursor, bg = "NONE", bold = true },
+        CmpItemMenu = { fg = colors.comment, bg = "NONE" },
+        CmpBorder = { fg = "#ff5555" },
+
+        -- NVIM-TREE
+        NvimTreeFolderName = { fg = colors.func },
+        NvimTreeOpenedFolderName = { fg = colors.kw },
+        NvimTreeRootFolder = { fg = colors.type },
+        NvimTreeWindowPicker = { fg = colors.bg, bg = colors.search_highlight, bold = true },
+
+        -- OIL
+        OilDir = { fg = colors.identifier, bold = true, italic = true },
+        OilFile = { fg = colors.string, italic = true, bold = true },
+        OilSocket = { fg = colors.type },
+        OilFloatBorder = { fg = colors.border },
+
+        -- WHICH-KEY
+        WhichKey = { fg = colors.func, bg = bg_color },
+        WhichKeyGroup = { fg = colors.kw, bg = bg_color, bold = true },
+        WhichKeyDesc = { fg = colors.func, bg = bg_color },
+        WhichKeyTitle = { fg = colors.kw, bg = bg_color, bold = true },
+
+        -- NOTIFY
+        NotifyERRORBorder = { fg = colors.error },
+        NotifyWARNBorder = { fg = colors.warning },
+        NotifyINFOBorder = { fg = colors.info },
+        NotifyERRORTitle = { fg = colors.error },
+        NotifyWARNTitle = { fg = colors.warning },
+        NotifyINFOTitle = { fg = colors.info },
+
+        -- WELCOME SCREEN
+        WelcomeRose = { fg = "#ff5555", bold = true },
+        WelcomeStem = { fg = "#50fa7b", bold = true },
+        WelcomeQuote = { fg = "#a1a1a1", italic = true },
+    }
+
+    -- Apply CMP Kind highlights
+    local kinds = { "Text", "Method", "Function", "Variable", "Class", "Interface", "Module", "Property", "Keyword", "Snippet", "Constant", "Folder" }
+    for _, kind in ipairs(kinds) do highlight_groups["CmpItemKind" .. kind] = { fg = colors.kw } end
+
+    -- Helper to apply highlights
+    for name, conf in pairs(highlight_groups) do
+        local cmd = string.format("highlight %s guifg=%s guibg=%s", name, conf.fg or "NONE", conf.bg or "NONE")
+        local gui = {}
+        if conf.bold then table.insert(gui, "bold") end
+        if conf.italic then table.insert(gui, "italic") end
+        if conf.gui then table.insert(gui, conf.gui) end
+        
+        -- Glow Logic
+        if M.config.glow and (name == "Function" or name == "Keyword" or name == "@function" or name == "@keyword") then
+            table.insert(gui, "bold")
+            cmd = cmd .. " guisp=" .. colors.glow_color
+        end
+
+        if #gui > 0 then cmd = cmd .. " gui=" .. table.concat(gui, ",") end
+        vim.cmd(cmd)
+    end
+
+    -- LUALINE (Consolidated setup)
+    local ok, lualine = pcall(require, "lualine")
+    if ok then
+        lualine.setup({
+            options = {
+                theme = {
+                    normal = {
+                        a = { bg = colors.bool, fg = colors.bg },
+                        b = { bg = bg_color, fg = colors.bool },
+                        c = { bg = colors.line_nr, fg = colors.bracket }
+                    },
+                    insert = {
+                        a = { bg = bg_color, fg = colors.search_highlight, gui = "bold" },
+                        b = { bg = colors.bg, fg = colors.type }
+                    },
+                }
+            }
+        })
+    end
 end
+
+M.toggle_transparency = function()
+    M.config.transparent = not M.config.transparent
+    M.setup()
+    print("Transparency: " .. (M.config.transparent and "ON" or "OFF"))
+end
+
+vim.api.nvim_create_user_command("ToggleTransparency", M.toggle_transparency, {})
 
 return M

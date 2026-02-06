@@ -1,7 +1,4 @@
--- ============================================================================
---  INITIALIZATION
--- ============================================================================
-_G.git_branch = "" 
+_G.git_branch = ""  --  initialise git branch
 
 -- ============================================================================
 --  MAIN RENDERER
@@ -40,6 +37,7 @@ _G.Modules = {}
 
 -- --- HELPER: DYNAMIC HIGHLIGHT BRIDGE ---
 -- Creates a highlight group where FG comes from 'fg_group' and BG comes from 'bg_group'
+-- If 'is_sep' is true, it takes the BG of 'fg_group' as the FG (for arrow separators)
 function Modules.set_bridge_hl(name, fg_group, bg_group, is_sep)
     local fg_data = vim.api.nvim_get_hl(0, { name = fg_group, link = false })
     local bg_data = vim.api.nvim_get_hl(0, { name = bg_group, link = false })
@@ -79,10 +77,12 @@ function Modules.render_left_core()
     local sep_group  = "Sep" .. state .. "Trans"
 
     -- DYNAMICALLY CREATE SEPARATOR HIGHLIGHT
+    -- Takes the Background of 'InfoState' and makes it the Foreground of the arrow
+    -- Takes the Background of 'StatusBody' and makes it the Background of the arrow
     Modules.set_bridge_hl(sep_group, info_group, "StatusBody", true)
 
     local mode_block = "%#Mode" .. state .. "# " .. label .. " %#Sep" .. state .. "A# "
-    local branch = (_G.git_branch ~= "") and (_G.git_branch .. "┆ ") or " "
+    local branch = (_G.git_branch ~= "") and (_G.git_branch .. " ┆ ") or " "
     local mod = vim.bo.modified and " 𔒝 " or ""
 
     local filename_text, icon, icon_hl = "", "", info_group
@@ -116,7 +116,7 @@ function Modules.render_left_core()
     return table.concat({
         mode_block,
         "%#" .. info_group .. "#" .. info_content .. mod .. "%r ",
-        "%#" .. sep_group .. "# %#StatusBody#" 
+        "%#" .. sep_group .. "# %#StatusBody#" -- The patched separator
     })
 end
 
@@ -128,7 +128,7 @@ function Modules.get_stat_section()
     if mode == 1 then
         return " %l:%c %p%% "
     elseif mode == 2 then
-        -- Patch Diagnostic Highlights
+        -- Patch Diagnostic Highlights to match StatusBody background
         Modules.set_bridge_hl("SlDiagErr", "DiagnosticError", "StatusBody", false)
         Modules.set_bridge_hl("SlDiagWarn", "DiagnosticWarn", "StatusBody", false)
         
@@ -143,59 +143,8 @@ function Modules.get_stat_section()
     return ""
 end
 
--- --- 3. ADDITIONAL SECTION (WITH HARPOON TABS) ---
+-- --- 3. ADDITIONAL SECTION ---
 _G.AddState = { mode = 1, key_log = { "   ", "   ", "   ", "   " } }
-
-function Modules.get_harpoon_tabs()
-    local harpoon_ok, harpoon = pcall(require, "harpoon")
-    if not harpoon_ok then return " Harpoon? " end
-
-    local items = harpoon:list().items
-    local current_path = vim.fn.expand("%:p")
-    local output = ""
-    
-    -- 1. Capture Dynamic Colors
-    local m = vim.fn.mode()
-    local state = "Norm"
-    if m == 'i' then state = "Ins" elseif m:match("^[vV\22]") then state = "Vis" end
-    
-    -- Get the actual color values
-    local mode_data = vim.api.nvim_get_hl(0, { name = "Mode" .. state, link = false })
-    local body_data = vim.api.nvim_get_hl(0, { name = "StatusBody", link = false })
-
-    vim.api.nvim_set_hl(0, "SlHarpoonActive", {
-        fg = mode_data.bg, 
-        bg = body_data.bg, 
-        bold = true,
-		italic = true
-    })
-    
-    for i = 1, 4 do
-        local item = items[i]
-        local label = "-"
-        local is_active = false
-        
-        if item and item.value then
-            if vim.fn.fnamemodify(item.value, ":p") == current_path then is_active = true end
-            
-            -- Truncate filename
-            local fname = vim.fn.fnamemodify(item.value, ":t")
-            if #fname > 7 then fname = fname:sub(1, 5) .. ".." end
-            label = fname
-        end
-
-        -- Single leading space only (Result: " 1.foo 2.bar")
-        local display = string.format(" %d.%s", i, label)
-        
-        if is_active then
-            output = output .. "%#SlHarpoonActive#" .. display .. "%#StatusBody#"
-        else
-            output = output .. display
-        end
-    end
-    
-    return "┆" .. output .. " "
-end
 
 function Modules.get_additional_section()
     local mode = _G.AddState.mode
@@ -207,13 +156,12 @@ function Modules.get_additional_section()
         -- Check if special 'WelcomeRose' highlight exists, otherwise fallback
         local rose_group = "ErrorMsg"
         if vim.fn.hlexists("WelcomeRose") == 1 then
+            -- Create patched highlight for Rose
             Modules.set_bridge_hl("SlRose", "WelcomeRose", "StatusBody", false)
             rose_group = "SlRose"
         end
         
         return string.format("┆  %s %s %s %%#%s#%s%%#StatusBody#", log[1], log[2], log[3], rose_group, log[4])
-    elseif mode == 3 then
-        return Modules.get_harpoon_tabs()
     end
     return ""
 end
@@ -320,8 +268,7 @@ function Modules.toggle_stat()
 end
 
 function Modules.toggle_add()
-    -- Cycles: 1=Clock, 2=Keys, 3=Harpoon
-    _G.AddState.mode = (_G.AddState.mode % 3) + 1
+    _G.AddState.mode = (_G.AddState.mode % 2) + 1
     vim.cmd("redrawstatus")
 end
 

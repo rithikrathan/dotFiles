@@ -139,6 +139,3 @@ end, {
 		if #args == 3 and args[2] == "msg" then return vim.tbl_keys(status_lookup) end
     end
 })
-
-
-

@@ -15,7 +15,7 @@ vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 vim.keymap.set({ "n", "v", "t", "i" }, "<A-n>", '<CR>', { remap = true })
 
 -- copy and paste with system clipboard
-vim.keymap.set("v", "<leader>y", '"+y', { remap = true })
+vim.keymap.set("v", "<leader>y", '"+ygv', { remap = true })
 vim.keymap.set("n", "<leader>p", '"+p', { remap = true })
 
 vim.keymap.set({ "n", "v", "t", "i" }, "<F5>", ':w | nohl | make<CR>', { remap = true })
@@ -161,16 +161,16 @@ end)
 vim.keymap.set("n", "<leader>s", function()
 	harpoon:list():remove()
 end)
-vim.keymap.set("n", "<A-=>", function()
+vim.keymap.set("n", "<leader>1", function()
 	harpoon:list():select(1)
 end)
-vim.keymap.set("n", "<A-->", function()
+vim.keymap.set("n", "<leader>2", function()
 	harpoon:list():select(2)
 end)
-vim.keymap.set("n", "<A-0>", function()
+vim.keymap.set("n", "<leader>3", function()
 	harpoon:list():select(3)
 end)
-vim.keymap.set("n", "<A-9>", function()
+vim.keymap.set("n", "<leader>4", function()
 	harpoon:list():select(4)
 end)
 --Toggle previous & next buffers stored within Harpoon list
@@ -197,8 +197,8 @@ end, { desc = "Telescope grep" })
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)                                                                --open a Git window
 vim.keymap.set("n", "<leader>gg", vim.cmd.GitGutterToggle)                                                    --Toggle gitgutter
 vim.keymap.set("n", "<leader>gt", "<cmd>GitGutterLineHighlightsToggle | GitGutterLineNrHighlightsToggle<CR>") --toggle git line highlights
-vim.keymap.set("n", "<leader>1", vim.cmd.Mason)                                                               --open Mason window
-vim.keymap.set("n", "<leader>2", vim.cmd.Lazy)                                                                --open Lazy window
+-- vim.keymap.set("n", "<leader>1", vim.cmd.Mason)                                                               --open Mason window
+-- vim.keymap.set("n", "<leader>2", vim.cmd.Lazy)                                                                --open Lazy window
 vim.keymap.set("n", "<leader>m", vim.cmd.MinimapToggle)
 vim.keymap.set("n", "<leader>tt", "<cmd>sp | term<CR>")
 
