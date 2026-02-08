@@ -12,7 +12,7 @@ window:
     y: 4
   # decorations: full # Transparent title bar (macOS)
   decorations: none # Transparent title bar (macOS)
-  opacity: 0.85             
+  opacity: 0.90             
 
 # --- Font configuration ---
 font:

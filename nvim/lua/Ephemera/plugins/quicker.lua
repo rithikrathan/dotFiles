@@ -1,3 +1,0 @@
-return{
-{"stevearc/quicker.nvim"}
-}

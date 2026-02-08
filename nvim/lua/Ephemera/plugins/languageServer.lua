@@ -15,13 +15,23 @@ return {
 	{ 'williamboman/mason-lspconfig.nvim' },
 	{ 'mfussenegger/nvim-jdtls' },
 
+	-- fidget
 	{
 		"j-hui/fidget.nvim",
 		event = "LspAttach",
 		opts = {
 			notification = {
 				window = {
-					winblend = 0,
+					winblend = 0, -- Background transparency (0 is opaque)
+					max_width = 30, -- Limits how wide the box can get
+					max_height = 10, -- Limits how many lines it shows
+					border = "single", -- Thin border makes it look smaller
+					zindex = 45, -- Keeps it below other UI elements if needed
+				},
+			},
+			progress = {
+				display = {
+					render_limit = 3, -- Only show 3 tasks at once to keep it short
 				},
 			},
 		},
@@ -73,7 +83,27 @@ return {
 			vim.diagnostic.config({ virtual_text = false })
 		end,
 
-	}, -- inline diagnostic 
+	}, -- inline diagnostic
 
-
+	-- using conform for formatting
+	{
+		'stevearc/conform.nvim',
+		opts = {},
+		config = function()
+			local conform = require("conform")
+			conform.setup({
+				formatters_by_ft = {
+					lua = { "stylua" },
+					python = { "isort", "black" },
+					rust = { "rustfmt", lsp_format = "fallback" },
+					javascript = { "prettierd", "prettier", stop_after_first = true },
+					verilog = { "istyle" },
+					systemverilog = { "istyle" },
+				},
+				format_on_save = { timeout_ms = 500, lsp_format = "fallback" },
+			})
+			vim.keymap.set("n", "<leader>fo",
+				function() conform.format({ lsp_fallback = true, async = false, timeout_ms = 500 }) end)
+		end
+	},
 }

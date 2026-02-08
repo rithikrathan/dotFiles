@@ -57,18 +57,18 @@ return {
 				},
 			})
 
-			vim.keymap.set("n", "<leader>-", require("oil").toggle_float, { desc = "Toggle Oil Floating Window" })
+			vim.keymap.set("n", "we", require("oil").toggle_float, { desc = "Toggle Oil Floating Window" })
 		end,
 	},
 
 	{
-		'nvim-telescope/telescope.nvim', tag = '0.1.8',
-		-- or                              , branch = '0.1.x',
+		'nvim-telescope/telescope.nvim',
+		tag = '0.1.8',
 		dependencies = { 'nvim-lua/plenary.nvim' }
-	}, 
+	},
 
 	-- Undotree
-	{"mbbill/undotree"},
+	{ "mbbill/undotree" },
 
 	-- Harpoon
 	{
@@ -90,7 +90,8 @@ return {
 					initial_mode = "normal",
 				}):find()
 			end
-			vim.keymap.set("n", "<leader>e", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
+			vim.keymap.set("n", "<leader>e", function() toggle_telescope(harpoon:list()) end,
+				{ desc = "Open harpoon window" })
 		end
 	},
 

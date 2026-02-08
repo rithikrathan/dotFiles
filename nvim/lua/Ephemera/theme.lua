@@ -85,10 +85,14 @@ function M.setup(user_config)
 
 		-- CORE UI
 		Folded = { fg = colors.bool, bg = bg_color, italic = true, bold = true },
-		FoldColumn = { fg = colors.type, bg = bg_color },
 
-		Normal = { fg = colors.fg,
-		bg = bg_color },
+		MsgSeparator = { bg = colors.bgl },
+		-- MsgArea =    { bg = bg_color },
+		-- NormalMsg =  { bg = bg_color },
+		-- ModeMsg =    { bg = bg_color },
+
+		FoldColumn = { fg = colors.type, bg = bg_color },
+		Normal = { fg = colors.fg, bg = bg_color },
 		Cursor = { fg = colors.cursor, bg = bg_color },
 		CursorLine = { bg = colors.cursorLine },
 		LineNr = { fg = colors.line_nr },
@@ -227,59 +231,10 @@ function M.setup(user_config)
 		OilTrashSourcePath = { fg = colors.comment },
 		OilFloatBorder = { fg = colors.comment },
 
-		-- NVIM-TREE
-		-- NvimTreeFolderIcon = { fg = colors.identifier },
-		-- NvimTreeFolderName = { fg = colors.func },
-		-- NvimTreeOpenedFolderName = { fg = colors.kw },
-		-- NvimTreeEmptyFolderName = { fg = colors.comment },
-		-- NvimTreeRootFolder = { fg = colors.type },
-		-- NvimTreeSymlink = { fg = colors.string },
-		-- NvimTreeSpecialFile = { fg = colors.operator, bold = true },
-		-- NvimTreeWindowPicker = { fg = colors.bg, bg = colors.search_highlight, bold = true },
-		-- NvimTreeLineNr = { fg = colors.line_nr },
-		-- NvimTreeCursorLineNr = { fg = colors.cursor, bold = true },
-
-		-- WHICH-KEY
-		-- WhichKey = { fg = colors.func, bg = bg_color },
-		-- WhichKeyBorder = { fg = colors.comment, bg = bg_color },
-		-- WhichKeyDesc = { fg = colors.func, bg = bg_color },
-		-- WhichKeyGroup = { fg = colors.kw, bg = bg_color, bold = true },
-		-- WhichKeyIcon = { fg = colors.func, bg = bg_color },
-		-- WhichKeyIconAzure = { fg = colors.kw, bg = bg_color },
-		-- WhichKeyIconBlue = { fg = colors.fg, bg = bg_color },
-		-- WhichKeyIconCyan = { fg = colors.cursor, bg = bg_color },
-		-- WhichKeyIconGreen = { fg = colors.string, bg = bg_color },
-		-- WhichKeyIconGrey = { fg = colors.comment, bg = bg_color },
-		-- WhichKeyIconOrange = { fg = colors.visual, bg = bg_color },
-		-- WhichKeyIconPurple = { fg = colors.purple1, bg = bg_color },
-		-- WhichKeyIconRed = { fg = colors.error, bg = bg_color },
-		-- WhichKeyIconYellow = { fg = colors.warning, bg = bg_color },
-		-- WhichKeyNormal = { fg = colors.fg, bg = bg_color },
-		-- WhichKeySeparator = { fg = colors.comment, bg = bg_color },
-		-- WhichKeyTitle = { fg = colors.kw, bg = bg_color, bold = true },
-		-- WhichKeyValue = { fg = colors.comment, bg = bg_color },
-
 		-- GITSIGNS
 		GitSignsAdd = { fg = colors.added, bg = "NONE" },
 		GitSignsChange = { fg = colors.changed, bg = "NONE" },
 		GitSignsDelete = { fg = colors.removed, bg = "NONE" },
-
-		-- NOTIFY
-		-- NotifyERRORBorder = { fg = colors.error },
-		-- NotifyWARNBorder = { fg = colors.warning },
-		-- NotifyINFOBorder = { fg = colors.info },
-		-- NotifyDEBUGBorder = { fg = colors.info },
-		-- NotifyTRACEBorder = { fg = colors.info },
-		-- NotifyERRORIcon = { fg = colors.error },
-		-- NotifyWARNIcon = { fg = colors.warning },
-		-- NotifyINFOIcon = { fg = colors.info },
-		-- NotifyDEBUGIcon = { fg = colors.info },
-		-- NotifyTRACEIcon = { fg = colors.info },
-		-- NotifyERRORTitle = { fg = colors.error },
-		-- NotifyWARNTitle = { fg = colors.warning },
-		-- NotifyINFOTitle = { fg = colors.info },
-		-- NotifyDEBUGTitle = { fg = colors.info },
-		-- NotifyTRACETitle = { fg = colors.info },
 
 		-- DIAGNOSTICS
 		DiagnosticError = { fg = colors.error },
@@ -308,8 +263,13 @@ function M.setup(user_config)
 		WelcomeStem = { fg = "#50fa7b", bold = true },
 		WelcomeQuote = { fg = "#a1a1a1", italic = true },
 
-		--AERIAL
-		AerialSymbolsl = { fg = colors.kw, bg = colors.bgl },
+		-- AERIAL 
+        AerialLine     = { fg = colors.green2, bg = colors.eob, bold = true },   -- Active cursor line in sidebar
+        AerialLineNC   = { fg = colors.comment, bg = bg_color },                 -- Active line when sidebar is not focused
+        AerialGuide    = { fg = colors.eob },                                    -- Vertical guide lines
+        AerialSymbolsl = { fg = colors.func, bg = colors.bgl, bold = true },     -- The Icon in statusline
+        AerialTextsl   = { fg = colors.type, bg = colors.bgl, bold = true },     -- The Text in statusline
+
 	}
 
 	-- CMP Kind Icons Loop
@@ -323,7 +283,7 @@ function M.setup(user_config)
 		local gui = {}
 		if conf.bold then table.insert(gui, "bold") end
 		if conf.italic then table.insert(gui, "italic") end
-		if conf.underline then table.insert(gui, "underline") end
+		-- if conf.underline then table.insert(gui, "underline") end
 		if conf.gui then table.insert(gui, conf.gui) end
 		if M.config.glow and (group == "Function" or group == "Keyword" or group == "@function" or group == "@keyword") then
 			table.insert(gui, "bold")

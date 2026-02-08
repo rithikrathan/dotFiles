@@ -33,7 +33,6 @@ print(rathan)
 print("Is this big ass ASCII art necessary? No, Did i add it anyway? Fuck yes!")
 
 --Godot stuffs
-
 local pipepath = vim.fn.stdpath("cache") .. "/server.pipe"
 if not vim.loop.fs_stat(pipepath) then
 	vim.fn.serverstart(pipepath)

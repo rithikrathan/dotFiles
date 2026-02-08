@@ -1,4 +1,10 @@
-return{
+return {
+
+	--  for diagrams
+	-- { "jbyuki/venn.nvim", ft = { "markdown", "text" } },
+	{ "jbyuki/venn.nvim" }, -- so it works with all kind of files???
+
+
 	-- for colours
 	{
 		"uga-rosa/ccc.nvim",
@@ -7,7 +13,7 @@ return{
 			local _mapping = ccc.mapping
 			ccc.setup({
 				highlighter = {
-					auto_enable = false,
+					auto_enable = true,
 					lsp = true,
 				},
 			})
@@ -27,7 +33,7 @@ return{
 		'MeanderingProgrammer/render-markdown.nvim',
 		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
 		opts = {},
-		ft = { "markdown"}
+		ft = { "markdown" }
 	},
 
 }

@@ -125,9 +125,6 @@ vim.keymap.set("n", "<leader>r", function()
 	vim.cmd("startinsert")
 end)
 
-----nvim-toggle keymap
---vim.keymap.set({ 'n', 'v' }, '<leader>i', require("nvim-toggler").toggle)
-
 --LSP-zero keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "LSP actions",
@@ -155,10 +152,10 @@ end)
 --Harpoon with telescope setup and keymaps
 local harpoon = require("harpoon")
 
-vim.keymap.set("n", "<leader>a", function()
+vim.keymap.set("n", "<C-[>", function()
 	harpoon:list():add()
 end)
-vim.keymap.set("n", "<leader>s", function()
+vim.keymap.set("n", "<C-]>", function()
 	harpoon:list():remove()
 end)
 vim.keymap.set("n", "<leader>1", function()
@@ -173,12 +170,11 @@ end)
 vim.keymap.set("n", "<leader>4", function()
 	harpoon:list():select(4)
 end)
---Toggle previous & next buffers stored within Harpoon list
-vim.keymap.set("n", "<C-S-P>", function()
-	harpoon:list():prev()
+vim.keymap.set("n", "<A-[>", function()
+	harpoon:list():prev() -- go to previous buffer
 end)
-vim.keymap.set("n", "<C-S-N>", function()
-	harpoon:list():next()
+vim.keymap.set("n", "<A-]>", function()
+	harpoon:list():next() -- go to previous buffer
 end)
 
 --Telescope keymaps
@@ -188,7 +184,7 @@ vim.keymap.set("n", "<leader>fgi", builtin.git_files, { desc = "Telescope git fi
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-vim.keymap.set("n", "<leader>fs", function()
+vim.keymap.set("n", "<leader>gr", function()
 	builtin.grep_string({ search = vim.fn.input("Grep >") })
 end, { desc = "Telescope grep" })
 
@@ -197,21 +193,10 @@ end, { desc = "Telescope grep" })
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)                                                                --open a Git window
 vim.keymap.set("n", "<leader>gg", vim.cmd.GitGutterToggle)                                                    --Toggle gitgutter
 vim.keymap.set("n", "<leader>gt", "<cmd>GitGutterLineHighlightsToggle | GitGutterLineNrHighlightsToggle<CR>") --toggle git line highlights
--- vim.keymap.set("n", "<leader>1", vim.cmd.Mason)                                                               --open Mason window
--- vim.keymap.set("n", "<leader>2", vim.cmd.Lazy)                                                                --open Lazy window
 vim.keymap.set("n", "<leader>m", vim.cmd.MinimapToggle)
 vim.keymap.set("n", "<leader>tt", "<cmd>sp | term<CR>")
 
---use this keybind to test some function
-vim.keymap.set("n", "]]]", function()
-	-- print(vim.fn.getcwd())
-	print(vim.fn.expand('%:p:h'))
-end)
-
--- testing new keymaps
-
--- Relative path copy
--- normal buffers
+-- Relative path copy of a buffer
 vim.keymap.set('n', '<C-P>', function()
 	local path = vim.api.nvim_buf_get_name(0)
 	if path == "" then return end
@@ -227,3 +212,110 @@ vim.keymap.set('n', '<leader>X', function()
 		os.execute(vim.fn.shellescape(app) .. " " .. vim.fn.shellescape(dir) .. " &")
 	end
 end, { desc = 'Open current directory with custom application' })
+
+-- toggle boolean and inverses
+local function toggle_logic()
+	-- 1. Define your base relationships here (only one direction needed)
+	local pairs = {
+		-- Logic & Booleans
+		["true"]       = "false",
+		["0"]          = "1",
+		["True"]       = "False",
+		["TRUE"]       = "FALSE",
+		["yes"]        = "no",
+		["Yes"]        = "No",
+		["YES"]        = "NO",
+		["on"]         = "off",
+		["On"]         = "Off",
+		["ON"]         = "OFF",
+
+		-- Comparisons & Operators
+		["=="]         = "!=",
+		["==="]        = "!==",
+		["&&"]         = "||",
+		[">"]          = "<",
+		[">="]         = "<=",
+		["+"]          = "-",
+		["++"]         = "--",
+		["+="]         = "-=",
+
+		-- Visibility & Access (Java/C++/C#)
+		["public"]     = "private",
+		["protected"]  = "private", -- Note: You might want a cycle here instead
+		["static"]     = "dynamic",
+		["const"]      = "var",
+		["let"]        = "const",
+		["readonly"]   = "readwrite",
+
+		-- State & Actions
+		["enable"]     = "disable",
+		["enabled"]    = "disabled",
+		["start"]      = "stop",
+		["open"]       = "close",
+		["opened"]     = "closed",
+		["show"]       = "hide",
+		["visible"]    = "hidden",
+		["valid"]      = "invalid",
+		["success"]    = "failure",
+		["attach"]     = "detach",
+		["lock"]       = "unlock",
+
+		-- Directions & UI Layout
+		["top"]        = "bottom",
+		["left"]       = "right",
+		["up"]         = "down",
+		["high"]       = "low",
+		["height"]     = "width",
+		["inner"]      = "outer",
+		["inside"]     = "outside",
+		["min"]        = "max",
+		["minimum"]    = "maximum",
+		["horizontal"] = "vertical",
+		["row"]        = "column",
+
+		-- Order & Position
+		["first"]      = "last",
+		["prev"]       = "next",
+		["previous"]   = "next",
+		["head"]       = "tail",
+		["push"]       = "pop",
+		["shift"]      = "unshift",
+
+		-- Git & Dev Ops
+		["master"]     = "main",
+		["stage"]      = "unstage",
+		["pull"]       = "push",
+		["get"]        = "set",
+		["define"]     = "undefine",
+	}
+
+	local lookup = {}
+	for k, v in pairs(pairs) do
+		lookup[k] = v
+		lookup[v] = k
+	end
+
+	local word = vim.fn.expand("<cWORD>")
+
+	local clean_word = word:gsub("[%s;,.()]+$", "")
+	local inverse = lookup[clean_word]
+
+	if inverse then
+		local punctuation = word:sub(#clean_word + 1)
+		vim.api.nvim_command("normal! ciW" .. inverse .. punctuation)
+	else
+		print("No toggle found for: " .. clean_word)
+	end
+end
+
+vim.keymap.set("n", "<leader>i", toggle_logic, { desc = "Smart Toggle Inverse" })
+
+
+
+-- testing new keymaps
+
+--use this keybind to test some function
+vim.keymap.set("n", "]]]", function()
+	-- print(vim.fn.getcwd())
+	print(vim.fn.expand('%:p:h'))
+end)

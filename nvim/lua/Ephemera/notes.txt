@@ -1,9 +1,23 @@
-that while status line that shows when reloading or sourceing thing taht need customising
+grep and qflist
+
+and how to use flash nvim
+
+refactor plugins
+
+and colorscheme 
+
+
+asciinema setup
+
+other qol plugins
 
 
 
 
 
+
+
+oo
 
 
 
