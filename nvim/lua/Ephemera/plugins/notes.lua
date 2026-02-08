@@ -35,5 +35,4 @@ return {
 		opts = {},
 		ft = { "markdown" }
 	},
-
 }

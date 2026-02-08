@@ -82,21 +82,43 @@ function Modules.render_left_core()
 		label = "TERMINAL"
 	end
 
-	-- MODE OVERRIDE
+	-- 1. MODE OVERRIDE
+	local is_custom = false
+
+	-- Pre-calculate multicursor status to keep the if-chain clean
+	local mc_ns = vim.api.nvim_get_namespaces()["multiple-cursors"]
+	local has_multicursor = mc_ns and (#vim.api.nvim_buf_get_extmarks(0, mc_ns, 0, -1, {}) > 0)
+
 	if vim.b.venn_enabled then
-		label = "VENN"
-		state = "ins" -- Uses your Visual mode red highlight
+		label, state = "VENN", "Venn"
+		is_custom = true
+	elseif has_multicursor then
+		label, state = "MULTI_CURSOR", "Mul"
+		is_custom = true
 	end
-	-- Define groups
-	local info_group = "Info" .. state
-	local sep_group  = "Sep" .. state .. "Trans"
 
+	-- Define highlight group names
+	local mode_group    = "Mode" .. state
+	local mid_sep_group = "Sep" .. state .. "A"
 
-	-- DYNAMICALLY CREATE SEPARATOR HIGHLIGHT
-	Modules.set_bridge_hl(sep_group, info_group, "StatusBody", true)
+	-- logic fix: use "InfoNorm" or "InfoVis" for custom modes instead of "InfoVenn"
+	local info_state    = is_custom and (m:match("^[vV\22]") and "Vis" or "Norm") or state
+	local info_group    = "Info" .. info_state
+	local end_sep_group = "Sep" .. info_state .. "Trans"
 
-	-- local mode_block = "%#Mode" .. state .. "# " .. label .. " %#Sep" .. state .. "A# "
-	local mode_block = "%#Mode" .. state .. "# " .. label .. " %#Sep" .. state .. "A#"
+	-- DYNAMICALLY CREATE SEPARATOR HIGHLIGHTS
+	-- 1. Bridge Custom Mode -> Standard Info (Transitions from VENN/MULTI colors to Normal/Visual colors)
+	Modules.set_bridge_hl(mid_sep_group, mode_group, info_group, true)
+
+	-- 2. Bridge Standard Info -> StatusBody
+	Modules.set_bridge_hl(end_sep_group, info_group, "StatusBody", true)
+
+	-- Construct the Mode Block
+	local mode_block = string.format(
+		"%%#%s# %s %%#%s#",
+		mode_group, label, mid_sep_group
+	)
+
 	local branch = (_G.git_branch ~= "") and (_G.git_branch .. "┆ ") or " "
 	local mod = vim.bo.modified and " 𔒝 " or ""
 
@@ -134,10 +156,95 @@ function Modules.render_left_core()
 	return table.concat({
 		mode_block,
 		"%#" .. info_group .. "#" .. info_content .. mod .. "%r ",
-		"%#" .. sep_group .. "# %#StatusBody#"
-		-- "%#" .. sep_group .. # %#StatusBody#"
+		"%#" .. end_sep_group .. "# %#StatusBody#"
 	})
 end
+
+-- function Modules.render_left_core()
+-- 	local m, state, label = vim.fn.mode(), "Norm", "NORMAL"
+-- 	if m == 'i' then
+-- 		state, label = "Ins", "INSERT"
+-- 	elseif m:match("^[vV\22]") then
+-- 		state, label = "Vis", "VISUAL"
+-- 	elseif m == 'c' then
+-- 		label = "COMMAND"
+-- 	elseif m == 'R' then
+-- 		label = "REPLACE"
+-- 	elseif m == 't' then
+-- 		label = "TERMINAL"
+-- 	end
+
+-- 	-- 1. MODE OVERRIDE
+-- 	if vim.b.venn_enabled then
+-- 		label, state = "VENN", "Venn"
+-- 	else
+-- 		local mc_ns = vim.api.nvim_get_namespaces()["multiple-cursors"]
+-- 		if mc_ns and #vim.api.nvim_buf_get_extmarks(0, mc_ns, 0, -1, {}) > 0 then
+-- 			label, state = "MULTI_CURSOR", "Mul"
+-- 		end
+-- 	end
+
+-- 	-- Define highlight group names
+-- 	local mode_group    = "Mode" .. state
+-- 	local info_group    = "Info" .. state
+-- 	local mid_sep_group = "Sep" .. state .. "A"     -- The separator after the label ()
+-- 	local end_sep_group = "Sep" .. state .. "Trans" -- The separator at the end ()
+
+-- 	-- DYNAMICALLY CREATE SEPARATOR HIGHLIGHTS
+-- 	-- 1. Bridge Mode -> Info (This fixes the first separator )
+-- 	Modules.set_bridge_hl(mid_sep_group, mode_group, info_group, true)
+
+-- 	-- 2. Bridge Info -> StatusBody (This fixes the tail )
+-- 	Modules.set_bridge_hl(end_sep_group, info_group, "StatusBody", true)
+
+-- 	-- Construct the Mode Block with the correct separator highlight
+-- 	local mode_block = string.format(
+-- 		"%%#%s# %s %%#%s#",
+-- 		mode_group, label, mid_sep_group
+-- 	)
+
+-- 	local branch = (_G.git_branch ~= "") and (_G.git_branch .. "┆ ") or " "
+-- 	local mod = vim.bo.modified and " 𔒝 " or ""
+
+-- 	local filename_text, icon, icon_hl = "", "", info_group
+-- 	local ft = vim.bo.filetype
+-- 	local devicons_ok, devicons = pcall(require, "nvim-web-devicons")
+
+-- 	if ft_map[ft] then
+-- 		local entry = ft_map[ft]
+-- 		filename_text = entry.name
+-- 		icon = entry.icon
+-- 		-- Manual Icon Highlight
+-- 		local mode_bg = vim.api.nvim_get_hl(0, { name = info_group }).bg
+-- 		vim.api.nvim_set_hl(0, "SlCustomIcon" .. ft, { fg = entry.color, bg = mode_bg, bold = true })
+-- 		icon_hl = "SlCustomIcon" .. ft
+-- 	else
+-- 		local fname = vim.fn.expand("%:t")
+-- 		filename_text = (fname == "") and "[No Name]" or fname
+-- 		if devicons_ok then
+-- 			local d_icon, d_hl = devicons.get_icon(fname, vim.fn.expand("%:e"), { default = true })
+-- 			icon = d_icon or ""
+-- 			local d_hl_data = vim.api.nvim_get_hl(0, { name = d_hl or "" })
+-- 			local mode_bg = vim.api.nvim_get_hl(0, { name = info_group }).bg
+-- 			vim.api.nvim_set_hl(0, "SlIcon" .. (d_hl or "Def"), { fg = d_hl_data.fg, bg = mode_bg, bold = true })
+-- 			icon_hl = "SlIcon" .. (d_hl or "Def")
+-- 		else
+-- 			icon = "📜"
+-- 		end
+-- 	end
+
+-- 	local icon_comp = "%#" .. icon_hl .. "#" .. icon .. "%#" .. info_group .. "# "
+-- 	local info_content = (branch ~= " ") and (branch .. icon_comp .. filename_text) or
+-- 		(" " .. icon_comp .. filename_text)
+
+-- 	return table.concat({
+-- 		mode_block,
+-- 		"%#" .. info_group .. "#" .. info_content .. mod .. "%r ",
+-- 		"%#" .. end_sep_group .. "# %#StatusBody#"
+-- 		-- "%#" .. sep_group .. "# %#StatusBody#"
+-- 		-- "%#" .. sep_group .. # %#StatusBody#"
+-- 	})
+-- end
 
 -- --- 2. STAT SECTION ---
 _G.StatState = { mode = 1 }
@@ -166,7 +273,7 @@ function Modules.get_stat_section()
 end
 
 -- --- 3. ADDITIONAL SECTION ---
-_G.AddState = { mode = 3, key_log = { "   ", "   ", "   ", "   " } }
+_G.AddState = { mode = 1, key_log = { "   ", "   ", "   ", "   " } }
 
 function Modules.get_harpoon_tabs()
 	local harpoon_ok, harpoon = pcall(require, "harpoon")
@@ -235,17 +342,15 @@ end
 function Modules.get_additional_section()
 	local mode = _G.AddState.mode
 
-	if mode == 1 then  -- date and time
-		return os.date("┆ %a %b %d %I:%M %p")
+	if mode == 1 then  -- harpoon buffer marks
+		return Modules.get_harpoon_tabs()
 	elseif mode == 2 then -- key logger, meh not the perfect
 		local log = _G.AddState.key_log
-
 		Modules.set_bridge_hl("SlRose", "keyword", "StatusBody", false)
 		local rose_group = "SlRose"
-
 		return string.format("┆ %%#%s#%s%%#StatusBody# %s %s %s ", rose_group, log[1], log[2], log[3], log[4])
-	elseif mode == 3 then -- harpoon buffer marks
-		return Modules.get_harpoon_tabs()
+	elseif mode == 3 then -- date and time
+		return os.date("┆ %a %b %d %I:%M %p")
 	end
 	return ""
 end
@@ -346,7 +451,7 @@ local function update_git()
 		vim.schedule(function()
 			if out.code == 0 then
 				local b = vim.trim(out.stdout)
-				_G.git_branch = (b ~= "") and ("  " .. b .. " ") or ""
+				_G.git_branch = (b ~= "") and ("   " .. b .. " ") or ""
 			else
 				_G.git_branch = ""
 			end
@@ -359,7 +464,7 @@ update_git()
 vim.api.nvim_create_autocmd({ "BufEnter", "DirChanged" }, { callback = update_git })
 
 function Modules.toggle_stat()
-	local modes = 4
+	local modes = 5
 	_G.StatState.mode = (_G.StatState.mode % modes) + 1
 	vim.cmd("redrawstatus")
 end

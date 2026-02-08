@@ -1,18 +1,15 @@
 grep and qflist
 
-and how to use flash nvim
-
-refactor plugins
+and learn how to use flash nvim
+fugitive and stuffs
 
 and colorscheme 
-
-
 asciinema setup
 
 other qol plugins
 
 
-
+git plugins are not installed and setup
 
 
 

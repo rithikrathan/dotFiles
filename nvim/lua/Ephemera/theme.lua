@@ -4,9 +4,9 @@ M.config = {
 	transparent = true,
 	glow = true,
 	show_end_of_buffer = false,
-	
+
 	colors = {
-		fg = "#ffeeee",
+		fg = "#ddcccc",
 		bg = "#04040d",
 		cursor = "#ffa0a0",
 		bgl = "#090909",
@@ -41,42 +41,42 @@ M.config = {
 		warning = "#ffee00",
 		hint = "#00ffee",
 		info = "#14ff6a",
-		
+
 
 		-- Extended Palette
 		orange1 = "#ff9e64",
 		orange2 = "#ff8800",
 		orange3 = "#ff5500",
 		orange4 = "#db4b4b",
-		
+
 		red1    = "#ff0000",
 		red2    = "#ff4444",
 		red3    = "#ff6565",
 		red4    = "#c53b53",
-		
+
 		green1  = "#00ff99",
 		green2  = "#50fa7b",
 		green3  = "#73daca",
 		green4  = "#2e8b57",
-		
+
 		blue1   = "#00e1ff",
 		blue2   = "#61afef",
 		blue3   = "#7aa2f7",
 		blue4   = "#3d59a1",
-		
+
 		purple1 = "#ff00ff",
 		purple2 = "#bd93f9",
 		purple3 = "#c678dd",
 		purple4 = "#9d7cd8",
-		
+
 	},
-	
+
 }
 
 function M.setup(user_config)
 	M.config = vim.tbl_deep_extend("force",
-	M.config,
-	user_config or {})
+		M.config,
+		user_config or {})
 	local colors = M.config.colors
 	local bg_color = M.config.transparent and "NONE" or colors.bg
 	local float_bg = M.config.transparent and "NONE" or colors.pmenu_bg
@@ -119,6 +119,10 @@ function M.setup(user_config)
 		FloatBorder = { fg = colors.border, bg = float_bg },
 		EndOfBuffer = { fg = M.config.show_end_of_buffer and colors.eob or colors.bg, bg = bg_color },
 		WinSeparator = { fg = colors.kw, bg = bg_color },
+
+		-- CUSTOM MODES
+		ModeVenn = { fg = colors.bg, bg = colors.preprocessor, italic = true, bold = true },
+		ModeMul = { fg = colors.bg, bg = colors.blue2, italic = true, bold = true },
 
 		-- STATUSLINE
 		ModeNorm = { fg = colors.bg, bg = colors.kw, italic = true, bold = true },
@@ -259,21 +263,23 @@ function M.setup(user_config)
 
 
 		-- OTHER
-		WelcomeRose = { fg = "#ff5555", bold = true },
-		WelcomeStem = { fg = "#50fa7b", bold = true },
-		WelcomeQuote = { fg = "#a1a1a1", italic = true },
+		WelcomeRose    = { fg = "#ff5555", bold = true },
+		WelcomeStem    = { fg = "#50fa7b", bold = true },
+		WelcomeQuote   = { fg = "#a1a1a1", italic = true },
 
-		-- AERIAL 
-        AerialLine     = { fg = colors.green2, bg = colors.eob, bold = true },   -- Active cursor line in sidebar
-        AerialLineNC   = { fg = colors.comment, bg = bg_color },                 -- Active line when sidebar is not focused
-        AerialGuide    = { fg = colors.eob },                                    -- Vertical guide lines
-        AerialSymbolsl = { fg = colors.func, bg = colors.bgl, bold = true },     -- The Icon in statusline
-        AerialTextsl   = { fg = colors.type, bg = colors.bgl, bold = true },     -- The Text in statusline
+		-- AERIAL
+		AerialLine     = { fg = colors.green2, bg = colors.eob, bold = true }, -- Active cursor line in sidebar
+		AerialLineNC   = { fg = colors.comment, bg = bg_color },         -- Active line when sidebar is not focused
+		AerialGuide    = { fg = colors.eob },                            -- Vertical guide lines
+		AerialSymbolsl = { fg = colors.func, bg = colors.bgl, bold = true }, -- The Icon in statusline
+		AerialTextsl   = { fg = colors.type, bg = colors.bgl, bold = true }, -- The Text in statusline
 
 	}
 
 	-- CMP Kind Icons Loop
-	local kinds = { "Text", "Method", "Function", "Constructor", "Field", "Variable", "Class", "Interface", "Module", "Property", "Unit", "Value", "Enum", "Keyword", "Snippet", "Color", "File", "Reference", "Folder", "EnumMember", "Constant", "Struct", "Event", "Operator", "TypeParameter" }
+	local kinds = { "Text", "Method", "Function", "Constructor", "Field", "Variable", "Class", "Interface", "Module",
+		"Property", "Unit", "Value", "Enum", "Keyword", "Snippet", "Color", "File", "Reference", "Folder", "EnumMember",
+		"Constant", "Struct", "Event", "Operator", "TypeParameter" }
 	for _, kind in ipairs(kinds) do highlight_groups["CmpItemKind" .. kind] = { fg = colors.kw } end
 
 	-- Application Loop

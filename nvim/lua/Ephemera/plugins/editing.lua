@@ -4,11 +4,13 @@ return {
 
 	-- autopairs
 	{
-		'windwp/nvim-autopairs',
-		event = "InsertEnter",
-		config = true,
-		-- ft = { "javascript", "jsx", "tsx", "typescript", "html", "css" }
-	}, -- Autopairs
+		'altermo/ultimate-autopair.nvim',
+		event = { 'InsertEnter', 'CmdlineEnter' },
+		branch = 'v0.6', --recommended as each new version will have breaking changes
+		opts = {
+			--Config goes here
+		},
+	},
 
 	-- idk what this is i forgot
 	{

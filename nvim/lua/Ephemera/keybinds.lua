@@ -8,6 +8,11 @@ vim.keymap.set("i", "<A-k>", "<Up>", { desc = "Move cursor up" })
 vim.keymap.set("i", "<A-o>", '<Esc>o')
 vim.keymap.set("i", "<A-O>", '<Esc>O')
 
+-- treesitter conftext
+vim.keymap.set("n", "[c", function()
+	require("treesitter-context").go_to_context(vim.v.count1)
+end, { silent = true })
+
 -- Undotree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 

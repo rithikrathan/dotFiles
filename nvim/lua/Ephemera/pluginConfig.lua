@@ -65,7 +65,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- completion
 local cmp = require("cmp")
 local lspkind = require("lspkind")
-local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+-- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
 vim.g.cmp_enabled = false
 vim.g.cmp_ghost = false
@@ -167,7 +167,7 @@ cmp.setup.filetype("go", {
 	completion = { completeopt = "menu,menuone,noinsert,noselect" },
 })
 
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+-- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 -- treesitter
 require("nvim-treesitter.configs").setup({
@@ -256,10 +256,6 @@ vim.api.nvim_create_autocmd("FileType", {
 		jdtls.start_or_attach(config)
 	end,
 })
-
-
-
-
 
 -- venn.nvim settings
 function _G.Toggle_venn()

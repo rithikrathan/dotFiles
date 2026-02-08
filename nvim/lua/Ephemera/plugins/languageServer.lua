@@ -106,4 +106,146 @@ return {
 				function() conform.format({ lsp_fallback = true, async = false, timeout_ms = 500 }) end)
 		end
 	},
-}
+	-- context treesitter thing
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		config = function()
+			require 'treesitter-context'.setup {
+				enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+				multiwindow = false, -- Enable multiwindow support.
+				max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+				min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+				line_numbers = true,
+				multiline_threshold = 20, -- Maximum number of lines to show for a single context
+				trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+				mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
+				-- Separator between context and content. Should be a single character string, like '-'.
+				-- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+				separator = nil,
+				zindex = 20, -- The Z-index of the context window
+				on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+			}
+		end
+	},
+
+	-- breadcrumbs
+	-- {
+	-- 	"utilyre/barbecue.nvim",
+	-- 	name = "barbecue",
+	-- 	version = "*",
+	-- 	dependencies = {
+	-- 		"SmiteshP/nvim-navic",
+	-- 		"nvim-tree/nvim-web-devicons", -- optional dependency
+	-- 	},
+
+	-- 	config = function()
+	-- 		-- triggers CursorHold event faster
+	-- 		vim.opt.updatetime = 200
+
+	-- 		require("barbecue").setup({
+	-- 			create_autocmd = false, -- prevent barbecue from updating itself automatically
+	-- 		})
+
+	-- 		vim.api.nvim_create_autocmd({
+	-- 			"WinScrolled", -- or WinResized on NVIM-v0.9 and higher
+	-- 			"BufWinEnter",
+	-- 			"CursorHold",
+	-- 			"InsertLeave",
+
+	-- 			-- include this if you have set `show_modified` to `true`
+	-- 			"BufModifiedSet",
+	-- 		}, {
+	-- 			group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+	-- 			callback = function()
+	-- 				require("barbecue.ui").update()
+	-- 			end,
+	-- 		})
+	-- 	end
+	-- },
+
+	-- refactoring plugin
+	{
+		'ThePrimeagen/refactoring.nvim',
+
+		dependencies = {
+			'nvim-lua/plenary.nvim',
+			'nvim-treesitter/nvim-treesitter',
+		},
+
+		cmd = 'Refactor',
+		keys = {
+			-- 1. THE REFACTOR MENU (The "Prime" way)
+			{
+				'<leader>rr',
+				function() require('refactoring').select_refactor() end,
+				mode = { 'n', 'x' },
+				desc = 'Refactor: Open Menu',
+			},
+
+			-- -- 2. EXTRACTION (Mostly Visual Mode)
+			-- {
+			-- 	'<leader>re',
+			-- 	[[ <Esc><Cmd>Refactor extract <CR>]],
+			-- 	mode = 'x',
+			-- 	desc = 'Refactor: Extract Selection',
+			-- },
+			-- {
+			-- 	'<leader>rf',
+			-- 	[[ <Esc><Cmd>Refactor extract_to_file <CR>]],
+			-- 	mode = 'x',
+			-- 	desc = 'Refactor: Extract to File',
+			-- },
+			-- {
+			-- 	'<leader>rv',
+			-- 	[[ <Esc><Cmd>Refactor extract_var <CR>]],
+			-- 	mode = 'x',
+			-- 	desc = 'Refactor: Extract Variable',
+			-- },
+
+			-- -- 3. INLINE (Normal and Visual)
+			-- {
+			-- 	'<leader>ri',
+			-- 	function() require('refactoring').refactor('Inline Variable') end,
+			-- 	mode = { 'n', 'x' },
+			-- 	desc = 'Refactor: Inline Variable',
+			-- },
+
+			-- -- 4. BLOCK OPERATIONS (Normal Mode)
+			-- {
+			-- 	'<leader>rb',
+			-- 	function() require('refactoring').refactor('Extract Block') end,
+			-- 	mode = 'n',
+			-- 	desc = 'Refactor: Extract Block',
+			-- },
+			-- {
+			-- 	'<leader>rbf',
+			-- 	function() require('refactoring').refactor('Extract Block To File') end,
+			-- 	mode = 'n',
+			-- 	desc = 'Refactor: Extract Block to File',
+			-- },
+		},
+
+		opts = {
+			-- Prompt for function parameters and return types for specific languages
+			prompt_func_param_type = {
+				cpp = true,
+				hpp = true,
+				c = true,
+				h = true,
+				java = true,
+			},
+			prompt_func_return_type = {
+				cpp = true,
+				hpp = true,
+				c = true,
+				h = true,
+				java = true,
+			},
+		},
+		config = function(_, opts)
+			require('refactoring').setup(opts)
+
+			-- Optional: Load Telescope extension if you use Telescope
+			-- require('telescope').load_extension('refactoring')
+		end,
+	} }
