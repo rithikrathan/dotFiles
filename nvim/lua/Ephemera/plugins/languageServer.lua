@@ -106,6 +106,7 @@ return {
 				function() conform.format({ lsp_fallback = true, async = false, timeout_ms = 500 }) end)
 		end
 	},
+
 	-- context treesitter thing
 	{
 		"nvim-treesitter/nvim-treesitter-context",
@@ -246,6 +247,7 @@ return {
 			require('refactoring').setup(opts)
 
 			-- Optional: Load Telescope extension if you use Telescope
-			-- require('telescope').load_extension('refactoring')
+			require('telescope').load_extension('refactoring')
 		end,
-	} }
+	}
+}

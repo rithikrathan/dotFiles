@@ -121,6 +121,35 @@ return {
 			-- vim.keymap.set({ "i", "s" }, "<C-L>", function() ls.jump(1) end)
 			-- vim.keymap.set({ "i", "s" }, "<C-J>", function() ls.jump(-1) end)
 		end
+	},
+
+	-- commentary
+	{
+		"folke/ts-comments.nvim",
+	},
+
+	-- surround
+	{
+		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup()
+
+			-- Visual: wd<char>  → surround with delimiter
+			vim.keymap.set("v", "wd", function()
+				local char = vim.fn.getcharstr()
+				vim.api.nvim_feedkeys("S" .. char, "n", false)
+			end, { silent = true })
+
+			-- Visual: wt<text> → surround with text
+			vim.keymap.set("v", "wt", function()
+				local text = vim.fn.input("Surround with: ")
+				if text ~= "" then
+					vim.api.nvim_feedkeys("S" .. text .. "\n", "n", false)
+				end
+			end, { silent = true })
+		end,
 	}
 
 

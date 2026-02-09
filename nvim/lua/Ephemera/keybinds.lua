@@ -157,10 +157,10 @@ end)
 --Harpoon with telescope setup and keymaps
 local harpoon = require("harpoon")
 
-vim.keymap.set("n", "<C-[>", function()
+vim.keymap.set("n", "<A-h>", function()
 	harpoon:list():add()
 end)
-vim.keymap.set("n", "<C-]>", function()
+vim.keymap.set("n", "<A-g>", function()
 	harpoon:list():remove()
 end)
 vim.keymap.set("n", "<leader>1", function()
@@ -189,9 +189,26 @@ vim.keymap.set("n", "<leader>fgi", builtin.git_files, { desc = "Telescope git fi
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+
+vim.keymap.set({ "n", "v" }, "<leader>va", vim.lsp.buf.code_action)
+
 vim.keymap.set("n", "<leader>gr", function()
 	builtin.grep_string({ search = vim.fn.input("Grep >") })
 end, { desc = "Telescope grep" })
+
+vim.keymap.set("n", "<leader>gq", function()
+	require("telescope.builtin").grep_string({
+		search = vim.fn.input("Grep > "),
+		attach_mappings = function(_, map)
+			map("i", "<CR>", function(prompt_bufnr)
+				require("telescope.actions").send_to_qflist(prompt_bufnr)
+				require("telescope.actions").open_qflist(prompt_bufnr)
+			end)
+			return true
+		end,
+	})
+end, { desc = "Grep → quickfix" })
+
 
 
 --Plugin specific keymaps

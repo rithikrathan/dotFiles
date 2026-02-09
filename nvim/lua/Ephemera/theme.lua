@@ -4,7 +4,17 @@ M.config = {
 	transparent = true,
 	glow = true,
 	show_end_of_buffer = false,
-
+	-- local c = {
+	--     bright3      = '#f6c2a5',
+	--     bright2      = '#ea9a7d',
+	--     bright1      = '#e16a5e',
+	--     normal       = '#d22f32',
+	--     dark1        = '#b1274e',
+	--     dark2        = '#931b46',
+	--     dark3        = '#631033',
+	--     dark4        = '#42001f',
+	--     background   = '#101010',
+	-- }
 	colors = {
 		fg = "#ddcccc",
 		bg = "#04040d",
