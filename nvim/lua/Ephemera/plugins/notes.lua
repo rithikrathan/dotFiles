@@ -8,6 +8,7 @@ return {
 	-- for colours
 	{
 		"uga-rosa/ccc.nvim",
+		event = "VeryLazy",
 		config = function()
 			local ccc = require("ccc")
 			local _mapping = ccc.mapping
@@ -23,6 +24,7 @@ return {
 	-- todo comment highlights
 	{
 		"folke/todo-comments.nvim",
+		event = "VeryLazy",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
 		}
@@ -31,6 +33,7 @@ return {
 	-- render markdown
 	{
 		'MeanderingProgrammer/render-markdown.nvim',
+		event = "VeryLazy",
 		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
 		opts = {},
 		ft = { "markdown" }

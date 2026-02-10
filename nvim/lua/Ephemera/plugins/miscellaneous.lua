@@ -2,6 +2,53 @@ return {
 	{ 'ThePrimeagen/vim-be-good' }, -- Game to learn vim
 
 	{
+		"lukas-reineke/indent-blankline.nvim",
+		mwin = "ibl", -- Tells lizy.nvim to use the 'ibl' module for the default setup
+		event = { "BufReadPost", "BufNewFile" },
+		opts = {
+			-- Core indentation settings
+			indent = {
+				char = "┊", -- Options: "│", "┃", "┆", "┊", ""
+				tab_char = "┊",
+			},
+
+			-- Highlights the block your cursor is currently inside
+			scope = {
+				enabled = true,
+				show_start = false,
+				show_end = false,
+				highlight = { "IblScope" },
+			},
+
+			-- Keeps the plugin from cluttering non-code windows
+			exclude = {
+				filetypes = {
+					"help",
+					"alpha",
+					"dashboard",
+					"neo-tree",
+					"Trouble",
+					"lazy",
+					"mason",
+					"notify",
+					"toggleterm",
+				},
+				buftypes = { "terminal", "nofile" },
+			},
+
+			-- Clean up trailing whitespace lines
+			whitespace = {
+				remove_blankline_trail = true,
+			},
+		},
+
+		config = function(_, opts)
+			vim.api.nvim_set_hl(0, "IblIndent", { fg = "#696969" })
+			vim.api.nvim_set_hl(0, "IblScope", { fg = "#e6b499" })
+			require("ibl").setup(opts)
+		end,
+	},
+	{
 		"nvim-tree/nvim-web-devicons",
 		lazy = false,
 	}, -- devicons
@@ -110,10 +157,71 @@ return {
 	{
 		'vyfor/cord.nvim',
 		build = ':Cord update',
-		-- opts = {}
 	},
 
+	-- screenkey
+	{
+		"NStefan002/screenkey.nvim",
+		lazy = false,
+		version = "*",
+		config = function()
+			require("screenkey").setup({
+				compress_after = 3,
+				clear_after = 2,
+				win_opts = {
+					row = vim.o.lines - vim.o.cmdheight - 1,
+					col = vim.o.columns - 1,
+					relative = "editor",
+					anchor = "SE",
+					width = 20,
+					height = 1,
+					border = "single",
+					title = "Keylog",
+					title_pos = "center",
+					style = "minimal",
+					focusable = false,
+					noautocmd = true,
+				},
+			})
+		end,
+	},
+	{
+		"rcarriga/nvim-notify",
+		keys = {
+			{
+				"<leader>un",
+				function()
+					require("notify").dismiss({ silent = true, pending = true })
+				end,
+				desc = "Dismiss All Notifications",
+			},
+		},
+		opts = {
+			-- How long the notification stays on screen (in ms)
+			timeout = 2000,
 
+			-- Animation style: "fade", "slide", "fade_in_slide_out", "static"
+			stages = "fade_in_slide_out",
 
+			-- Transparency (0 is opaque, 100 is fully transparent)
+			background_colour = "#000000",
 
+			max_width = 50,
+
+			icons = {
+				ERROR = "",
+				WARN = "",
+				INFO = "",
+				DEBUG = "",
+				TRACE = "✎",
+			},
+		},
+		config = function(_, opts)
+			local notify = require("notify")
+			notify.setup(opts)
+
+			-- This line makes nvim-notify the default for all Neovim messages
+			vim.notify = notify
+		end,
+	}
 }

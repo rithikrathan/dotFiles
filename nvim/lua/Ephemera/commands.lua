@@ -85,9 +85,6 @@ end
 --  USER DEFINED COMMANDS:
 -- ============================================================================
 -- Setstatus
--- ============================================================================
---  STATUS MESSAGE & AERIAL LOGIC (DO NOT SKIP)
--- ============================================================================
 
 _G.statusMessage = ""
 local last_recorded_symbol = ""
@@ -210,3 +207,21 @@ vim.api.nvim_create_user_command('HarpoonOnly', function()
 
 	print(string.format("󰀱 Kept Harpoon buffers. Closed %d others.", closed_count))
 end, { desc = "Close all buffers not marked in Harpoon" })
+
+-- Lock the cursorline to the center like a typewriter
+vim.api.nvim_create_user_command('LockIn', function()
+	local current_scrolloff = vim.opt.scrolloff:get()
+
+	if current_scrolloff < 999 then
+		vim.opt.scrolloff = 999
+		print("Cursor Locked: Center")
+	else
+		vim.opt.scrolloff = 5
+		print("Cursor Unlocked")
+	end
+end, { desc = "Toggle typewriter-style center cursor lock" })
+
+-- disable figet
+vim.api.nvim_create_user_command('UnFiget', function()
+	require("fidget").notification.toggle()
+end, { desc = "disable the fige notification" })

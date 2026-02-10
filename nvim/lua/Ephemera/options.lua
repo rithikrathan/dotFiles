@@ -4,7 +4,7 @@ vim.g.have_nerd_font = true
 vim.opt.mouse = "a"
 vim.opt.timeoutlen = 273
 vim.opt.signcolumn = "yes"
-vim.opt.laststatus = 3 
+vim.opt.laststatus = 3
 vim.g.netrw_winsize = 25
 vim.g.netrw_banner = 1
 vim.g.netrw_localcopydircmd = 'cp -r'
@@ -28,6 +28,8 @@ vim.opt.autoread = true
 vim.opt.splitbelow = true
 vim.opt.list = true
 vim.opt.listchars = { tab = "┊ ", trail = ".", nbsp = "␣" }
+vim.opt.guicursor = "n:block,i:hor20,v:hor25,r:hor50"
+-- vim.opt.guicursor = "n:block,i:hor20,v:hor,r:hor50"
 
 -- folding
 vim.opt.foldmethod = "expr"

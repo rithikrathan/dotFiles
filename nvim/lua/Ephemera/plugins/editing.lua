@@ -16,6 +16,7 @@ return {
 	{
 		"Jezda1337/nvim-html-css",
 		dependencies = { "hrsh7th/nvim-cmp", "nvim-treesitter/nvim-treesitter" },
+		event = "VeryLazy",
 		ft = { "javascript", "jsx", "tsx", "typescript", "html", "css" },
 		config = function()
 			require("html-css").setup({
@@ -30,7 +31,8 @@ return {
 
 	{
 		"windwp/nvim-ts-autotag",
-		event = "InsertEnter",
+		-- event = "InsertEnter",
+		event = "VeryLazy",
 		config = function()
 			require('nvim-ts-autotag').setup({ opts = { enable_close = true, enable_rename = true } })
 		end
@@ -38,17 +40,18 @@ return {
 	}, -- Autotag
 
 	-- emmet
-	{
-		"olrtg/nvim-emmet",
-		config = function()
-			vim.keymap.set({ "n", "v" }, '<leader>hw', require('nvim-emmet').wrap_with_abbreviation)
-		end,
-		ft = { "javascript", "jsx", "tsx", "typescript", "html", "css" }
-	},
+	-- {
+	-- 	"olrtg/nvim-emmet",
+	-- 	config = function()
+	-- 		vim.keymap.set({ "n", "v" }, '<leader>hw', require('nvim-emmet').wrap_with_abbreviation)
+	-- 	end,
+	-- 	ft = { "javascript", "jsx", "tsx", "typescript", "html", "css" }
+	-- },
 
 	{
 		"mattn/emmet-vim",
 		ft = { "html", "css", "javascript", "typescript", "jsx", "tsx" },
+		event = "VeryLazy",
 		init = function()
 			vim.g.user_emmet_leader_key = "]]" -- default
 		end,
@@ -84,8 +87,17 @@ return {
 	-- > also add the mode text for this like MULTI CURSOR or something idk
 	{
 		"brenton-leighton/multiple-cursors.nvim",
+		event = "VeryLazy",
 		version = "*",
 		opts = {
+			pre_hook = function()
+				require("cmp").setup({ enabled = false })
+				require('ultimate-autopair').disable()
+			end,
+			post_hook = function()
+				require("cmp").setup({ enabled = true })
+				require('ultimate-autopair').enable()
+			end,
 			custom_key_maps = {
 				{ "n", "<Leader>al", function() require("multiple-cursors").align() end },
 			}
@@ -112,6 +124,7 @@ return {
 	-- luasnip
 	{
 		"L3MON4D3/LuaSnip",
+		event = "VeryLazy",
 		dependencies = { "rafamadriz/friendly-snippets", "saadparwaiz1/cmp_luasnip" },
 		config = function()
 			local ls = require("luasnip")
@@ -135,22 +148,6 @@ return {
 		event = "VeryLazy",
 		config = function()
 			require("nvim-surround").setup()
-
-			-- Visual: wd<char>  → surround with delimiter
-			vim.keymap.set("v", "wd", function()
-				local char = vim.fn.getcharstr()
-				vim.api.nvim_feedkeys("S" .. char, "n", false)
-			end, { silent = true })
-
-			-- Visual: wt<text> → surround with text
-			vim.keymap.set("v", "wt", function()
-				local text = vim.fn.input("Surround with: ")
-				if text ~= "" then
-					vim.api.nvim_feedkeys("S" .. text .. "\n", "n", false)
-				end
-			end, { silent = true })
-		end,
+		end
 	}
-
-
 }

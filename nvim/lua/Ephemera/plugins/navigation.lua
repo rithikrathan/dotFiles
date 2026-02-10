@@ -6,7 +6,7 @@ return {
 			require("oil").setup({
 
 				default_file_explorer = false,
-				-- The highlights above will automatically color these columns
+				-- The highlights above will automwtically color these columns
 
 				columns = {
 					"permissions",
@@ -67,9 +67,6 @@ return {
 		dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 
-	-- Undotree
-	{ "mbbill/undotree" },
-
 	-- Harpoon
 	{
 		"ThePrimeagen/harpoon",
@@ -97,12 +94,9 @@ return {
 
 	-- fzf ik I got the telescope like shut the fuck up its my config
 	{
-		"junegunn/fzf",
-		build = "./install --bin",
-	},
-	{
 		"junegunn/fzf.vim",
 		dependencies = { "junegunn/fzf" },
+		event = "VeryLazy",
 	}
 
 }

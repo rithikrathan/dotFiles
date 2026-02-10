@@ -6,8 +6,107 @@ asciinema setup
 
 other qol plugins
 
+add screenkey to the statusline instead of your solution
 
 
+
+
+
+Lazy-loading rules (high impact, simple)
+
+LSP-related
+event = { "BufReadPre", "BufNewFile" }
+
+
+Apply to:
+
+nvim-lspconfig
+
+mason.nvim
+
+mason-lspconfig.nvim
+
+fidget.nvim
+
+lspkind.nvim
+
+Completion
+event = "InsertEnter"
+
+
+Apply to:
+
+nvim-cmp
+
+cmp-buffer
+
+cmp-path
+
+cmp-calc
+
+cmp-nvim-lsp
+
+cmp-cmdline
+
+cmp-spell
+
+cmp-rg
+
+LuaSnip
+
+friendly-snippets
+
+Treesitter
+event = { "BufReadPost", "BufNewFile" }
+
+
+Apply to:
+
+nvim-treesitter
+
+nvim-treesitter-textobjects
+
+nvim-ts-autotag
+
+ts-comments
+
+treesitter-context
+
+Git
+event = { "BufReadPost" }
+
+
+Apply to:
+
+gitsigns.nvim
+
+vim-fugitive
+
+diffview.nvim (if added)
+
+UI / QoL
+event = "VeryLazy"
+
+
+Apply to:
+
+flash.nvim
+
+tiny-inline-diagnostic.nvim
+
+todo-comments.nvim
+
+quicker.nvim
+
+undotree
+
+venn.nvim
+
+cord.nvim
+
+Telescope / FZF
+cmd = "Telescope"
+cmd = { "FZF", "Files", "Rg" }
 
 
 

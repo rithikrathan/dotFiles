@@ -24,6 +24,8 @@ return {
 				window = {
 					winblend = 0, -- Background transparency (0 is opaque)
 					max_width = 30, -- Limits how wide the box can get
+					align = "top",
+					relative = "editor",
 					max_height = 10, -- Limits how many lines it shows
 					border = "single", -- Thin border makes it look smaller
 					zindex = 45, -- Keeps it below other UI elements if needed
@@ -35,6 +37,12 @@ return {
 				},
 			},
 		},
+		config = function()
+			vim.keymap.set("n", "<leader>fn", function()
+				require("fidget").notification.toggle()
+			end, { desc = "Toggle Fidget Notifications" })
+		end
+
 	}, --  lsp notifications
 
 	{
@@ -113,17 +121,16 @@ return {
 		config = function()
 			require 'treesitter-context'.setup {
 				enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-				multiwindow = false, -- Enable multiwindow support.
-				max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+				multiwindow = true, -- Enable multiwindow support.
+				max_lines = 1, -- How many lines the window should span. Values <= 0 mean no limit.
 				min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
 				line_numbers = true,
-				multiline_threshold = 20, -- Maximum number of lines to show for a single context
+				multiline_threshold = 14, -- Maximum number of lines to show for a single context
 				trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
 				mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
-				-- Separator between context and content. Should be a single character string, like '-'.
-				-- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-				separator = nil,
-				zindex = 20, -- The Z-index of the context window
+				-- separator = "·", -- This creates a subtle dotted line across the screen
+				-- separator = "┄", -- Alternative: Unicode dashed line for a "dashed" look
+				separator = "-", -- Alternative: Standard dash			zindex = 20, -- The Z-index of the context window
 				on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 			}
 		end
@@ -164,10 +171,49 @@ return {
 	-- 	end
 	-- },
 
+	-- trouble whateverthis is
+	-- {
+	-- 	"folke/trouble.nvim",
+	-- 	opts = {}, -- for default options, refer to the configuration section for custom setup.
+	-- 	cmd = "Trouble",
+	-- 	keys = {
+	-- 		{
+	-- 			"<leader>xx",
+	-- 			"<cmd>Trouble diagnostics toggle<cr>",
+	-- 			desc = "Diagnostics (Trouble)",
+	-- 		},
+	-- 		{
+	-- 			"<leader>xX",
+	-- 			"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+	-- 			desc = "Buffer Diagnostics (Trouble)",
+	-- 		},
+	-- 		{
+	-- 			"<leader>cs",
+	-- 			"<cmd>Trouble symbols toggle focus=false<cr>",
+	-- 			desc = "Symbols (Trouble)",
+	-- 		},
+	-- 		{
+	-- 			"<leader>cl",
+	-- 			"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+	-- 			desc = "LSP Definitions / references / ... (Trouble)",
+	-- 		},
+	-- 		{
+	-- 			"<leader>xL",
+	-- 			"<cmd>Trouble loclist toggle<cr>",
+	-- 			desc = "Location List (Trouble)",
+	-- 		},
+	-- 		{
+	-- 			"<leader>xQ",
+	-- 			"<cmd>Trouble qflist toggle<cr>",
+	-- 			desc = "Quickfix List (Trouble)",
+	-- 		},
+	-- 	},
+	-- },
+
 	-- refactoring plugin
 	{
 		'ThePrimeagen/refactoring.nvim',
-
+		event = "VeryLazy",
 		dependencies = {
 			'nvim-lua/plenary.nvim',
 			'nvim-treesitter/nvim-treesitter',

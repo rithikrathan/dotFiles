@@ -237,102 +237,119 @@ end, { desc = 'Open current directory with custom application' })
 
 -- toggle boolean and inverses
 local function toggle_logic()
-	-- 1. Define your base relationships here (only one direction needed)
-	local pairs = {
+	local toggle_map = {
 		-- Logic & Booleans
-		["true"]       = "false",
-		["0"]          = "1",
-		["True"]       = "False",
-		["TRUE"]       = "FALSE",
-		["yes"]        = "no",
-		["Yes"]        = "No",
-		["YES"]        = "NO",
-		["on"]         = "off",
-		["On"]         = "Off",
-		["ON"]         = "OFF",
+		["true"] = "false",
+		["0"] = "1",
+		["True"] = "False",
+		["TRUE"] = "FALSE",
+		["yes"] = "no",
+		["Yes"] = "No",
+		["YES"] = "NO",
+		["on"] = "off",
+		["On"] = "Off",
+		["ON"] = "OFF",
 
 		-- Comparisons & Operators
-		["=="]         = "!=",
-		["==="]        = "!==",
-		["&&"]         = "||",
-		[">"]          = "<",
-		[">="]         = "<=",
-		["+"]          = "-",
-		["++"]         = "--",
-		["+="]         = "-=",
+		["=="] = "!=",
+		["==="] = "!==",
+		["&&"] = "||",
+		["and"] = "or",
+		[">"] = "<",
+		[">="] = "<=",
+		["+"] = "-",
+		["++"] = "--",
+		["+="] = "-=",
 
-		-- Visibility & Access (Java/C++/C#)
-		["public"]     = "private",
-		["protected"]  = "private", -- Note: You might want a cycle here instead
-		["static"]     = "dynamic",
-		["const"]      = "var",
-		["let"]        = "const",
-		["readonly"]   = "readwrite",
+		-- Visibility & Access
+		["public"] = "private",
+		["protected"] = "private",
+		["static"] = "dynamic",
+		["const"] = "let",
+		["readonly"] = "readwrite",
 
 		-- State & Actions
-		["enable"]     = "disable",
-		["enabled"]    = "disabled",
-		["start"]      = "stop",
-		["open"]       = "close",
-		["opened"]     = "closed",
-		["show"]       = "hide",
-		["visible"]    = "hidden",
-		["valid"]      = "invalid",
-		["success"]    = "failure",
-		["attach"]     = "detach",
-		["lock"]       = "unlock",
+		["enable"] = "disable",
+		["enabled"] = "disabled",
+		["start"] = "stop",
+		["open"] = "close",
+		["opened"] = "closed",
+		["show"] = "hide",
+		["visible"] = "hidden",
+		["valid"] = "invalid",
+		["success"] = "failure",
+		["attach"] = "detach",
+		["lock"] = "unlock",
+		["bind"] = "unbind",
 
 		-- Directions & UI Layout
-		["top"]        = "bottom",
-		["left"]       = "right",
-		["up"]         = "down",
-		["high"]       = "low",
-		["height"]     = "width",
-		["inner"]      = "outer",
-		["inside"]     = "outside",
-		["min"]        = "max",
-		["minimum"]    = "maximum",
+		["top"] = "bottom",
+		["left"] = "right",
+		["up"] = "down",
+		["high"] = "low",
+		["height"] = "width",
+		["inner"] = "outer",
+		["inside"] = "outside",
+		["min"] = "max",
+		["minimum"] = "maximum",
 		["horizontal"] = "vertical",
-		["row"]        = "column",
+		["row"] = "column",
+		["inline"] = "block",
+
+		-- Flex & Grid
+		["flex"] = "grid",
+		["around"] = "between",
+		["relative"] = "absolute",
 
 		-- Order & Position
-		["first"]      = "last",
-		["prev"]       = "next",
-		["previous"]   = "next",
-		["head"]       = "tail",
-		["push"]       = "pop",
-		["shift"]      = "unshift",
+		["first"] = "last",
+		["prev"] = "next",
+		["previous"] = "next",
+		["head"] = "tail",
+		["push"] = "pop",
+		["shift"] = "unshift",
 
-		-- Git & Dev Ops
-		["master"]     = "main",
-		["stage"]      = "unstage",
-		["pull"]       = "push",
-		["get"]        = "set",
-		["define"]     = "undefine",
+		-- HTTP & DevOps
+		["get"] = "post",
+		["put"] = "delete",
+		["master"] = "main",
+		["stage"] = "unstage",
+		["pull"] = "push",
+		["define"] = "undefine",
 	}
 
 	local lookup = {}
-	for k, v in pairs(pairs) do
+	for k, v in pairs(toggle_map) do
 		lookup[k] = v
 		lookup[v] = k
 	end
 
-	local word = vim.fn.expand("<cWORD>")
+	-- Use <cWORD> to get the full string including symbols
+	local full_word = vim.fn.expand("<cWORD>")
 
-	local clean_word = word:gsub("[%s;,.()]+$", "")
-	local inverse = lookup[clean_word]
+	-- This pattern splits the string into: [Leading Symbols][The Word][Trailing Symbols]
+	-- %W* = Non-word characters (brackets, dots, etc.)
+	-- [%w_!=<>%&%|%+%-%*%/^%%#]+ = The "Core" (letters, numbers, and common operators)
+	local lead, core, trail = full_word:match("^(%W*)([%w_!=<>%&%|%+%-%*%/^%%#]+)(%W*)$")
 
-	if inverse then
-		local punctuation = word:sub(#clean_word + 1)
-		vim.api.nvim_command("normal! ciW" .. inverse .. punctuation)
+	if core and lookup[core] then
+		local inverse = lookup[core]
+		-- Reassemble the word with its original surrounding characters
+		local replacement = lead .. inverse .. trail
+
+		-- Use 'set_current_line' for a surgical strike that won't trigger unwanted motions
+		local line = vim.api.nvim_get_current_line()
+		local col = vim.api.nvim_win_get_cursor(0)[2]
+
+		-- Replace the <cWORD> at the cursor position
+		-- We use vim.fn.setline to make sure undo history is preserved nicely
+		vim.cmd("normal! ciW" .. replacement)
 	else
-		print("No toggle found for: " .. clean_word)
+		print("No toggle found for core: " .. (core or "nil"))
 	end
 end
 
 vim.keymap.set("n", "<leader>i", toggle_logic, { desc = "Smart Toggle Inverse" })
-
-
 
 -- testing new keymaps
 
