@@ -135,10 +135,10 @@ local function apply_cmp()
 
 		sources = {
 			{ name = "nvim_lsp" },
-			{ name = "verible" },
 			{ name = "path" },
-			{ name = "luasnip" },
+			{ name = "verible" },
 			{ name = "html-css" },
+			{ name = "luasnip" },
 			{
 				name = "buffer",
 				option = {

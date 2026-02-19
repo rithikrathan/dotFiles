@@ -85,9 +85,18 @@ function Modules.render_left_core()
 	-- 1. MODE OVERRIDE
 	local is_custom = false
 
-	-- Pre-calculate multicursor status to keep the if-chain clean
+	-- Pre-calculate multicursor status
 	local mc_ns = vim.api.nvim_get_namespaces()["multiple-cursors"]
-	local has_multicursor = mc_ns and (#vim.api.nvim_buf_get_extmarks(0, mc_ns, 0, -1, {}) > 0)
+
+	-- Plugin 1: Standard Namespace/Extmark approach
+	local has_extmark_cur = mc_ns and (#vim.api.nvim_buf_get_extmarks(0, mc_ns, 0, -1, {}) > 0)
+
+	-- Plugin 2: jake-stewart/multicursor.nvim
+	local jake_ok, jake_api = pcall(require, "multicursor-nvim")
+	local has_jake_cur = jake_ok and jake_api.hasCursors()
+
+	-- The unified boolean for your statusline
+	local has_multicursor = has_extmark_cur or has_jake_cur
 
 	if vim.b.venn_enabled then
 		label, state = "VENN", "Venn"

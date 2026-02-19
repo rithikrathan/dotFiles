@@ -223,5 +223,25 @@ return {
 			-- This line makes nvim-notify the default for all Neovim messages
 			vim.notify = notify
 		end,
+	},
+
+	{
+		'zeybek/camouflage.nvim',
+		event = 'VeryLazy',
+		opts = {},
+		keys = {
+			-- { '<leader>ct', '<cmd>CamouflageToggle<cr>',       desc = 'Toggle Camouflage' },
+			-- { '<leader>cr', '<cmd>CamouflageReveal<cr>',       desc = 'Reveal Line' },
+			{ '<leader>cy', '<cmd>CamouflageYank<cr>', desc = 'Yank Value' },
+			-- { '<leader>cf', '<cmd>CamouflageFollowCursor<cr>', desc = 'Follow Cursor' },
+		},
+	},
+
+	{
+		"zion-off/mole.nvim",
+		event = "VeryLazy",
+		dependencies = { "MunifTanjim/nui.nvim" },
+		opts = {},
 	}
+
 }

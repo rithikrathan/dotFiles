@@ -8,6 +8,21 @@ vim.keymap.set("i", "<A-k>", "<Up>", { desc = "Move cursor up" })
 vim.keymap.set("i", "<A-o>", '<Esc>o')
 vim.keymap.set("i", "<A-O>", '<Esc>O')
 
+-- Toggle github/copilot.vim plugin
+vim.keymap.set("n", "<leader>cp", function()
+	-- 0 means disabled, 1 means enabled
+	if vim.g.copilot_enabled == 1 or vim.g.copilot_enabled == nil then
+		vim.cmd("Copilot disable")
+		-- Explicitly set the global var just in case
+		vim.g.copilot_enabled = 0
+		print("Copilot Sleep Mode ")
+	else
+		vim.cmd("Copilot enable")
+		vim.g.copilot_enabled = 1
+		print("Copilot Active ")
+	end
+end, { desc = "Toggle Copilot (github/copilot.vim)" })
+
 -- treesitter conftext
 vim.keymap.set("n", "[c", function()
 	require("treesitter-context").go_to_context(vim.v.count1)
@@ -43,11 +58,11 @@ vim.keymap.set("n", "L", "g_")
 vim.keymap.set("v", "<leader>dd", "y'>p")
 
 -- Wraps
-vim.keymap.set("v", "<leader>wp", ":s/\\%V.*\\%V/(&)/ | nohl<CR>")
-vim.keymap.set("v", "<leader>wpp", ":s/\\%V.*\\%V/{&}/ | nohl<CR>")
-vim.keymap.set("v", "<leader>wqq", ':s/\\%V.*\\%V/"&"/ | nohl<CR>')
-vim.keymap.set("v", "<leader>wq", ":s/\\%V.*\\%V/'&'/ | nohl<CR>")
-vim.keymap.set("v", "<leader>wb", ":s/\\%V.*\\%V/`&`/ | nohl<CR>")
+-- vim.keymap.set("v", "<leader>wp", ":s/\\%V.*\\%V/(&)/ | nohl<CR>")
+-- vim.keymap.set("v", "<leader>wpp", ":s/\\%V.*\\%V/{&}/ | nohl<CR>")
+-- vim.keymap.set("v", "<leader>wqq", ':s/\\%V.*\\%V/"&"/ | nohl<CR>')
+-- vim.keymap.set("v", "<leader>wq", ":s/\\%V.*\\%V/'&'/ | nohl<CR>")
+-- vim.keymap.set("v", "<leader>wb", ":s/\\%V.*\\%V/`&`/ | nohl<CR>")
 
 -- Misc Insert helpers
 vim.keymap.set("i", "<leader>fjk", "<><left>")
@@ -157,10 +172,10 @@ end)
 --Harpoon with telescope setup and keymaps
 local harpoon = require("harpoon")
 
-vim.keymap.set("n", "<A-h>", function()
+vim.keymap.set("n", "<leader>a", function()
 	harpoon:list():add()
 end)
-vim.keymap.set("n", "<A-g>", function()
+vim.keymap.set("n", "<leader>s", function()
 	harpoon:list():remove()
 end)
 vim.keymap.set("n", "<leader>1", function()

@@ -37,9 +37,11 @@ M.config = {
 		preprocessor = "#4b8902",
 		bool = "#ffa07a",
 		constant = "#f59064",
-		added = "#baffc9",
-		changed = "#ffffba",
-		removed = "#ffb3ba",
+
+		added = "#4b8902",
+		changed = "#ff8800",
+		removed = "#ff0000",
+
 		pmenu_bg = "#17171d",
 		pmenu_sel_bg = "#fa3e19",
 		pmenu_fg = "#fc6142",
@@ -95,6 +97,7 @@ function M.setup(user_config)
 
 		-- CORE UI
 		Folded = { fg = colors.bool, bg = bg_color, italic = true, bold = true },
+		LspSignatureActiveParameter = { bg = bg_color, italic = true },
 
 		MsgSeparator = { bg = colors.bgl },
 		-- MsgArea =    { bg = bg_color },
@@ -120,7 +123,7 @@ function M.setup(user_config)
 		Constant = { fg = colors.constant },
 		Search = { bg = "#5631a6", fg = "#ffffff", bold = true },
 		IncSearch = { bg = "#ff3e0b", fg = "#440000", bold = true },
-		CurSearch = { bg = "#ff5555", fg = "#090909", bold = true },
+		CurSearch = { fg = "#000000", bg = "#ff5555", bold = true },
 		Operator = { fg = colors.operator },
 		Delimiter = { fg = colors.bracket },
 		Pmenu = { fg = colors.pmenu_fg, bg = colors.pmenu_bg },
@@ -265,8 +268,19 @@ function M.setup(user_config)
 		DiagnosticUnderlineInfo = { gui = "underline", sp = colors.info },
 
 		-- MULTICURSOR
+
+		-- first plugin
 		MultipleCursorsCursor = { bg = "#00FFFF", fg = "#000000" },
 		MultipleCursorsVisual = { bg = "#b294bb", fg = "#000000" },
+
+		-- second plugin
+		MultiCursorCursor = { bg = "#00FFFF", fg = "#000000" },
+		MultiCursorVisual = { bg = "#b294bb", fg = "#000000" },
+		MultiCursorSign = { link = "SignColumn" },
+		MultiCursorMatchPreview = { link = "Search" },
+		MultiCursorDisabledCursor = { bg = "#00FFFF", fg = "#000000" },
+		MultiCursorDisabledVisual = { bg = "#b294bb", fg = "#000000" },
+		MultiCursorDisabledSign = { link = "SignColumn" },
 
 		-- FLASH
 		FlashLabel = { bg = "#FF9E64", fg = "#000000", bold = true },
@@ -278,9 +292,9 @@ function M.setup(user_config)
 		WelcomeQuote   = { fg = "#a1a1a1", italic = true },
 
 		-- AERIAL
-		AerialLine     = { fg = colors.green2, bg = colors.eob, bold = true }, -- Active cursor line in sidebar
-		AerialLineNC   = { fg = colors.comment, bg = bg_color },         -- Active line when sidebar is not focused
-		AerialGuide    = { fg = colors.eob },                            -- Vertical guide lines
+		AerialLine     = { fg = colors.red2, bg = colors.bg, bold = true }, -- Active cursor line in sidebar
+		AerialLineNC   = { fg = colors.comment, bg = colors.bg },      -- Active line when sidebar is not focused
+		AerialGuide    = { fg = colors.comment },                      -- Vertical guide lines
 		AerialSymbolsl = { fg = colors.func, bg = colors.bgl, bold = true }, -- The Icon in statusline
 		AerialTextsl   = { fg = colors.type, bg = colors.bgl, bold = true }, -- The Text in statusline
 

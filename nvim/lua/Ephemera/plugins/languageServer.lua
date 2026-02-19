@@ -1,7 +1,7 @@
 return {
 	{ 'neovim/nvim-lspconfig' },
 	{ 'hrsh7th/cmp-nvim-lsp' },
-	{ "ray-x/lsp_signature.nvim",         config = true },
+	-- { "ray-x/lsp_signature.nvim",         config = true },
 	{ 'hrsh7th/nvim-cmp' },
 	{ 'hrsh7th/cmp-path' },
 	{ 'hrsh7th/cmp-cmdline' },
@@ -130,7 +130,7 @@ return {
 				mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
 				-- separator = "·", -- This creates a subtle dotted line across the screen
 				-- separator = "┄", -- Alternative: Unicode dashed line for a "dashed" look
-				separator = "-", -- Alternative: Standard dash			zindex = 20, -- The Z-index of the context window
+				-- separator = "-", -- Alternative: Standard dash			zindex = 20, -- The Z-index of the context window
 				on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 			}
 		end

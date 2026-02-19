@@ -82,45 +82,6 @@ return {
 		},
 	},
 
-	-- multicursor
-	-- TODO: learn to use all the things you can use with this thing
-	-- > also add the mode text for this like MULTI CURSOR or something idk
-	{
-		"brenton-leighton/multiple-cursors.nvim",
-		event = "VeryLazy",
-		version = "*",
-		opts = {
-			pre_hook = function()
-				require("cmp").setup({ enabled = false })
-				require('ultimate-autopair').disable()
-			end,
-			post_hook = function()
-				require("cmp").setup({ enabled = true })
-				require('ultimate-autopair').enable()
-			end,
-			custom_key_maps = {
-				{ "n", "<Leader>al", function() require("multiple-cursors").align() end },
-			}
-		}, -- This causes the plugin setup function to be called
-
-		keys = {
-			{ "<A-c>", "<Cmd>MultipleCursorsAddDown<CR>",          mode = { "n", "x", "i" }, desc = "Add cursor and move down" },
-			{ "<A-u>", "<Cmd>MultipleCursorsAddUp<CR>",            mode = { "n", "x", "i" }, desc = "Add cursor and move up" },
-
-			{ "<A-x>", "<Cmd>MultipleCursorsMouseAddDelete<CR>",   mode = { "n", "i" },      desc = "Add or remove cursor" },
-
-			{ "`n",    "<Cmd>MultipleCursorsAddVisualArea<CR>",    mode = { "x" },           desc = "Add cursors to the lines of the visual area" },
-
-			{ "<C-n>", "<Cmd>MultipleCursorsAddMatches<CR>",       mode = { "n", "x" },      desc = "Add cursors to cword" },
-			{ "<C-b>", "<Cmd>MultipleCursorsAddMatchesV<CR>",      mode = { "n", "x" },      desc = "Add cursors to cword in previous area" },
-
-			{ "<A-m>", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", mode = { "n", "i", "x" }, desc = "Add cursor and jump to next cword" },
-			{ "`j",    "<Cmd>MultipleCursorsJumpNextMatch<CR>",    mode = { "n", "x" },      desc = "Jump to next cword" },
-
-			{ "`l",    "<Cmd>MultipleCursorsLock<CR>",             mode = { "n", "x" },      desc = "Lock virtual cursors" },
-		},
-	},
-
 	-- luasnip
 	{
 		"L3MON4D3/LuaSnip",

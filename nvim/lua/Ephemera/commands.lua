@@ -67,7 +67,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- 3. STATUSLINE RESTORATION (Fixes "White Bar" & Missing Statusline)
 local window_fixes = {
-	["FileType"] = { "qf", "help", "man" },
+	["FileType"] = { "qf", "undotree", "diff", "help", "man" },
 	["TermOpen"] = { "*" },
 	["User"]     = { "FzfStatusLine" },
 }
@@ -80,6 +80,13 @@ for event, patterns in pairs(window_fixes) do
 		end,
 	})
 end
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "undotree",
+	callback = function()
+		vim.wo.statusline = vim.o.statusline
+	end,
+})
 
 -- ============================================================================
 --  USER DEFINED COMMANDS:
