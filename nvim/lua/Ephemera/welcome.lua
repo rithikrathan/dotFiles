@@ -21,10 +21,10 @@ M.config = {
 
 	buttons = {
 		{ "n", "🗎  New File", ":ene <BAR> startinsert  " },
+		{ "l", "⟲   LastFile", "`0" },
 		{ "e", "🗁  Explorer", ":Oil --float" },
 		{ "f", "🔍  Find File", ":Telescope find_files  " },
 		{ "r", "🗐  Recent", ":Telescope oldfiles  " },
-		{ "g", ">_  Grep Text", ":Telescope live_grep  " },
 		{ "c", "⚙️  Config", ":e $MYVIMRC  " },
 		{ "q", "➜]  Quit", ":qa  " },
 	},
