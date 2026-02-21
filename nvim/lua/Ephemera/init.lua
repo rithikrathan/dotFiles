@@ -3,14 +3,15 @@ if vim.loader then
 	vim.loader.enable()
 end
 
-require("Ephemera.options")         -- General vim.opt settings
-require("Ephemera.lazy")            -- Plugin manager
-require("Ephemera.theme").setup()   -- color schemes
-require("Ephemera.welcome").setup() -- Local welcomeScreen
-require("Ephemera.statusLine")      -- Local statusline
-require("Ephemera.keybinds")        -- Global keybindings
-require("Ephemera.pluginConfig")    -- Global pluginConfigs
-require("Ephemera.commands")        -- Autocommands and user defined commands
+require("Ephemera.options")                 -- General vim.opt settings
+require("Ephemera.lazy")                    -- Plugin manager
+require("Ephemera.themes.Ephemera").setup() -- color schemes set your theme here
+-- require("Ephemera.themes.test").setup() -- color schemes set your theme here
+require("Ephemera.welcome").setup()         -- Local welcomeScreen
+require("Ephemera.statusLine")              -- Local statusline
+require("Ephemera.keybinds")                -- Global keybindings
+require("Ephemera.pluginConfig")            -- Global pluginConfigs
+require("Ephemera.commands")                -- Autocommands and user defined commands
 
 
 --Godot stuffs

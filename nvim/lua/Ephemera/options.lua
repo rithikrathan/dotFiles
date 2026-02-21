@@ -29,8 +29,8 @@ vim.opt.splitbelow = true
 vim.opt.list = true
 vim.opt.listchars = { tab = "┊ ", trail = ".", nbsp = "␣" }
 vim.opt.cmdheight = 1
-vim.opt.guicursor = "n:block,i:hor20,v:hor25,r:hor50"
--- vim.opt.guicursor = "n:block,i:hor20,v:hor,r:hor50"
+vim.opt.guicursor = "n:block,i:hor20,v:block,r:hor50"
+-- vim.opt.guicursor = "n:block,i:hor20,v:block,r:hor50"
 
 -- folding
 vim.opt.foldmethod = "expr"
