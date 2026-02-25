@@ -1,5 +1,6 @@
 # SOURCE_PATH:DESTINATION_FOLDER
-/home/godz/.config/alacritty:alacritty
-/home/godz/.config/nvim:nvim
-/home/godz/.config/rofi:rofi
-/home/godz/.tmux.conf:.tmux.conf
+/home/rathan/.config/alacritty:alacritty
+/home/rathan/.config/nvim:nvim
+/home/rathan/.config/rofi:rofi
+/home/rathan/.tmux.conf:.tmux.conf
+/home/rathan/poshThemes:poshThemes

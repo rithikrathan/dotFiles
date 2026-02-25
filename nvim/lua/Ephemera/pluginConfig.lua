@@ -5,6 +5,12 @@ local lspconfig = require("lspconfig")
 
 mason.setup({ ui = { border = "rounded" }, registries = { "github:mason-org/mason-registry" } })
 
+-- lsp border thing
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+	vim.lsp.handlers.hover,
+	{ border = "rounded" } -- single | double | rounded | solid | shadow
+)
+
 -- Global Capabilities
 local caps = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(),
 	require("cmp_nvim_lsp").default_capabilities())
@@ -282,3 +288,5 @@ end
 
 vim.api.nvim_set_keymap('n', '<leader>vn', ":lua Toggle_venn()<CR>", { noremap = true })
 -- require("bufferline").setup {} -- useless
+--
+--

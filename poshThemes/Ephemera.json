@@ -1,0 +1,70 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "foreground": "#ffffff",
+          "properties": { "style": "full" },
+          "style": "plain",
+          "template": "<#F24C4C>\u250f[</><#F24C4C>\uf07b</> <#4A90E2>{{ .Path }}</><#F24C4C>]</>",
+          "type": "path"
+        },
+        {
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": "<#F24C4C>[</><#F24C4C>\uf0e7</><#F24C4C>]</>",
+          "type": "root"
+        },
+        {
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": "<#F24C4C>[</><#F24C4C>\uf00d</> <#FFFFFF>{{ reason .Code }}</><#F24C4C>]</>",
+          "type": "status"
+        },
+        {
+          "foreground": "#ffffff",
+          "properties": { "branch_icon": "" },
+          "style": "plain",
+          "template": "<#F24C4C> \uf418</> <#FF9EBB>{{ .HEAD }} </>",
+          "type": "git"
+        },
+        {
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": "<#F24C4C>✧ ꧂</>",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "right",
+      "segments": [
+        {
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": "<#F24C4C></>",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": "<#F24C4C>\u2516[</><#FFFFFF>{{ .UserName }}</><#F24C4C>]></>",
+          "type": "session"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "final_space": true,
+  "version": 4
+}

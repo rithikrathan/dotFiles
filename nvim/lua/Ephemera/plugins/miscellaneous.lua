@@ -225,16 +225,42 @@ return {
 		end,
 	},
 
+	--camaflage
 	{
 		'zeybek/camouflage.nvim',
 		event = 'VeryLazy',
-		opts = {},
-		keys = {
-			-- { '<leader>ct', '<cmd>CamouflageToggle<cr>',       desc = 'Toggle Camouflage' },
-			-- { '<leader>cr', '<cmd>CamouflageReveal<cr>',       desc = 'Reveal Line' },
-			{ '<leader>cy', '<cmd>CamouflageYank<cr>', desc = 'Yank Value' },
-			-- { '<leader>cf', '<cmd>CamouflageFollowCursor<cr>', desc = 'Follow Cursor' },
+		opts = {
+			enabled = true,
+			auto_enable = true,
+			style = 'text',
+			mask_char = '',
+			debounce_ms = 150,
+			max_lines = 5000,
+
+			reveal = {
+				follow_cursor = false,
+			},
+
+			yank = {
+				confirm = true,
+				auto_clear_seconds = 30,
+			},
+
+			integrations = {
+				telescope = true,
+				cmp = { disable_in_masked = true },
+			},
+
+			pwned = {
+				enabled = false,
+			}
 		},
+
+		keys = {
+			{ '<leader>ct', '<cmd>CamouflageToggle<cr>', desc = 'Toggle Camouflage' },
+			{ '<leader>cr', '<cmd>CamouflageReveal<cr>', desc = 'Reveal Line' },
+			{ '<leader>cy', '<cmd>CamouflageYank<cr>',   desc = 'Yank Value' },
+		}
 	},
 
 	{

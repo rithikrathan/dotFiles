@@ -110,5 +110,30 @@ return {
 		config = function()
 			require("nvim-surround").setup()
 		end
+	},
+
+	-- mini move
+	{
+		'nvim-mini/mini.move',
+		version = '*',
+		mappings = {
+			left = '<A-h>',
+			right = '<A-l>',
+			down = '<A-j>',
+			up = '<A-k>',
+			line_left = '',
+			line_right = '',
+			line_down = '',
+			line_up = '',
+		},
+
+		options = {
+			reindent_linewise = true
+		},
+
+		config = function()
+			require('mini.move').setup()
+		end
 	}
+
 }
