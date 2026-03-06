@@ -1,0 +1,357 @@
+local M = {}
+
+M.config = {
+	transparent = true,
+	glow = true,
+	show_end_of_buffer = false,
+	colors = {
+		-- Base UI (Deep Navy Background, Pure White Text)
+		fg                   = "#FFFFFF", -- Pure white for maximum contrast
+		bg                   = "#0A1128", -- Deep, dark navy blue
+		bgl                  = "#121A35", -- Slightly lighter navy for floats/statuslines
+		black                = "#050A1A", -- True dark
+		white                = "#FFFFFF",
+		eob                  = "#121A35", -- Subtle end-of-buffer markers
+		border               = "#2A3A5C", -- Clean, slate-blue borders
+		title                = "#FF0055", -- Neon Crimson titles
+
+		-- Cursor & Selection
+		cursor               = "#00E5FF", -- Cyan cursor to contrast the red
+		cursorLine           = "#121A35", -- Subtle highlight over the navy
+		visual               = "#FF0055", -- Aggressive red selection background
+		line_nr              = "#4B5E82", -- Muted slate blue for line numbers
+
+		-- Syntax (STRICT Palette: Red dominates, Cyan accents, no color soup)
+		comment              = "#4B5E82", -- Slate blue for comments
+		string               = "#FF3366", -- Bright Rose Red for strings
+		func                 = "#FF0055", -- Neon Crimson for functions
+		kw                   = "#FF0055", -- Neon Crimson for keywords
+		identifier           = "#FFFFFF", -- Pure white (keeps standard variables clean)
+		type                 = "#00E5FF", -- Electric Cyan for types (classes/structs)
+		type_builtin         = "#00E5FF",
+		operator             = "#00E5FF", -- Electric Cyan for math/logic operators
+		bracket              = "#FFFFFF", -- White brackets
+		preprocessor         = "#FF0055", -- Neon Crimson
+		bool                 = "#FF3366", -- Bright Rose Red
+		constant             = "#FF3366", -- Bright Rose Red
+
+		-- Search & Highlighting
+		search_highlight     = "#0A1128", -- Dark text
+		search_bg            = "#00E5FF", -- Cyan search background
+		inc_search_bg        = "#FF0055", -- Red background for active search
+		inc_search_fg        = "#FFFFFF",
+		cur_search_bg        = "#FF0055",
+		glow_color           = "#FFFFFF",
+
+		-- Popup Menu (Clean, restricted floats)
+		pmenu_bg             = "#121A35", -- Lighter navy float
+		pmenu_sel_bg         = "#FF0055", -- Neon Crimson selection
+		pmenu_fg             = "#FFFFFF",
+
+		-- Git (Restricted to theme colors)
+		added                = "#00E5FF", -- Cyan instead of green
+		changed              = "#FF3366", -- Rose Red
+		removed              = "#FF0055", -- Neon Crimson
+
+		-- Diagnostics (Strictly Red/Cyan/White to prevent soup)
+		error                = "#FF0055", -- Crimson
+		warning              = "#FF3366", -- Rose Red (acting as warning to avoid yellow)
+		hint                 = "#FFFFFF", -- White
+		info                 = "#00E5FF", -- Cyan
+
+		-- Plugin Specific
+		bufferline_selection = "#FF0055",
+		cyan                 = "#00E5FF",
+		purple_light         = "#FF3366", -- Replaced purple with Rose Red for cursors
+		quote_fg             = "#4B5E82",
+
+		-- Extended Palette (Forced into the Red/Blue/Cyan scheme)
+		orange1              = "#FF3366",
+		orange2              = "#FF0055",
+		orange3              = "#FF3366",
+		orange4              = "#FF0055",
+
+		red1                 = "#FF0055",
+		red2                 = "#FF0055",
+		red3                 = "#FF3366",
+		red4                 = "#FF0055",
+		red_light            = "#FF3366",
+
+		green1               = "#00E5FF", -- Replaced greens with cyan
+		green2               = "#00E5FF",
+		green3               = "#00E5FF",
+		green4               = "#00E5FF",
+
+		blue1                = "#00E5FF",
+		blue2                = "#00E5FF",
+		blue3                = "#00E5FF",
+		blue4                = "#00E5FF",
+
+		purple1              = "#FF0055", -- Replaced purples with Crimson
+		purple2              = "#FF3366",
+		purple3              = "#FF0055",
+		purple4              = "#FF3366",
+	},
+}
+
+function M.setup(user_config)
+	M.config = vim.tbl_deep_extend("force",
+		M.config,
+		user_config or {})
+	local colors = M.config.colors
+	local bg_color = M.config.transparent and "NONE" or colors.bg
+	local float_bg = M.config.transparent and "NONE" or colors.pmenu_bg
+
+	local highlight_groups = {
+
+		-- =====================================
+		-- CORE UI
+		-- =====================================
+		Normal                      = { fg = colors.fg, bg = bg_color },
+		Folded                      = { fg = colors.comment, bg = bg_color, italic = true },
+		FoldColumn                  = { fg = colors.comment, bg = bg_color },
+		Cursor                      = { fg = colors.cursor, bg = bg_color },
+		CursorLine                  = { bg = colors.cursorLine },
+		LineNr                      = { fg = colors.line_nr },
+		Visual                      = { fg = colors.white, bg = colors.visual, bold = true }, -- Red selection background requires white text
+		EndOfBuffer                 = { fg = M.config.show_end_of_buffer and colors.eob or colors.bg, bg = bg_color },
+		WinSeparator                = { fg = colors.border, bg = bg_color },
+
+		-- Messages & Cmdline
+		MsgSeparator                = { bg = colors.bgl },
+		MsgArea                     = { fg = colors.fg, bg = bg_color },
+		ModeMsg                     = { fg = colors.string, bold = true },
+
+		-- Search
+		Search                      = { bg = colors.search_bg, fg = colors.search_highlight, bold = true },
+		IncSearch                   = { bg = colors.inc_search_bg, fg = colors.inc_search_fg, bold = true },
+		CurSearch                   = { bg = colors.cur_search_bg, fg = colors.inc_search_fg, bold = true },
+
+		-- Floating Windows & Menus
+		Pmenu                       = { fg = colors.pmenu_fg, bg = float_bg },
+		PmenuSel                    = { fg = colors.white, bg = colors.pmenu_sel_bg, bold = true },
+		NormalFloat                 = { fg = colors.fg, bg = float_bg },
+		FloatBorder                 = { fg = colors.border, bg = float_bg },
+
+		-- Syntax (General)
+		Comment                     = { fg = colors.comment, italic = true },
+		String                      = { fg = colors.string },
+		Function                    = { fg = colors.func, bold = true },
+		Keyword                     = { fg = colors.kw },
+		Identifier                  = { fg = colors.identifier },
+		Type                        = { fg = colors.type },
+		PreProc                     = { fg = colors.preprocessor },
+		Boolean                     = { fg = colors.bool },
+		Constant                    = { fg = colors.constant },
+		Operator                    = { fg = colors.operator },
+		Delimiter                   = { fg = colors.bracket },
+
+		-- =====================================
+		-- CUSTOM MODES
+		-- =====================================
+		ModeVenn                    = { fg = colors.bg, bg = colors.preprocessor, italic = true, bold = true },
+		ModeMul                     = { fg = colors.bg, bg = colors.cyan, italic = true, bold = true },
+
+		-- =====================================
+		-- STATUSLINE
+		-- =====================================
+		ModeNorm                    = { fg = colors.bg, bg = colors.func, italic = true, bold = true },
+		SepNormA                    = { fg = colors.func, bg = colors.pmenu_bg },
+		InfoNorm                    = { fg = colors.fg, bg = colors.pmenu_bg },
+		SepNormB                    = { fg = colors.pmenu_bg, bg = colors.bgl },
+		ModeIns                     = { fg = colors.bg, bg = colors.cyan, italic = true, bold = true },
+		SepInsA                     = { fg = colors.cyan, bg = colors.pmenu_bg },
+		InfoIns                     = { fg = colors.fg, bg = colors.pmenu_bg },
+		SepInsB                     = { fg = colors.pmenu_bg, bg = colors.bgl },
+		ModeVis                     = { fg = colors.bg, bg = colors.string, italic = true, bold = true },
+		SepVisA                     = { fg = colors.string, bg = colors.pmenu_bg },
+		InfoVis                     = { fg = colors.fg, bg = colors.pmenu_bg },
+		SepVisB                     = { fg = colors.pmenu_bg, bg = colors.bgl },
+		StatusBody                  = { fg = colors.fg, bg = colors.bgl, bold = true },
+		SlRef                       = { fg = colors.comment, bg = colors.bgl, italic = true },
+
+		-- =====================================
+		-- TREESITTER (Strictly forcing the palette)
+		-- =====================================
+		["@function"]               = { fg = colors.func },
+		["@method"]                 = { fg = colors.func },
+		["@function.builtin"]       = { fg = colors.func, italic = true },
+		["@function.call"]          = { fg = colors.func },
+		["@keyword"]                = { fg = colors.kw },
+		["@keyword.function"]       = { fg = colors.kw, italic = true },
+		["@keyword.return"]         = { fg = colors.kw, italic = true },
+		["@conditional"]            = { fg = colors.kw },
+		["@repeat"]                 = { fg = colors.kw },
+		["@constant"]               = { fg = colors.constant },
+		["@constant.builtin"]       = { fg = colors.constant },
+		["@string"]                 = { fg = colors.string },
+		["@string.regex"]           = { fg = colors.cyan },
+		["@string.escape"]          = { fg = colors.cyan },
+		["@number"]                 = { fg = colors.constant },
+		["@boolean"]                = { fg = colors.bool },
+		["@variable"]               = { fg = colors.fg },
+		["@variable.builtin"]       = { fg = colors.cyan, italic = true },
+		["@parameter"]              = { fg = colors.fg, italic = true },
+		["@parameter.reference"]    = { fg = colors.fg },
+		["@field"]                  = { fg = colors.fg },
+		["@property"]               = { fg = colors.fg },
+		["@type"]                   = { fg = colors.type },
+		["@type.builtin"]           = { fg = colors.type_builtin },
+		["@class"]                  = { fg = colors.type },
+		["@enum"]                   = { fg = colors.type },
+		["@namespace"]              = { fg = colors.fg },
+		["@struct"]                 = { fg = colors.type },
+		["@module"]                 = { fg = colors.fg },
+		["@attribute"]              = { fg = colors.func },
+		["@punctuation.delimiter"]  = { fg = colors.bracket },
+		["@punctuation.bracket"]    = { fg = colors.bracket },
+		["@punctuation.special"]    = { fg = colors.operator },
+		["@operator"]               = { fg = colors.operator },
+		["@comment"]                = { fg = colors.comment, italic = true },
+		["@annotation"]             = { fg = colors.preprocessor },
+		["@tag"]                    = { fg = colors.kw },
+		["@tag.attribute"]          = { fg = colors.cyan },
+		["@tag.delimiter"]          = { fg = colors.bracket },
+		["@constructor"]            = { fg = colors.type },
+		["@constructor.lua"]        = { fg = colors.bracket },
+		["@decorator"]              = { fg = colors.func },
+
+		-- =====================================
+		-- TELESCOPE
+		-- =====================================
+		TelescopeNormal             = { fg = colors.fg, bg = "NONE" },
+		TelescopeBorder             = { fg = colors.border, bg = "NONE" },
+		TelescopePromptNormal       = { fg = colors.white, bg = "NONE" },
+		TelescopePromptBorder       = { fg = colors.border, bg = "NONE" },
+		TelescopePromptTitle        = { fg = colors.title, bg = "NONE", bold = true },
+		TelescopePromptCounter      = { fg = colors.comment, bg = "NONE" },
+		TelescopeSelectionCaret     = { fg = colors.kw, bg = "NONE" },
+		TelescopeSelection          = { fg = colors.white, bg = colors.visual, bold = true },
+		TelescopeMatching           = { fg = colors.cyan, bg = "NONE", bold = true },
+
+		-- =====================================
+		-- NVIM-CMP
+		-- =====================================
+		CmpItemAbbr                 = { fg = colors.fg, bg = "NONE" },
+		CmpItemAbbrMatch            = { fg = colors.func, bg = "NONE", bold = true },
+		CmpItemAbbrDeprecated       = { fg = colors.comment, bg = "NONE", strikethrough = true },
+		CmpItemAbbrMatchFuzzy       = { fg = colors.func, bg = "NONE", bold = true },
+		CmpItemMenu                 = { fg = colors.comment, bg = "NONE" },
+		CmpBorder                   = { fg = colors.border },
+
+		-- =====================================
+		-- OIL
+		-- =====================================
+		OilDir                      = { fg = colors.cyan, bold = true },
+		OilPermission               = { fg = colors.comment },
+		OilSize                     = { fg = colors.constant },
+		OilDate                     = { fg = colors.comment },
+		OilFile                     = { fg = colors.fg },
+		OilSocket                   = { fg = colors.type },
+		OilLink                     = { fg = colors.cyan },
+		OilLinkTarget               = { fg = colors.kw },
+		OilCreate                   = { fg = colors.cyan },
+		OilDelete                   = { fg = colors.error },
+		OilMove                     = { fg = colors.func },
+		OilCopy                     = { fg = colors.string },
+		OilChange                   = { fg = colors.changed },
+		OilRestore                  = { fg = colors.info },
+		OilPurge                    = { fg = colors.error },
+		OilTrash                    = { fg = colors.warning },
+		OilTrashSourcePath          = { fg = colors.comment },
+		OilFloatBorder              = { fg = colors.border },
+
+		-- =====================================
+		-- GITSIGNS
+		-- =====================================
+		GitSignsAdd                 = { fg = colors.added, bg = "NONE" },
+		GitSignsChange              = { fg = colors.changed, bg = "NONE" },
+		GitSignsDelete              = { fg = colors.removed, bg = "NONE" },
+
+		-- =====================================
+		-- DIAGNOSTICS & LSP
+		-- =====================================
+		LspSignatureActiveParameter = { bg = colors.bgl, fg = colors.cyan, italic = true },
+		DiagnosticError             = { fg = colors.error },
+		DiagnosticWarn              = { fg = colors.warning },
+		DiagnosticHint              = { fg = colors.hint },
+		DiagnosticInfo              = { fg = colors.info },
+		DiagnosticVirtualTextError  = { fg = colors.error },
+		DiagnosticVirtualTextWarn   = { fg = colors.warning },
+		DiagnosticVirtualTextHint   = { fg = colors.hint },
+		DiagnosticVirtualTextInfo   = { fg = colors.info },
+		DiagnosticUnderlineError    = { gui = "undercurl", sp = colors.error },
+		DiagnosticUnderlineWarn     = { gui = "undercurl", sp = colors.warning },
+		DiagnosticUnderlineHint     = { gui = "undercurl", sp = colors.hint },
+		DiagnosticUnderlineInfo     = { gui = "undercurl", sp = colors.info },
+
+		-- =====================================
+		-- MULTICURSOR
+		-- =====================================
+		MultipleCursorsCursor       = { bg = colors.cyan, fg = colors.black },
+		MultipleCursorsVisual       = { bg = colors.func, fg = colors.white },
+
+		MultiCursorCursor           = { bg = colors.cyan, fg = colors.black },
+		MultiCursorVisual           = { bg = colors.func, fg = colors.white },
+		MultiCursorSign             = { link = "SignColumn" },
+		MultiCursorMatchPreview     = { link = "Search" },
+		MultiCursorDisabledCursor   = { bg = colors.cyan, fg = colors.black },
+		MultiCursorDisabledVisual   = { bg = colors.func, fg = colors.white },
+		MultiCursorDisabledSign     = { link = "SignColumn" },
+
+		-- =====================================
+		-- FLASH
+		-- =====================================
+		FlashLabel                  = { bg = colors.cyan, fg = colors.black, bold = true },
+
+		-- =====================================
+		-- WELCOME / DASHBOARD
+		-- =====================================
+		WelcomeRose                 = { fg = colors.func, bold = true },
+		WelcomeStem                 = { fg = colors.cyan, bold = true },
+		WelcomeQuote                = { fg = colors.quote_fg, italic = true },
+
+		-- =====================================
+		-- AERIAL
+		-- =====================================
+		AerialLine                  = { fg = colors.white, bg = colors.visual, bold = true },
+		AerialLineNC                = { fg = colors.comment, bg = colors.bg },
+		AerialGuide                 = { fg = colors.comment },
+		AerialSymbolsl              = { fg = colors.func, bg = colors.bgl, bold = true },
+		AerialTextsl                = { fg = colors.type, bg = colors.bgl, bold = true },
+	}
+
+	-- CMP Kind Icons Loop (Strictly Red & Cyan)
+	local kinds = { "Text", "Method", "Function", "Constructor", "Field", "Variable", "Class", "Interface", "Module",
+		"Property", "Unit", "Value", "Enum", "Keyword", "Snippet", "Color", "File", "Reference", "Folder", "EnumMember",
+		"Constant", "Struct", "Event", "Operator", "TypeParameter" }
+
+	for _, kind in ipairs(kinds) do highlight_groups["CmpItemKind" .. kind] = { fg = colors.func } end
+
+	-- Application Loop
+	for group, conf in pairs(highlight_groups) do
+		local cmd = string.format("highlight %s guifg=%s guibg=%s", group, conf.fg or "NONE", conf.bg or "NONE")
+		if conf.sp then cmd = cmd .. " guisp=" .. conf.sp end
+		local gui = {}
+		if conf.bold then table.insert(gui, "bold") end
+		if conf.italic then table.insert(gui, "italic") end
+		if conf.strikethrough then table.insert(gui, "strikethrough") end
+		if conf.gui then table.insert(gui, conf.gui) end
+		if M.config.glow and (group == "Function" or group == "Keyword" or group == "@function" or group == "@keyword") then
+			table.insert(gui, "bold")
+			cmd = cmd .. " guisp=" .. colors.glow_color
+		end
+		if #gui > 0 then cmd = cmd .. " gui=" .. table.concat(gui, ",") end
+		vim.cmd(cmd)
+	end
+end
+
+M.toggle_transparency = function()
+	M.config.transparent = not M.config.transparent
+	M.setup()
+	print("Transparency: " .. (M.config.transparent and "ON" or "OFF"))
+end
+
+vim.api.nvim_create_user_command("ToggleTransparency", M.toggle_transparency, {})
+
+return M
