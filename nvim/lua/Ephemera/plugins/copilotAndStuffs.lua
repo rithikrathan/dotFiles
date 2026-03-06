@@ -1,6 +1,7 @@
 return {
 	{
 		"github/copilot.vim",
+		cmd = "Copilot",
 		config = function()
 			-- Accept suggestion with Alt+i
 			vim.keymap.set("i", "<A-i>", 'copilot#Accept("\\<CR>")', {

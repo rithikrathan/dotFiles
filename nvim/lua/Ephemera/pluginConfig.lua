@@ -43,11 +43,12 @@ masonConf.setup({
 				capabilities = caps,
 				cmd = {
 					"arduino-language-server",
-					"-clangd", "/home/godz/.local/share/nvim/mason/bin/clangd",
+					"-clangd", "/home/rathan/.local/share/nvim/mason/bin/clangd",
 					"-clangd", "/usr/bin/clangd",
-					"-cli", "/home/godz/.local/bin/arduino-cli",
-					"-cli-config", "/home/godz/.arduino15/arduino-cli.yaml",
-					"-fqbn", "esp8266:esp8266:nodemcuv2"
+					"-cli", "/home/rathan/.local/bin/arduino-cli",
+					"-cli-config", "/home/rathan/.arduino15/arduino-cli.yaml",
+					-- "-fqbn", "esp8266:esp8266:nodemcuv2"
+					"-fqbn", "arduino:avr:uno"
 				},
 			})
 		end,

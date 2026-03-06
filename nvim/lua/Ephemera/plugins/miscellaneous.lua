@@ -1,6 +1,4 @@
 return {
-	{ 'ThePrimeagen/vim-be-good' }, -- Game to learn vim
-
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		mwin = "ibl", -- Tells lizy.nvim to use the 'ibl' module for the default setup
@@ -268,6 +266,21 @@ return {
 		event = "VeryLazy",
 		dependencies = { "MunifTanjim/nui.nvim" },
 		opts = {},
+	},
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		opts = {
+		},
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
 	}
 
 }

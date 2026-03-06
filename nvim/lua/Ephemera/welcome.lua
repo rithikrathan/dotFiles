@@ -17,7 +17,8 @@ M.config = {
 		[[          .||                                              ]],
 	},
 
-	quote = "It is only with the heart that one can see rightly; what is essential is invisible to the eye.",
+	quote =
+	"And when your sorrow is comforted you will be content that you have known me. You will always be my friend. You will want to laugh with me.",
 
 	buttons = {
 		{ "n", "🗎  New File", ":ene <BAR> startinsert  " },
