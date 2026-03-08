@@ -1,0 +1,54 @@
+<!-- Ra colorscheme for gedit -->
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="Ra_theme" _name="Ra_theme" version="1.0">
+  <author>Rithik Rathan</author>
+  <description>Custom theme based on raTheme Neovim config</description>
+
+  <style name="text" foreground="#ffeeee" background="#040409"/>
+  <style name="background-pattern" background="#1f1f1f"/>
+  <style name="selection" foreground="#ffeeee" background="#690f0f"/>
+  <style name="selection-unfocused" foreground="#ffeeee" background="#690f0f"/>
+  <style name="cursor" foreground="#ffa0a0"/>
+  <style name="secondary-cursor" foreground="#ffa0a0"/>
+  <style name="current-line" background="#1c1c2f"/>
+  <style name="line-numbers" foreground="#ff1010" background="#040409"/>
+  <style name="current-line-number" foreground="#ffa0a0" bold="true"/>
+  <style name="draw-spaces" foreground="#3c3c3c"/>
+  <style name="bracket-match" foreground="#ffaa00" bold="true" background="#1c1c2f"/>
+  <style name="search-match" foreground="#040409" background="#ffaa00"/>
+
+  <style name="def:comment" foreground="#696969"/>
+  <style name="def:shebang" foreground="#696969" bold="true"/>
+  <style name="def:doc-comment-element" foreground="#696969" italic="true"/>
+
+  <style name="def:string" foreground="#e4b2ab"/>
+  <style name="def:character" foreground="#e4b2ab"/>
+
+  <style name="def:keyword" foreground="#ff5555" bold="true"/>
+  <style name="def:statement" foreground="#ff5555" bold="true"/>
+  
+  <style name="def:function" foreground="#ff6347"/>
+  <style name="def:identifier" foreground="#d2d2d2"/>
+  
+  <style name="def:type" foreground="#ff420f" bold="true"/>
+  <style name="def:builtin" foreground="#ff420f"/>
+  
+  <style name="def:constant" foreground="#f59064"/>
+  <style name="def:decimal" foreground="#f59064"/>
+  <style name="def:base-n-integer" foreground="#f59064"/>
+  <style name="def:floating-point" foreground="#f59064"/>
+  <style name="def:boolean" foreground="#ffa07a" bold="true"/>
+  
+  <style name="def:preprocessor" foreground="#4b8902"/>
+  <style name="def:included-file" foreground="#e4b2ab"/>
+  
+  <style name="def:operator" foreground="#d63e3e"/>
+  
+  <style name="def:heading" foreground="#ff1e00" bold="true"/>
+  <style name="def:link-text" foreground="#ff6347" underline="true"/>
+  
+  <style name="def:error" foreground="#ff0000" underline="true"/>
+  <style name="def:warning" foreground="#ffee00" underline="true"/>
+  <style name="def:note" foreground="#14ff6a"/>
+
+</style-scheme>
