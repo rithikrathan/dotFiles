@@ -2,6 +2,10 @@ configuration{
 	show-icons:true;
 	sidebar-mode:false;
 }
+<<<<<<< HEAD
 @theme "/home/rathan/.config/rofi/themes/rounded-orange-dark.rasi"
 //@theme "/home/rathan/.local/share/rofi/themes/simple-tokyonight.rasi"
 // @theme "/home/rathan/.local/share/rofi/themes/submarine.rasi"
+=======
+@theme "/home/rathan/.config/rofi/themes/submarine.rasi"
+>>>>>>> 91ac24f0e0871010e7ddefda8e90d3ccdf19d78c
