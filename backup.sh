@@ -69,9 +69,11 @@ while IFS=: read -r src dest || [[ -n "$src" ]]; do
             echo -e "\n${BOLD}[$CURRENT_ITEM/$TOTAL_ITEMS - $PERCENT%] Importing:${NORMAL} $dest → $src"
             
             if [[ -d "$dest" ]]; then
-                rsync -av --delete --info=progress2 "${dest%/}/" "$src/"
+                # rsync -av --delete --info=progress2 "${dest%/}/" "$src/"
+                rsync -av --delete "${dest%/}/" "$src/"
             else
-                rsync -av --info=progress2 "$dest" "$src"
+                # rsync -av --info=progress2 "$dest" "$src"
+                rsync -av "$dest" "$src"
             fi
         else
             echo -e "[!] Skip: $dest (Source not found)"
