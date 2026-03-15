@@ -1,0 +1,78 @@
+{
+  "name": "Ephemera",
+  "creator": {
+    "name": "Rathan",
+    "email": "rithikrathan@gmail.com"
+  },
+  "coreColors": {
+    "primaryColor": "#ec252d",
+    "secondaryColor": "#aa0000",
+    "accentColor": "#ff2d2d"
+  },
+  "darkColors": {
+    "windowButtonIcon": "#696969",
+    "hoveredItemBackground": "rgba(236, 37, 45, 0.15)",
+    "selectedItemBackground": "rgba(236, 37, 45, 0.25)",
+    "tabText": "#696969",
+    "selectedTabText": "#ddcccc",
+    "mainBackground": "#04040d",
+    "headerBackground": "#17171d",
+    "footerBackground": "#17171d",
+    "sidePaneBackground": "#04040d",
+    "primaryText": "#ddcccc",
+    "secondaryText": "#696969",
+    "sliderBackground": "#17171d",
+    "sliderThumbBackground": "#ec252d",
+    "albumCoverBackground": "#17171d",
+    "headerSeparator": "transparent",
+    "paneSeparators": "transparent",
+    "settingsSeparators": "#3c3c3c",
+    "contextMenuSeparators": "#3c3c3c",
+    "scrollBars": "#ec252d",
+    "searchBox": "#04040d",
+    "searchBoxText": "#ddcccc",
+    "searchBoxIcon": "#696969",
+    "dialogBackground": "#17171d",
+    "primaryButtonText": "#ffffff",
+    "secondaryButtonBackground": "#3c3c3c",
+    "secondaryButtonText": "#ddcccc",
+    "tooltipText": "#ffffff",
+    "buttonBorder": "#ec252d",
+    "highlightForeground": "#ffffff"
+  },
+  "lightColors": {
+    "windowButtonIcon": "#828282",
+    "hoveredItemBackground": "rgba(236, 37, 45, 0.05)",
+    "selectedItemBackground": "rgba(236, 37, 45, 0.1)",
+    "tabText": "#909090",
+    "selectedTabText": "#000000",
+    "mainBackground": "#f7f7f7",
+    "headerBackground": "#fefefe",
+    "footerBackground": "#fefefe",
+    "sidePaneBackground": "#f0f0f0",
+    "primaryText": "#000000",
+    "secondaryText": "#838383",
+    "sliderBackground": "#dedede",
+    "sliderThumbBackground": "#ec252d",
+    "albumCoverBackground": "#cecece",
+    "headerSeparator": "transparent",
+    "paneSeparators": "transparent",
+    "settingsSeparators": "#d7d7d7",
+    "contextMenuSeparators": "#d7d7d7",
+    "scrollBars": "#ff420f",
+    "searchBox": "#ededed",
+    "searchBoxText": "#000000",
+    "searchBoxIcon": "#838383",
+    "dialogBackground": "#fdfdfd",
+    "primaryButtonText": "#ffffff",
+    "secondaryButtonBackground": "#d7d7d7",
+    "secondaryButtonText": "#000000",
+    "tooltipText": "#ffffff",
+    "buttonBorder": "#ec252d",
+    "highlightForeground": "#ffffff"
+  },
+  "options": {
+    "centerAlbumInfoText": false
+  }
+}
+
