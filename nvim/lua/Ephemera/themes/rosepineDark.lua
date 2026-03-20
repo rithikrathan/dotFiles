@@ -5,92 +5,92 @@ M.config = {
 	glow = true,
 	show_end_of_buffer = false,
 	colors = {
-		-- Base UI (Rosé Pine Main)
-		fg                   = "#e0def4", -- Text (Bright and high contrast)
-		bg                   = "#191724", -- Base (Deep dusty dark background)
-		bgl                  = "#1f1d2e", -- Surface (Floating menus/statusline base)
-		black                = "#191724",
-		white                = "#e0def4",
-		eob                  = "#26233a", -- Overlay (Subtle end-of-buffer)
-		border               = "#403d52", -- Highlight Med (Clear borders)
-		title                = "#c4a7e7", -- Iris (Purple)
+		-- Base UI (Ultra Dark Rosé Pine for LCD)
+		fg                   = "#d8d4e8", -- Bright but soft
+		bg                   = "#0a0810", -- Near-black purple
+		bgl                  = "#080610", -- Darker for panels
+		black                = "#000000",
+		white                = "#e8e4f0",
+		eob                  = "#1a1620", -- Subtle tildes
+		border               = "#4a4060", -- Muted purple border
+		title                = "#a080d0", -- Iris (brighter)
 
 		-- Cursor & Selection
-		cursor               = "#e0def4", -- Text
-		cursorLine           = "#21202e", -- Highlight Low
-		visual               = "#403d52", -- Highlight Med (Distinct selection)
-		line_nr              = "#6e6a86", -- Muted (Line numbers)
+		cursor               = "#e8e4f0",
+		cursorLine           = "#181420", -- Subtle highlight
+		visual               = "#302840", -- Distinct selection
+		line_nr              = "#504060", -- Visible line numbers
 
-		-- Syntax (Rosé Pine Strict Palette)
-		comment              = "#6e6a86", -- Muted
-		string               = "#f6c177", -- Gold
-		func                 = "#ebbcba", -- Rose (Functions/Methods)
-		kw                   = "#c4a7e7", -- Iris (Keywords/Control flow)
-		identifier           = "#e0def4", -- Text (Keeps normal text bright and consistent)
-		type                 = "#9ccfd8", -- Foam (Teal for types)
-		type_builtin         = "#31748f", -- Pine (Darker cyan)
-		operator             = "#908caa", -- Subtle
-		bracket              = "#6e6a86", -- Muted
-		preprocessor         = "#eb6f92", -- Love (Red)
-		bool                 = "#ebbcba", -- Rose
-		constant             = "#ebbcba", -- Rose
+		-- Syntax (Rosé Pine with better LCD contrast)
+		comment              = "#504860", -- Muted but readable
+		string               = "#d0a050", -- Gold (brighter)
+		func                 = "#d0a0a0", -- Rose (brighter)
+		kw                   = "#a080d0", -- Iris (brighter)
+		identifier           = "#d8d4e8", -- Normal text
+		type                 = "#80c0d0", -- Foam (brighter)
+		type_builtin         = "#405870", -- Pine (readable)
+		operator             = "#706080", -- Subtle (readable)
+		bracket              = "#605070", -- Muted
+		preprocessor         = "#c05070", -- Love (brighter)
+		bool                 = "#c0a0a0", -- Rose (brighter)
+		constant             = "#c0a0a0", -- Rose
 
 		-- Search & Highlighting
-		search_highlight     = "#e0def4", -- Text
-		search_bg            = "#403d52", -- Highlight Med
-		inc_search_bg        = "#ebbcba", -- Rose
-		inc_search_fg        = "#191724", -- Base
-		cur_search_bg        = "#f6c177", -- Gold
-		glow_color           = "#e0def4",
+		search_highlight     = "#0a0810",
+		search_bg            = "#504870", -- Highlight Med (brighter)
+		inc_search_bg        = "#c08080", -- Rose (brighter)
+		inc_search_fg        = "#080610",
+		cur_search_bg        = "#c0a050",
+		glow_color           = "#f0e8f8",
 
-		-- Popup Menu (High Contrast Floating Windows)
-		pmenu_bg             = "#1f1d2e", -- Surface
-		pmenu_sel_bg         = "#403d52", -- Highlight Med
-		pmenu_fg             = "#e0def4", -- Text
+		-- Popup Menu
+		pmenu_bg             = "#100c18", -- Darker than base bg
+		pmenu_sel_bg         = "#302840",
+		pmenu_fg             = "#d8d4e8",
 
 		-- Git
-		added                = "#9ccfd8", -- Foam
-		changed              = "#f6c177", -- Gold
-		removed              = "#eb6f92", -- Love
+		added                = "#70b0c0", -- Foam (brighter)
+		changed              = "#c0a040", -- Gold (brighter)
+		removed              = "#c04060", -- Love (brighter)
 
 		-- Diagnostics
-		error                = "#eb6f92", -- Love (Red)
-		warning              = "#f6c177", -- Gold (Yellow)
-		hint                 = "#9ccfd8", -- Foam (Teal)
-		info                 = "#31748f", -- Pine (Blue)
+		error                = "#c04060", -- Love (Red)
+		warning              = "#c0a040", -- Gold (Yellow)
+		hint                 = "#80c0c0", -- Foam (Teal)
+		info                 = "#405870", -- Pine (Blue)
 
 		-- Plugin Specific
-		bufferline_selection = "#c4a7e7", -- Iris
-		cyan                 = "#9ccfd8", -- Foam
-		purple_light         = "#c4a7e7", -- Iris
-		quote_fg             = "#6e6a86", -- Muted
+		bufferline_selection = "#a080d0",
+		cyan                 = "#80c0d0",
+		purple_light         = "#a080d0",
+		quote_fg             = "#504860",
 
-		-- Extended Palette (Rosé Pine mapped)
-		orange1              = "#f6c177", -- Gold
-		orange2              = "#f6c177",
-		orange3              = "#ebbcba", -- Rose
-		orange4              = "#f6c177",
+		-- Extended Palette
+		orange1              = "#c0a040",
+		orange2              = "#c0a040",
+		orange3              = "#c0a0a0",
+		orange4              = "#c0a040",
 
-		red1                 = "#eb6f92", -- Love
-		red2                 = "#eb6f92",
-		red3                 = "#eb6f92",
-		red4                 = "#eb6f92",
-		red_light            = "#ebbcba", -- Rose for welcome dashboard
+		red1                 = "#c04060",
+		red2                 = "#c04060",
+		red3                 = "#c04060",
+		red4                 = "#c04060",
+		red_light            = "#c0a0a0",
 
-		green1               = "#9ccfd8", -- Foam (Rosé pine lacks a true green, relies on Foam)
-		green2               = "#31748f", -- Pine
-		green3               = "#9ccfd8",
-		green4               = "#31748f",
+		green1               = "#70b0c0",
+		green2               = "#405870",
+		green3               = "#70b0c0",
+		green4               = "#405870",
 
-		blue1                = "#31748f", -- Pine
-		blue2                = "#9ccfd8", -- Foam
-		blue3                = "#31748f",
-		blue4                = "#31748f",
+		blue1                = "#405870",
+		blue2                = "#80c0d0",
+		blue3                = "#405870",
+		blue4                = "#405870",
 
-		purple1              = "#c4a7e7", -- Iris
-		purple2              = "#c4a7e7",
-		purple3              = "#c4a7e7",
-		purple4              = "#c4a7e7",
+		purple1              = "#a080d0",
+		purple2              = "#a080d0",
+		purple3              = "#a080d0",
+		purple4              = "#a080d0",
 	},
 }
 
