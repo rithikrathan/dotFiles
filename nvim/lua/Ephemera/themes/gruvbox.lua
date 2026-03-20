@@ -5,92 +5,92 @@ M.config = {
 	glow = true,
 	show_end_of_buffer = false,
 	colors = {
-		-- Base UI (Retrobox Hard Dark for better contrast)
-		fg                   = "#ebdbb2", -- Retrobox light foreground
-		bg                   = "#1d2021", -- Retrobox HARD dark background (fixes washed-out look)
-		bgl                  = "#141617", -- Even darker for contrast areas
-		black                = "#1d2021",
-		white                = "#fbf1c7", -- Brightest foreground
-		eob                  = "#3c3836", -- Subtle end-of-buffer
-		border               = "#665c54", -- Muted border
+		-- Base UI (Ultra Dark for LCD)
+		fg                   = "#e0d8c0", -- Warm off-white, high contrast
+		bg                   = "#0c0c0a", -- Near-black with warm tint
+		bgl                  = "#0a0a08", -- Even darker for panels
+		black                = "#000000",
+		white                = "#f0e8d0", -- Brightest foreground
+		eob                  = "#2a2820", -- Subtle end-of-buffer
+		border               = "#4a4a3a", -- Muted border
 		title                = "#b8bb26", -- Green title
 
 		-- Cursor & Selection
-		cursor               = "#ebdbb2",
-		cursorLine           = "#282828", -- Subtle highlight
-		visual               = "#504945", -- Soft gray/brown selection (highly visible)
-		line_nr              = "#665c54", -- Subdued line numbers
+		cursor               = "#e0d8c0",
+		cursorLine           = "#1a1a16", -- Subtle highlight
+		visual               = "#3a3a30", -- Soft brown selection
+		line_nr              = "#4a4a3a", -- Subdued but visible line numbers
 
-		-- Syntax (Strict Retrobox/Gruvbox palette)
-		comment              = "#928374", -- Gray
-		string               = "#b8bb26", -- Green
-		func                 = "#b8bb26", -- Green for functions (classic Gruvbox)
-		kw                   = "#fb4934", -- Red for keywords
-		identifier           = "#ebdbb2", -- FIX: Set to FG so normal text isn't blue
-		type                 = "#fabd2f", -- Yellow
-		type_builtin         = "#fe8019", -- Orange
-		operator             = "#8ec07c", -- Aqua
-		bracket              = "#a89984", -- Neutral
-		preprocessor         = "#8ec07c", -- Aqua
-		bool                 = "#d3869b", -- Purple
-		constant             = "#d3869b", -- Purple
+		-- Syntax (Gruvbox with better LCD contrast)
+		comment              = "#6a6050", -- Gray (readable on dark bg)
+		string               = "#a8b860", -- Green (slightly brighter)
+		func                 = "#8ab860", -- Green for functions
+		kw                   = "#e04040", -- Red for keywords (brighter)
+		identifier           = "#e0d8c0", -- Normal text
+		type                 = "#d0a030", -- Yellow (brighter for visibility)
+		type_builtin         = "#d07030", -- Orange
+		operator             = "#70a060", -- Aqua (muted but visible)
+		bracket              = "#90a080", -- Neutral (readable)
+		preprocessor         = "#70a060", -- Aqua
+		bool                 = "#c07090", -- Purple (readable)
+		constant             = "#c07090", -- Purple
 
 		-- Search & Highlighting
-		search_highlight     = "#282828",
-		search_bg            = "#d79921",
-		inc_search_bg        = "#fe8019",
-		inc_search_fg        = "#282828",
-		cur_search_bg        = "#fabd2f",
-		glow_color           = "#fbf1c7",
+		search_highlight     = "#0c0c0a",
+		search_bg            = "#b08020", -- Yellow bg
+		inc_search_bg        = "#c06020",
+		inc_search_fg        = "#0c0c0a",
+		cur_search_bg        = "#c09030",
+		glow_color           = "#f0e8d0",
 
-		-- Popup Menu (Fixed Blending)
-		pmenu_bg             = "#282828", -- Slightly lighter than base bg for contrast
-		pmenu_sel_bg         = "#504945", -- Distinct selection background
-		pmenu_fg             = "#ebdbb2",
+		-- Popup Menu
+		pmenu_bg             = "#141410", -- Darker than base bg
+		pmenu_sel_bg         = "#3a3a30", -- Selection
+		pmenu_fg             = "#e0d8c0",
 
 		-- Git
-		added                = "#b8bb26", -- Green
-		changed              = "#8ec07c", -- Aqua
-		removed              = "#fb4934", -- Red
+		added                = "#8ab860", -- Green
+		changed              = "#80b070", -- Aqua
+		removed              = "#e04040", -- Red
 
 		-- Diagnostics
-		error                = "#fb4934", -- Red
-		warning              = "#fabd2f", -- Yellow
-		hint                 = "#8ec07c", -- Aqua
-		info                 = "#83a598", -- Blue
+		error                = "#e04040", -- Red
+		warning              = "#c09020", -- Yellow
+		hint                 = "#70a060", -- Aqua
+		info                 = "#6080a0", -- Blue
 
 		-- Plugin Specific
-		bufferline_selection = "#fe8019",
-		cyan                 = "#8ec07c",
-		purple_light         = "#d3869b",
-		quote_fg             = "#928374",
+		bufferline_selection = "#c06030",
+		cyan                 = "#70a060",
+		purple_light         = "#b07090",
+		quote_fg             = "#6a6050",
 
 		-- Extended Palette
-		orange1              = "#d65d0e",
-		orange2              = "#fe8019",
-		orange3              = "#af3a03",
-		orange4              = "#d65d0e",
+		orange1              = "#b06020",
+		orange2              = "#c06030",
+		orange3              = "#904020",
+		orange4              = "#b06020",
 
-		red1                 = "#cc241d",
-		red2                 = "#fb4934",
-		red3                 = "#9d0006",
-		red4                 = "#cc241d",
-		red_light            = "#fb4934",
+		red1                 = "#a03020",
+		red2                 = "#e04040",
+		red3                 = "#801010",
+		red4                 = "#a03020",
+		red_light            = "#e05050",
 
-		green1               = "#98971a",
-		green2               = "#b8bb26",
-		green3               = "#79740e",
-		green4               = "#98971a",
+		green1               = "#708020",
+		green2               = "#8ab860",
+		green3               = "#506010",
+		green4               = "#708020",
 
-		blue1                = "#458588",
-		blue2                = "#83a598",
-		blue3                = "#076678",
-		blue4                = "#458588",
+		blue1                = "#406070",
+		blue2                = "#608090",
+		blue3                = "#305060",
+		blue4                = "#406070",
 
-		purple1              = "#b16286",
-		purple2              = "#d3869b",
-		purple3              = "#8f3f71",
-		purple4              = "#b16286",
+		purple1              = "#905070",
+		purple2              = "#b07090",
+		purple3              = "#703050",
+		purple4              = "#905070",
 	},
 }
 

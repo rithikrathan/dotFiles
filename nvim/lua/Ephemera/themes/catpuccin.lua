@@ -5,92 +5,92 @@ M.config = {
 	glow = true,
 	show_end_of_buffer = false,
 	colors = {
-		-- Base UI (Catppuccin Mocha - Darkest Variant)
-		fg                   = "#cdd6f4", -- Text (Bright and high contrast)
-		bg                   = "#1e1e2e", -- Base (Deep dark background)
-		bgl                  = "#181825", -- Mantle (Even darker for contrast panels/menus)
-		black                = "#11111b", -- Crust (Absolute darkest)
-		white                = "#cdd6f4", -- Text
-		eob                  = "#313244", -- Surface0 (Subtle end-of-buffer)
-		border               = "#585b70", -- Surface2 (Clear but not distracting borders)
-		title                = "#89b4fa", -- Blue (Titles/Highlights)
+		-- Base UI (Ultra Dark Catppuccin for LCD)
+		fg                   = "#d0d0e8", -- Bright but soft
+		bg                   = "#0a0a14", -- Deep dark purple-black
+		bgl                  = "#080810", -- Darker for panels
+		black                = "#000000",
+		white                = "#e0e0f0",
+		eob                  = "#1a1a28", -- Subtle end-of-buffer
+		border               = "#505070", -- Muted border
+		title                = "#7090d0", -- Blue (brighter)
 
 		-- Cursor & Selection
-		cursor               = "#f5e0dc", -- Rosewater
-		cursorLine           = "#313244", -- Surface0
-		visual               = "#45475a", -- Surface1 (Highly visible selection)
-		line_nr              = "#6c7086", -- Overlay0 (Muted line numbers)
+		cursor               = "#e0d0d8",
+		cursorLine           = "#1c1c2a", -- Subtle highlight
+		visual               = "#2c2c40", -- Distinct selection
+		line_nr              = "#505068", -- Visible line numbers
 
-		-- Syntax (Catppuccin Mocha Strict Palette)
-		comment              = "#7f849c", -- Overlay1
-		string               = "#a6e3a1", -- Green
-		func                 = "#89b4fa", -- Blue
-		kw                   = "#cba6f7", -- Mauve (Signature Catppuccin Purple for keywords)
-		identifier           = "#cdd6f4", -- Text (Keeps normal text from turning blue!)
-		type                 = "#f9e2af", -- Yellow
-		type_builtin         = "#fab387", -- Peach
-		operator             = "#89dceb", -- Sky (Cyan)
-		bracket              = "#94e2d5", -- Teal
-		preprocessor         = "#f38ba8", -- Red
-		bool                 = "#fab387", -- Peach
-		constant             = "#fab387", -- Peach
+		-- Syntax (Catppuccin with better LCD contrast)
+		comment              = "#606080", -- Muted blue
+		string               = "#80c070", -- Green (brighter)
+		func                 = "#7090d0", -- Blue (brighter)
+		kw                   = "#a080d0", -- Mauve (brighter)
+		identifier           = "#d0d0e8", -- Normal text
+		type                 = "#c0b070", -- Yellow (brighter)
+		type_builtin         = "#c09060", -- Peach (brighter)
+		operator             = "#70c0d0", -- Sky (brighter)
+		bracket              = "#70c0b0", -- Teal (brighter)
+		preprocessor         = "#c07080", -- Red (brighter)
+		bool                 = "#c09070", -- Peach (brighter)
+		constant             = "#c09070", -- Peach
 
 		-- Search & Highlighting
-		search_highlight     = "#11111b", -- Crust text...
-		search_bg            = "#f9e2af", -- ...on Yellow background
-		inc_search_bg        = "#fab387", -- Peach background
-		inc_search_fg        = "#11111b", -- Crust text
-		cur_search_bg        = "#f9e2af",
-		glow_color           = "#cdd6f4",
+		search_highlight     = "#0a0a14",
+		search_bg            = "#b0a040", -- Yellow bg
+		inc_search_bg        = "#c09060", -- Peach bg
+		inc_search_fg        = "#080810",
+		cur_search_bg        = "#c0b040",
+		glow_color           = "#e0e0f0",
 
-		-- Popup Menu (High Contrast Floating Windows)
-		pmenu_bg             = "#181825", -- Mantle (Darker than base BG to float cleanly)
-		pmenu_sel_bg         = "#45475a", -- Surface1
-		pmenu_fg             = "#cdd6f4",
+		-- Popup Menu
+		pmenu_bg             = "#0e0e18", -- Darker than base bg
+		pmenu_sel_bg         = "#2c2c40",
+		pmenu_fg             = "#d0d0e8",
 
 		-- Git
-		added                = "#a6e3a1", -- Green
-		changed              = "#f9e2af", -- Yellow
-		removed              = "#f38ba8", -- Red
+		added                = "#70c060", -- Green
+		changed              = "#b0a030", -- Yellow
+		removed              = "#c06070", -- Red
 
 		-- Diagnostics
-		error                = "#f38ba8", -- Red
-		warning              = "#f9e2af", -- Yellow
-		hint                 = "#94e2d5", -- Teal
-		info                 = "#89dceb", -- Sky
+		error                = "#c06070", -- Red
+		warning              = "#c0b030", -- Yellow
+		hint                 = "#70b0a0", -- Teal
+		info                 = "#70b0c0", -- Sky
 
 		-- Plugin Specific
-		bufferline_selection = "#cba6f7", -- Mauve
-		cyan                 = "#89dceb", -- Sky
-		purple_light         = "#cba6f7", -- Mauve
-		quote_fg             = "#7f849c", -- Overlay1
+		bufferline_selection = "#a080d0",
+		cyan                 = "#70b0c0",
+		purple_light         = "#a080d0",
+		quote_fg             = "#606080",
 
-		-- Extended Palette (Catppuccin mapped)
-		orange1              = "#fab387", -- Peach
-		orange2              = "#fab387",
-		orange3              = "#eba0ac", -- Maroon
-		orange4              = "#fab387",
+		-- Extended Palette
+		orange1              = "#c08050",
+		orange2              = "#c09060",
+		orange3              = "#b08080",
+		orange4              = "#c08050",
 
-		red1                 = "#f38ba8", -- Red
-		red2                 = "#f38ba8",
-		red3                 = "#eba0ac",
-		red4                 = "#f38ba8",
-		red_light            = "#f5c2e7", -- Pink for welcome rose
+		red1                 = "#c06070",
+		red2                 = "#c06070",
+		red3                 = "#b08080",
+		red4                 = "#c06070",
+		red_light            = "#d0a0c0",
 
-		green1               = "#a6e3a1", -- Green
-		green2               = "#a6e3a1",
-		green3               = "#94e2d5", -- Teal
-		green4               = "#a6e3a1",
+		green1               = "#70c060",
+		green2               = "#70c060",
+		green3               = "#70b0a0",
+		green4               = "#70c060",
 
-		blue1                = "#89b4fa", -- Blue
-		blue2                = "#74c7ec", -- Sapphire
-		blue3                = "#89dceb", -- Sky
-		blue4                = "#89b4fa",
+		blue1                = "#7090d0",
+		blue2                = "#60a0c0",
+		blue3                = "#70b0c0",
+		blue4                = "#7090d0",
 
-		purple1              = "#cba6f7", -- Mauve
-		purple2              = "#cba6f7",
-		purple3              = "#f5c2e7", -- Pink
-		purple4              = "#cba6f7",
+		purple1              = "#a080d0",
+		purple2              = "#a080d0",
+		purple3              = "#c090b0",
+		purple4              = "#a080d0",
 	},
 }
 

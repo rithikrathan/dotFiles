@@ -53,7 +53,7 @@ M.config = {
 	},
 
 	highlights = {
-		header    = "Keyword",
+		header    = "WelcomeRose",
 		quote     = "WelcomeQuote",
 		quotemark = "Keyword",
 		key       = "DiagnosticHint",

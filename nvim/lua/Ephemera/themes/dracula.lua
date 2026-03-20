@@ -5,92 +5,92 @@ M.config = {
 	glow = true,
 	show_end_of_buffer = false,
 	colors = {
-		-- Base UI (Official Dracula Palette)
-		fg                   = "#f8f8f2", -- Dracula Foreground
-		bg                   = "#282a36", -- Dracula Background
-		bgl                  = "#21222c", -- Slightly darker background for menus/statuslines
+		-- Base UI (Ultra Dark Dracula for LCD)
+		fg                   = "#e0e0f0", -- Bright foreground
+		bg                   = "#0a0a14", -- Deep dark purple-black
+		bgl                  = "#080810", -- Darker for panels
 		black                = "#000000",
-		white                = "#ffffff",
-		eob                  = "#44475a", -- End of buffer tildes
-		border               = "#6272a4", -- Comment color used for borders
-		title                = "#bd93f9", -- Purple title
+		white                = "#f0f0ff",
+		eob                  = "#2a2a40", -- End of buffer tildes
+		border               = "#505070", -- Muted purple border
+		title                = "#b080f0", -- Purple title (brighter)
 
 		-- Cursor & Selection
-		cursor               = "#f8f8f2",
-		cursorLine           = "#44475a", -- Dracula Current Line
-		visual               = "#44475a", -- Dracula Selection
-		line_nr              = "#6272a4", -- Dracula Comment (muted)
+		cursor               = "#e0e0f0",
+		cursorLine           = "#2a2a40", -- Current line
+		visual               = "#3a3a55", -- Selection (visible)
+		line_nr              = "#505070", -- Line numbers (visible)
 
-		-- Syntax (Strict Dracula Palette)
-		comment              = "#6272a4", -- Dracula Comment
-		string               = "#f1fa8c", -- Yellow
-		func                 = "#50fa7b", -- Green
-		kw                   = "#ff79c6", -- Pink (Keywords/Control flow)
-		identifier           = "#f8f8f2", -- Foreground (prevents normal text from turning blue)
-		type                 = "#8be9fd", -- Cyan (Types/Classes)
-		type_builtin         = "#8be9fd", -- Cyan
-		operator             = "#ff79c6", -- Pink
-		bracket              = "#f8f8f2", -- Foreground
-		preprocessor         = "#ff79c6", -- Pink
-		bool                 = "#bd93f9", -- Purple
-		constant             = "#bd93f9", -- Purple
+		-- Syntax (Dracula with better LCD contrast)
+		comment              = "#6070a0", -- Muted blue-purple
+		string               = "#d0e860", -- Yellow-green (brighter)
+		func                 = "#60f080", -- Green (brighter)
+		kw                   = "#e080c0", -- Pink (brighter)
+		identifier           = "#e0e0f0", -- Normal text
+		type                 = "#80d0f0", -- Cyan (brighter)
+		type_builtin         = "#80d0f0", -- Cyan
+		operator             = "#e080c0", -- Pink
+		bracket              = "#d0d0e0", -- Foreground
+		preprocessor         = "#e080c0", -- Pink
+		bool                 = "#a070e0", -- Purple (brighter)
+		constant             = "#a070e0", -- Purple
 
 		-- Search & Highlighting
-		search_highlight     = "#282a36", -- Black text
-		search_bg            = "#ffb86c", -- Orange background for search
-		inc_search_bg        = "#50fa7b", -- Green background for active search
-		inc_search_fg        = "#282a36", -- Black text
-		cur_search_bg        = "#ffb86c",
-		glow_color           = "#f8f8f2",
+		search_highlight     = "#0a0a14",
+		search_bg            = "#c09050", -- Orange background
+		inc_search_bg        = "#60f080", -- Green background
+		inc_search_fg        = "#0a0a14",
+		cur_search_bg        = "#d0a060",
+		glow_color           = "#f0f0ff",
 
 		-- Popup Menu
-		pmenu_bg             = "#21222c", -- Darker than base BG for contrast
-		pmenu_sel_bg         = "#44475a", -- Dracula Selection
-		pmenu_fg             = "#f8f8f2",
+		pmenu_bg             = "#12121e", -- Darker than base bg
+		pmenu_sel_bg         = "#3a3a55",
+		pmenu_fg             = "#e0e0f0",
 
 		-- Git
-		added                = "#50fa7b", -- Green
-		changed              = "#ffb86c", -- Orange
-		removed              = "#ff5555", -- Red
+		added                = "#60f080", -- Green
+		changed              = "#c09050", -- Orange
+		removed              = "#e05060", -- Red
 
 		-- Diagnostics
-		error                = "#ff5555", -- Red
-		warning              = "#f1fa8c", -- Yellow
-		hint                 = "#8be9fd", -- Cyan
-		info                 = "#bd93f9", -- Purple
+		error                = "#e05060", -- Red
+		warning              = "#d0c040", -- Yellow
+		hint                 = "#80d0f0", -- Cyan
+		info                 = "#9080e0", -- Purple
 
 		-- Plugin Specific
-		bufferline_selection = "#bd93f9", -- Purple
-		cyan                 = "#8be9fd", -- Dracula Cyan
-		purple_light         = "#bd93f9", -- Dracula Purple
-		quote_fg             = "#6272a4", -- Dracula Comment
+		bufferline_selection = "#a070e0",
+		cyan                 = "#80d0f0",
+		purple_light         = "#a070e0",
+		quote_fg             = "#6070a0",
 
-		-- Extended Palette (Using Dracula shades)
-		orange1              = "#ffb86c",
-		orange2              = "#ffb86c",
-		orange3              = "#ffb86c",
-		orange4              = "#ffb86c",
+		-- Extended Palette
+		orange1              = "#c09050",
+		orange2              = "#c09050",
+		orange3              = "#c09050",
+		orange4              = "#c09050",
 
-		red1                 = "#ff5555",
-		red2                 = "#ff5555",
-		red3                 = "#ff5555",
-		red4                 = "#ff5555",
-		red_light            = "#ff79c6", -- Using Pink here for welcome rose
+		red1                 = "#e05060",
+		red2                 = "#e05060",
+		red3                 = "#e05060",
+		red4                 = "#e05060",
+		red_light            = "#e080a0",
 
-		green1               = "#50fa7b",
-		green2               = "#50fa7b",
-		green3               = "#50fa7b",
-		green4               = "#50fa7b",
+		green1               = "#60f080",
+		green2               = "#60f080",
+		green3               = "#60f080",
+		green4               = "#60f080",
 
-		blue1                = "#8be9fd", -- Dracula relies on Cyan instead of traditional blue
-		blue2                = "#8be9fd",
-		blue3                = "#8be9fd",
-		blue4                = "#8be9fd",
+		blue1                = "#80d0f0",
+		blue2                = "#80d0f0",
+		blue3                = "#80d0f0",
+		blue4                = "#80d0f0",
 
-		purple1              = "#bd93f9",
-		purple2              = "#bd93f9",
-		purple3              = "#bd93f9",
-		purple4              = "#bd93f9",
+		purple1              = "#a070e0",
+		purple2              = "#a070e0",
+		purple3              = "#a070e0",
+		purple4              = "#a070e0",
 	},
 }
 
