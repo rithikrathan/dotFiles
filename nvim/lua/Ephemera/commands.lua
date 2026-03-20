@@ -254,3 +254,19 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_user_command('UnFiget', function()
 	require("fidget").notification.toggle()
 end, { desc = "disable the fige notification" })
+
+vim.api.nvim_create_user_command('Ephemera', function(opts)
+	local subcmd = opts.fargs[1]
+	if subcmd == "theme" then
+		require("Ephemera.themePicker").open()
+	else
+		vim.notify("Unknown subcommand: " .. subcmd, vim.log.levels.WARN)
+	end
+end, {
+	nargs = 1,
+	complete = function(_, cmd)
+		local subs = { "theme" }
+		return vim.tbl_filter(function(s) return s:find("^" .. cmd) end, subs)
+	end,
+	desc = "Ephemera theme picker",
+})
