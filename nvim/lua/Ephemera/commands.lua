@@ -8,8 +8,6 @@ local ft_map = {
 	v    = "verilog",
 	pyde = "python",
 	pde  = "processing",
-	l    = "c",
-	y    = "c"
 }
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
@@ -229,26 +227,6 @@ vim.api.nvim_create_user_command('LockIn', function()
 		print("Cursor Unlocked")
 	end
 end, { desc = "Toggle typewriter-style center cursor lock" })
-
-vim.api.nvim_create_user_command('ToggleStatusLine', function()
-	if vim.opt.laststatus:get() == 0 then
-		vim.opt.laststatus = 3
-		print("Statusline visible")
-	else
-		vim.opt.laststatus = 0
-		print("Statusline hidden")
-	end
-end, { desc = 'Toggle the status line on and off' })
-
----=-=-=-=-=-=-=-=-=-=-= [AUTOOCOMANDS] =-=-=-=-=-=-=-=-=--
--- Force compilation buffer to the far right
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "compilation",
-	callback = function()
-		vim.cmd("wincmd L")
-		vim.api.nvim_win_set_width(0, 65) -- Adjust '50' to your preferred width
-	end,
-})
 
 -- disable figet
 vim.api.nvim_create_user_command('UnFiget', function()

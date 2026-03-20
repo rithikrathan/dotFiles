@@ -57,8 +57,6 @@ end
 local ft_map = {
 	-- ["oil"]             = { name = "Explorer", icon = "", color = "#fabd2f" },
 	["oil"]             = { name = "Explorer", icon = "📂", color = "#fabd2f" },
-	-- ["compilation"]     = { name = "Run", icon = "", color = "#09a409" },
-	["compilation"]     = { name = "Compilation", icon = "", color = "#09a409" },
 	["fzf"]             = { name = "Fuzzy Find", icon = "꩜ ", color = "#fabd2f" },
 	["qf"]              = { name = "Quickfix", icon = "🔧", color = "#fabd2f" },
 	["aerial"]          = { name = "Aerial", icon = "𑣲𝑨", color = "#fabd2f" },

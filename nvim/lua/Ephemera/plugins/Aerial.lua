@@ -23,7 +23,7 @@ return {
 
 				lazy_load = true,
 				backends = { "treesitter", "lsp", "markdown", "asciidoc", "man" },
-				default_direction = "right",
+				default_direction = "left",
 				manage_folds = true,
 				link_tree_to_folds = true,
 				nerd_font = "auto",

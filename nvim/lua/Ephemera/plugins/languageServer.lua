@@ -99,10 +99,6 @@ return {
 		opts = {},
 		config = function()
 			local conform = require("conform")
-
-			--Define exclusion list here
-			local excluded_extensions = { "l", "y", "txt" }
-
 			conform.setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
@@ -112,25 +108,10 @@ return {
 					verilog = { "istyle" },
 					systemverilog = { "istyle" },
 				},
-				format_on_save = function(bufnr)
-					-- Get the current file extension
-					local bufname = vim.api.nvim_buf_get_name(bufnr)
-					local extension = vim.fn.fnamemodify(bufname, ":e")
-
-					--Check if the extension is in excluded list
-					if vim.tbl_contains(excluded_extensions, extension) then
-						print("Excluding formatter....")
-						return
-					end
-
-					return { timeout_ms = 500, lsp_format = "fallback" }
-				end,
+				format_on_save = { timeout_ms = 500, lsp_format = "fallback" },
 			})
-
-			-- Manual format keymap
-			vim.keymap.set("n", "<leader>fo", function()
-				conform.format({ lsp_fallback = true, async = false, timeout_ms = 500 })
-			end)
+			vim.keymap.set("n", "<leader>fo",
+				function() conform.format({ lsp_fallback = true, async = false, timeout_ms = 500 }) end)
 		end
 	},
 
