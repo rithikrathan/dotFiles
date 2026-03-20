@@ -74,7 +74,7 @@ local cmp = require("cmp")
 local lspkind = require("lspkind")
 -- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
-vim.g.cmp_enabled = false
+vim.g.cmp_enabled = true --default value for completion
 vim.g.cmp_ghost = false
 
 local function apply_cmp()
@@ -163,6 +163,7 @@ end
 
 apply_cmp()
 
+-- userdefined command
 vim.api.nvim_create_user_command("ToggleCompletion", function()
 	vim.g.cmp_enabled = not vim.g.cmp_enabled
 	vim.g.cmp_ghost = vim.g.cmp_enabled

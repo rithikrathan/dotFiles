@@ -1,8 +1,20 @@
 local M = {}
+
 M.config = {
 	transparent = true,
 	glow = true,
 	show_end_of_buffer = false,
+	-- local c = {
+	--     bright3      = '#f6c2a5',
+	--     bright2      = '#ea9a7d',
+	--     bright1      = '#e16a5e',
+	--     normal       = '#d22f32',
+	--     dark1        = '#b1274e',
+	--     dark2        = '#931b46',
+	--     dark3        = '#631033',
+	--     dark4        = '#42001f',
+	--     background   = '#101010',
+	-- }
 	colors = {
 		-- Base UI
 		fg                   = "#ddcccc",
@@ -17,14 +29,15 @@ M.config = {
 		-- Cursor & Selection
 		cursor               = "#ffa0a0",
 		cursorLine           = "#121212",
-		visual               = "#4a0a0a", -- Darkened for legibility
+		visual               = "#690f0f",
 		line_nr              = "#ff1010",
 
 		-- Syntax
 		comment              = "#696969",
 		string               = "#e4b2ab",
 		func                 = "#ff6347",
-		kw                   = "#b3242a",
+		-- kw                   = "#ff2828",
+		kw                   = "#ec252d",
 		identifier           = "#d2d2d2",
 		type                 = "#ff420f",
 		type_builtin         = "#ff420f",
@@ -60,9 +73,9 @@ M.config = {
 
 		-- Plugin Specific
 		bufferline_selection = "#fd1b1b",
-		cyan                 = "#00FFFF",
-		purple_light         = "#b294bb",
-		quote_fg             = "#a1a1a1",
+		cyan                 = "#00FFFF", -- Used for multi-cursor
+		purple_light         = "#b294bb", -- Used for multi-cursor visual
+		quote_fg             = "#a1a1a1", -- Used for dashboard/welcome
 
 		-- Extended Palette
 		orange1              = "#ff9e64",
@@ -74,7 +87,7 @@ M.config = {
 		red2                 = "#ff4444",
 		red3                 = "#ff6565",
 		red4                 = "#c53b53",
-		red_light            = "#ff5555",
+		red_light            = "#ff5555", -- Added to palette for cmp/welcome/cursearch
 
 		green1               = "#00ff99",
 		green2               = "#50fa7b",
@@ -93,7 +106,6 @@ M.config = {
 	},
 }
 
-
 function M.setup(user_config)
 	M.config = vim.tbl_deep_extend("force",
 		M.config,
@@ -103,6 +115,7 @@ function M.setup(user_config)
 	local float_bg = M.config.transparent and "NONE" or colors.pmenu_bg
 
 	local highlight_groups = {
+
 		-- =====================================
 		-- CORE UI
 		-- =====================================

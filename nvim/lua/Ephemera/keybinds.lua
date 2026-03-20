@@ -38,7 +38,7 @@ vim.keymap.set({ "n", "v", "t", "i" }, "<A-n>", '<CR>', { remap = true })
 vim.keymap.set("v", "<leader>y", '"+ygv', { remap = true })
 vim.keymap.set("n", "<leader>p", '"+p', { remap = true })
 
-vim.keymap.set({ "n", "v", "t", "i" }, "<F5>", ':w | nohl | make<CR>', { remap = true })
+-- vim.keymap.set({ "n", "v", "t", "i" }, "<F5>", ':w | nohl | make<CR>', { remap = true })
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set({ "n", "i" }, "<A-[>", "zt")
