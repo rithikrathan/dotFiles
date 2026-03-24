@@ -1,4 +1,4 @@
 return {
-  name = "sonokai",
+  name = "Ephemera",
 }
 
