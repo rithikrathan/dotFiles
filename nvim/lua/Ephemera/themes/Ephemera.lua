@@ -106,71 +106,73 @@ function M.setup(user_config)
 		-- =====================================
 		-- CORE UI
 		-- =====================================
-		Normal                      = { fg = colors.fg, bg = bg_color },
-		Folded                      = { fg = colors.bool, bg = bg_color, italic = true, bold = true },
-		FoldColumn                  = { fg = colors.type, bg = bg_color },
-		Cursor                      = { fg = colors.cursor, bg = bg_color },
-		CursorLine                  = { bg = colors.cursorLine },
-		LineNr                      = { fg = colors.line_nr },
-		Visual                      = { bg = colors.visual },
-		EndOfBuffer                 = { fg = M.config.show_end_of_buffer and colors.eob or colors.bg, bg = bg_color },
-		WinSeparator                = { fg = colors.kw, bg = bg_color },
+		Normal       = { fg = colors.fg, bg = bg_color },
+		Folded       = { fg = colors.bool, bg = bg_color, italic = true, bold = true },
+		FoldColumn   = { fg = colors.type, bg = bg_color },
+		Cursor       = { fg = colors.cursor, bg = bg_color },
+		CursorLine   = { bg = colors.cursorLine },
+		LineNr       = { fg = colors.line_nr },
+		Visual       = { bg = colors.visual },
+		EndOfBuffer  = { fg = M.config.show_end_of_buffer and colors.eob or colors.bg, bg = bg_color },
+		WinSeparator = { fg = colors.kw, bg = bg_color },
 
 		-- Messages & Cmdline
-		MsgSeparator                = { bg = colors.bgl },
-		MsgArea                     = { fg = colors.constant, bg = bg_color, italic = true, bold = true },
-		ModeMsg                     = { fg = colors.constant, bold = true },
+		MsgSeparator = { bg = colors.bgl },
+		MsgArea      = { fg = colors.constant, bg = bg_color, italic = true, bold = true },
+		ModeMsg      = { fg = colors.constant, bold = true },
 		-- MsgArea =    { bg = bg_color },
 		-- NormalMsg =  { bg = bg_color },
 		-- ModeMsg =    { bg = bg_color },
 
 		-- Search
-		Search                      = { bg = colors.search_bg, fg = colors.white, bold = true },
-		IncSearch                   = { bg = colors.inc_search_bg, fg = colors.inc_search_fg, bold = true },
-		CurSearch                   = { bg = colors.cur_search_bg, fg = colors.black, bold = true },
+		Search       = { bg = colors.search_bg, fg = colors.white, bold = true },
+		IncSearch    = { bg = colors.inc_search_bg, fg = colors.inc_search_fg, bold = true },
+		CurSearch    = { bg = colors.cur_search_bg, fg = colors.black, bold = true },
 
 		-- Floating Windows & Menus
-		Pmenu                       = { fg = colors.pmenu_fg, bg = colors.pmenu_bg },
-		PmenuSel                    = { fg = colors.pmenu_bg, bg = colors.pmenu_sel_bg, bold = true },
-		NormalFloat                 = { fg = colors.fg, bg = float_bg },
-		FloatBorder                 = { fg = colors.border, bg = float_bg },
+		Pmenu        = { fg = colors.pmenu_fg, bg = colors.pmenu_bg },
+		PmenuSel     = { fg = colors.pmenu_bg, bg = colors.pmenu_sel_bg, bold = true },
+		NormalFloat  = { fg = colors.fg, bg = float_bg },
+		FloatBorder  = { fg = colors.border, bg = float_bg },
 
 		-- Syntax (General)
-		Comment                     = { fg = colors.comment, italic = true, bold = true },
-		String                      = { fg = colors.string },
-		Function                    = { fg = colors.func },
-		Keyword                     = { fg = colors.kw },
-		Identifier                  = { fg = colors.identifier },
-		Type                        = { fg = colors.type },
-		PreProc                     = { fg = colors.preprocessor },
-		Boolean                     = { fg = colors.bool },
-		Constant                    = { fg = colors.constant },
-		Operator                    = { fg = colors.operator },
-		Delimiter                   = { fg = colors.bracket },
+		Comment      = { fg = colors.comment, italic = true, bold = true },
+		String       = { fg = colors.string },
+		Function     = { fg = colors.func },
+		Keyword      = { fg = colors.kw },
+		Identifier   = { fg = colors.identifier },
+		Type         = { fg = colors.type },
+		PreProc      = { fg = colors.preprocessor },
+		Boolean      = { fg = colors.bool },
+		Constant     = { fg = colors.constant },
+		Operator     = { fg = colors.operator },
+		Delimiter    = { fg = colors.bracket },
 
 		-- =====================================
 		-- CUSTOM MODES
 		-- =====================================
-		ModeVenn                    = { fg = colors.bg, bg = colors.preprocessor, italic = true, bold = true },
-		ModeMul                     = { fg = colors.bg, bg = colors.blue2, italic = true, bold = true },
+		ModeVenn     = { fg = colors.bg, bg = colors.preprocessor, italic = true, bold = true },
+		ModeMul      = { fg = colors.bg, bg = colors.blue2, italic = true, bold = true },
 
 		-- =====================================
 		-- STATUSLINE
 		-- =====================================
-		ModeNorm                    = { fg = colors.bg, bg = colors.kw, italic = true, bold = true },
-		SepNormA                    = { fg = colors.kw, bg = colors.pmenu_bg },
-		InfoNorm                    = { fg = colors.fg, bg = colors.pmenu_bg },
-		SepNormB                    = { fg = colors.pmenu_bg, bg = colors.bgl },
-		ModeIns                     = { fg = colors.bg, bg = colors.func, italic = true, bold = true },
-		SepInsA                     = { fg = colors.func, bg = colors.pmenu_bg },
-		InfoIns                     = { fg = colors.fg, bg = colors.pmenu_bg },
-		SepInsB                     = { fg = colors.pmenu_bg, bg = colors.bgl },
-		ModeVis                     = { fg = colors.bg, bg = colors.type, italic = true, bold = true },
-		SepVisA                     = { fg = colors.type, bg = colors.pmenu_bg },
-		InfoVis                     = { fg = colors.fg, bg = colors.pmenu_bg },
-		SepVisB                     = { fg = colors.pmenu_bg, bg = colors.bgl },
-		StatusBody                  = { fg = colors.comment, bg = colors.bgl, bold = true, italic = true },
-		SlRef                       = { fg = colors.comment, bg = colors.bgl, bold = true, italic = true },
+		ModeNorm     = { fg = colors.bg, bg = colors.kw, italic = true, bold = true },
+		SepNormA     = { fg = colors.kw, bg = colors.pmenu_bg },
+		InfoNorm     = { fg = colors.fg, bg = colors.pmenu_bg },
+		SepNormB     = { fg = colors.pmenu_bg, bg = colors.bgl },
+		ModeIns      = { fg = colors.bg, bg = colors.func, italic = true, bold = true },
+		SepInsA      = { fg = colors.func, bg = colors.pmenu_bg },
+		InfoIns      = { fg = colors.fg, bg = colors.pmenu_bg },
+		SepInsB      = { fg = colors.pmenu_bg, bg = colors.bgl },
+		ModeVis      = { fg = colors.bg, bg = colors.type, italic = true, bold = true },
+		SepVisA      = { fg = colors.type, bg = colors.pmenu_bg },
+		InfoVis      = { fg = colors.fg, bg = colors.pmenu_bg },
+		SepVisB      = { fg = colors.pmenu_bg, bg = colors.bgl },
+		StatusBody   = { fg = colors.comment, bg = colors.bgl, bold = true, italic = true },
+		SlRef        = { fg = colors.comment, bg = colors.bgl, bold = true, italic = true },
+
+
 
 		-- =====================================
 		-- TREESITTER

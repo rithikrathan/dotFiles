@@ -373,3 +373,9 @@ vim.keymap.set("n", "]]]", function()
 	-- print(vim.fn.getcwd())
 	print(vim.fn.expand('%:p:h'))
 end)
+
+-- Scratchpad
+vim.keymap.set("n", "<leader>ss", function() require("Ephemera.scratchpad").open() end)
+vim.keymap.set("n", "<leader>sq", function() require("Ephemera.scratchpad").close() end)
+vim.keymap.set("n", "<leader>sp", function() require("Ephemera.scratchpad").clone() end)
+vim.keymap.set("n", "<leader>sy", function() require("Ephemera.scratchpad").yank() end)

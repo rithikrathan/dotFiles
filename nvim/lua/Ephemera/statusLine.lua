@@ -68,6 +68,7 @@ local ft_map = {
 	["lazy"]            = { name = "Lazy", icon = "🦦", color = "#8ec07c" },
 	["mason"]           = { name = "Mason", icon = "🧱", color = "#b8bb26" },
 	["help"]            = { name = "Help", icon = "󰋖", color = "#d3869b" },
+	["scratch"]         = { name = "ScratchPad", icon = "📝", color = "#ff9966" },
 }
 
 function Modules.render_left_core()

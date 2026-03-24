@@ -2,6 +2,8 @@
 --  AUTOCOMMANDS
 -- ============================================================================
 
+vim.opt.tabline = ""
+
 -- 1. FILETYPE DETECTION (Single Autocommand Table)
 local ft_map = {
 	sv   = "systemverilog",
@@ -260,8 +262,8 @@ vim.api.nvim_create_user_command('Ephemera', function(opts)
 	if subcmd == "theme" then
 		require("Ephemera.themePicker").open()
 	else
-		vim.notify("Unknown subcommand: " .. subcmd, vim.log.levels.WARN)
 	end
+	vim.notify("Unknown subcommand: " .. subcmd, vim.log.levels.WARN)
 end, {
 	nargs = 1,
 	complete = function(_, cmd)
@@ -270,3 +272,9 @@ end, {
 	end,
 	desc = "Ephemera theme picker",
 })
+
+vim.api.nvim_create_user_command('ToggleAutopair', function()
+	vim.g.ultimate_autopair_enabled = not vim.g.ultimate_autopair_enabled
+	local status = vim.g.ultimate_autopair_enabled and "enabled" or "disabled"
+	print("Autopair " .. status)
+end, { desc = "Toggle ultimate-autopair on/off" })

@@ -16,6 +16,7 @@ require("Ephemera.welcome").setup()         -- Local welcomeScreen
 require("Ephemera.statusLine")              -- Local statusline
 require("Ephemera.pluginConfig")            -- Global pluginConfigs
 require("Ephemera.commands")                -- Autocommands and user defined commands
+require("Ephemera.scratchpad").setup()     -- Scratchpad setup
 
 
 --Godot stuffs
