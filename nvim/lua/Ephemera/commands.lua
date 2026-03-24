@@ -272,7 +272,6 @@ end, {
 	end,
 	desc = "Ephemera theme picker",
 })
-
 vim.api.nvim_create_user_command('ToggleAutopair', function()
 	vim.g.ultimate_autopair_enabled = not vim.g.ultimate_autopair_enabled
 	local status = vim.g.ultimate_autopair_enabled and "enabled" or "disabled"
