@@ -2,6 +2,26 @@
 --  STATUSLINE
 -- ============================================================================
 
+-- --- 1. LEFT INFO SECTION (WITH FILETYPE MAP) ---
+local ft_map = {
+	-- ["oil"]             = { name = "Explorer", icon = "", color = "#fabd2f" },
+	["oil"]             = { name = "Explorer", icon = "📂", color = "#fabd2f" },
+	-- ["compilation"]     = { name = "Run", icon = "", color = "#09a409" },
+	["compilation"]     = { name = "Compilation", icon = "", color = "#09a409" },
+	["fzf"]             = { name = "Fuzzy Find", icon = "꩜ ", color = "#fabd2f" },
+	["qf"]              = { name = "Quickfix", icon = "🔧", color = "#fabd2f" },
+	["aerial"]          = { name = "Aerial", icon = "𑣲𝑨", color = "#fabd2f" },
+	["TelescopePrompt"] = { name = "Telescope", icon = "🔭", color = "#83a598" },
+	["alpha"]           = { name = "Dashboard", icon = "󰕮", color = "#d3869b" },
+	["checkhealth"]     = { name = "Health", icon = "✚", color = "#fb4934" },
+	["lazy"]            = { name = "Lazy", icon = "🦦", color = "#8ec07c" },
+	["mason"]           = { name = "Mason", icon = "🧱", color = "#b8bb26" },
+	["help"]            = { name = "Help", icon = "󰋖", color = "#d3869b" },
+	["scratch"]         = { name = "ScratchPad", icon = "📝", color = "#ff9966" },
+	["note"]            = { name = "NotePad", icon = "📓", color = "#ff9966" },
+	["gnote"]           = { name = "Global_Note", icon = "📑", color = "#ff9966" },
+}
+
 _G.git_branch = ""
 
 function _G.EphemeraStatusLine()
@@ -52,24 +72,6 @@ function Modules.set_bridge_hl(name, fg_group, bg_group, is_sep)
 	vim.api.nvim_set_hl(0, name, opts)
 	return name
 end
-
--- --- 1. LEFT INFO SECTION (WITH FILETYPE MAP) ---
-local ft_map = {
-	-- ["oil"]             = { name = "Explorer", icon = "", color = "#fabd2f" },
-	["oil"]             = { name = "Explorer", icon = "📂", color = "#fabd2f" },
-	-- ["compilation"]     = { name = "Run", icon = "", color = "#09a409" },
-	["compilation"]     = { name = "Compilation", icon = "", color = "#09a409" },
-	["fzf"]             = { name = "Fuzzy Find", icon = "꩜ ", color = "#fabd2f" },
-	["qf"]              = { name = "Quickfix", icon = "🔧", color = "#fabd2f" },
-	["aerial"]          = { name = "Aerial", icon = "𑣲𝑨", color = "#fabd2f" },
-	["TelescopePrompt"] = { name = "Telescope", icon = "🔭", color = "#83a598" },
-	["alpha"]           = { name = "Dashboard", icon = "󰕮", color = "#d3869b" },
-	["checkhealth"]     = { name = "Health", icon = "✚", color = "#fb4934" },
-	["lazy"]            = { name = "Lazy", icon = "🦦", color = "#8ec07c" },
-	["mason"]           = { name = "Mason", icon = "🧱", color = "#b8bb26" },
-	["help"]            = { name = "Help", icon = "󰋖", color = "#d3869b" },
-	["scratch"]         = { name = "ScratchPad", icon = "📝", color = "#ff9966" },
-}
 
 function Modules.render_left_core()
 	local m, state, label = vim.fn.mode(), "Norm", "NORMAL"

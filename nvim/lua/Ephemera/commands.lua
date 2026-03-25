@@ -6,12 +6,13 @@ vim.opt.tabline = ""
 
 -- 1. FILETYPE DETECTION (Single Autocommand Table)
 local ft_map = {
-	sv   = "systemverilog",
-	v    = "verilog",
-	pyde = "python",
-	pde  = "processing",
-	l    = "c",
-	y    = "c"
+	sv    = "systemverilog",
+	v     = "verilog",
+	pyde  = "python",
+	pde   = "processing",
+	l     = "c",
+	y     = "c",
+	gnote = "gnote",
 }
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
@@ -259,21 +260,27 @@ end, { desc = "disable the fige notification" })
 
 vim.api.nvim_create_user_command('Ephemera', function(opts)
 	local subcmd = opts.fargs[1]
+	local notepad = require("Ephemera.notepad")
+
 	if subcmd == "theme" then
 		require("Ephemera.themePicker").open()
+	elseif subcmd == "nnote" then
+		local note_name = opts.fargs[2]
+		if note_name and note_name ~= "" then
+			notepad.open(note_name)
+		else
+			vim.notify("Usage: Ephemera nnote <note_name>", vim.log.levels.WARN)
+		end
+	elseif subcmd == "onote" then
+		notepad.picker()
 	else
 		vim.notify("Unknown subcommand: " .. subcmd, vim.log.levels.WARN)
 	end
 end, {
-	nargs = 1,
+	nargs = "+",
 	complete = function(_, cmd)
-		local subs = { "theme" }
+		local subs = { "theme", "nnote", "onote" }
 		return vim.tbl_filter(function(s) return s:find("^" .. cmd) end, subs)
 	end,
-	desc = "Ephemera theme picker",
+	desc = "Ephemera commands",
 })
-vim.api.nvim_create_user_command('ToggleAutopair', function()
-	vim.g.ultimate_autopair_enabled = not vim.g.ultimate_autopair_enabled
-	local status = vim.g.ultimate_autopair_enabled and "enabled" or "disabled"
-	print("Autopair " .. status)
-end, { desc = "Toggle ultimate-autopair on/off" })

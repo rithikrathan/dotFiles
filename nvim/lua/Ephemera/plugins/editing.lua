@@ -4,14 +4,16 @@ return {
 
 	-- autopairs
 	{
-		'altermo/ultimate-autopair.nvim',
-		event = { 'InsertEnter', 'CmdlineEnter' },
-		branch = 'v0.6', --recommended as each new version will have breaking changes
-		opts = {
-			--Config goes here
-		},
+		'echasnovski/mini.pairs',
+		event = "VeryLazy",
+		opts = {},
+		init = function()
+			vim.api.nvim_create_user_command('ToggleAutopair', function()
+				vim.g.minipairs_disable = not vim.g.minipairs_disable
+				print("Autopair " .. (vim.g.minipairs_disable and "disabled" or "enabled"))
+			end, {})
+		end,
 	},
-
 	-- idk what this is i forgot
 	{
 		"Jezda1337/nvim-html-css",
@@ -145,6 +147,7 @@ return {
 			"nvim-lua/plenary.nvim",
 			{ "m00qek/baleia.nvim", tag = "v1.3.0" },
 		},
+
 		-- Add your custom keymaps here:
 		keys = {
 			{
@@ -194,7 +197,7 @@ return {
 				error_regexp_table = {},
 				error_ignore_file_list = {},
 				error_threshold = require("compile-mode").level.WARNING,
-				auto_jump_to_first_error = true,
+				auto_jump_to_first_error = false,
 				error_locus_highlight = 500,
 				use_diagnostics = false,
 				recompile_no_fail = true,
@@ -209,9 +212,9 @@ return {
 				hidden_buffer = false,
 				focus_compilation_buffer = true,
 				auto_scroll = true,
-				use_circular_error_navigation = true,
+				use_circular_error_navigation = false,
 				debug = false,
-				use_pseudo_terminal = false,
+				use_pseudo_terminal = true,
 			}
 		end
 	}
