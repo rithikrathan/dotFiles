@@ -3,36 +3,46 @@ if vim.loader then
 	vim.loader.enable()
 end
 
-require("Ephemera.options")                 -- General vim.opt settings
-require("Ephemera.lazy")                    -- Plugin manager
-require("Ephemera.keybinds")                -- Global keybindings
+require("Ephemera.options")                               -- General vim.opt settings
+require("Ephemera.lazy")                                  -- Plugin manager
+require("Ephemera.keybinds")                              -- Global keybindings
 local current_theme = require("Ephemera.themes.current")
 require("Ephemera.themes." .. current_theme.name).setup() -- color schemes set your theme here
--- require("Ephemera.themes.kanagawa").setup() -- color schemes set your theme here
--- require("Ephemera.themes.catpuccin").setup() -- color schemes set your theme here
--- require("Ephemera.themes.gruvbox").setup() -- color schemes set your theme here
--- require("Ephemera.themes.rosepineDark").setup() -- color schemes set your theme here
-require("Ephemera.welcome").setup()         -- Local welcomeScreen
-require("Ephemera.statusLine")              -- Local statusline
-require("Ephemera.pluginConfig")            -- Global pluginConfigs
-require("Ephemera.commands")                -- Autocommands and user defined commands
-require("Ephemera.scratchpad").setup()     -- Scratchpad setup
-require("Ephemera.notepad").setup()         -- Notepad setup
-
-
---Godot stuffs
-local pipepath = vim.fn.stdpath("cache") .. "/server.pipe"
-if not vim.loop.fs_stat(pipepath) then
-	vim.fn.serverstart(pipepath)
-end
+require("Ephemera.welcome").setup()                       -- Local welcomeScreen
+require("Ephemera.statusLine")                            -- Local statusline
+require("Ephemera.pluginConfig")                          -- Global pluginConfigs
+require("Ephemera.commands")                              -- Autocommands and user defined commands
+require("Ephemera.scratchpad").setup()                    -- Scratchpad setup
+require("Ephemera.notepad").setup()                       -- Notepad setup
 
 -- global variables
 vim.g.use_git_plugins = false
 vim.g.is_transparent = false
 
 -- some variables
--- _G.statusMessage = "She's catfishing you bro beware"
 _G.statusMessage = "@rathan"
+-- _G.statusMessage = "She's catfishing you bro beware"
+
+--godot stuffs
+-- --server ./godothost --remote-send "<C-\><C-N>:e {file}<CR>:call cursor({line}, {col})<CR>"
+-- Automatically start Godot server if we are in a Godot project
+if vim.fn.filereadable(vim.fn.getcwd() .. '/project.godot') == 1 then
+	local server_name = './godothost'
+
+	-- Only start it if it isn't already running
+	local is_running = false
+	for _, name in ipairs(vim.fn.serverlist()) do
+		if name == server_name then
+			is_running = true
+			break
+		end
+	end
+
+	if not is_running then
+		vim.fn.serverstart(server_name)
+	end
+end
+
 
 _G.create_floating_window = function()
 	local stats = vim.api.nvim_list_uis()[1]

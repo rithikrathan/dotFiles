@@ -25,6 +25,7 @@ masonConf.setup({
 		function(server_name)
 			lspconfig[server_name].setup({ capabilities = caps })
 		end,
+
 		-- exclude jdtls, we are using another plugin to handle that
 		-- bruh
 		["jdtls"] = function() end,
@@ -62,6 +63,15 @@ masonConf.setup({
 		end,
 	}
 })
+
+-- Define the config natively
+vim.lsp.config.gdscript = {
+	capabilities = caps,
+	cmd = vim.lsp.rpc.connect('127.0.0.1', 6005),
+	-- if you need it to attach to specific filetypes:
+	filetypes = { 'gdscript' }
+}
+vim.lsp.enable('gdscript')
 
 -- Verilog Auto-format
 vim.api.nvim_create_autocmd("BufWritePre", {
