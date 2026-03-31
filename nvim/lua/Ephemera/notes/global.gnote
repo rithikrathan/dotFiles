@@ -1,0 +1,58 @@
+ABSTRACT SYNTAX TREES
+
+astNode;
+	type
+	arguments
+	children[]
+
+astInsertionAlgorithm:
+
+astParsingAlgorithm:
+
+
+
+PARSE TREE;
+how do i use union for this
+	1) mnemonic
+		tokens this type covers:
+			INST
+			REG
+
+	3) blockStuffs
+		tokens this type covers:
+			DATASEGMENTSTART 
+			INSTSEGMENTSTART 
+			LINKSEGMENTSTART 
+			END
+
+	4) variablesStuffs
+		tokens this type covers:
+			DATA_TYPE
+			BIN
+			HEX
+			NUM
+			IDENTIFIER 
+			EQUALS 
+			POINTER_EQUALS 
+
+	5) lableStuff
+		tokens this type covers:
+			LABELDEF
+			LABELREF
+
+parse tree structure:
+
+	root			=> blockstuffs
+
+	blockstuffs		=>  DATASEGMENTSTART 
+					=>  INSTSEGMENTSTART 
+					=>  LINKSEGMENTSTART 
+					=>  END
+					=>  mnemonic
+					=>  labelStuffs
+
+	labelStuffs		=>  LABELDEF
+					=>  LABELREF
+					=>  mnemonic
+
+	mnemonic		=> s by the compiler. For example, it may s

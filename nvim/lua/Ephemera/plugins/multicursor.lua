@@ -61,11 +61,13 @@ return {
 		opts = {
 			pre_hook = function()
 				require("cmp").setup({ enabled = false })
-				require('ultimate-autopair').disable()
+				-- require('ultimate-autopair').disable()
+				vim.g.minipairs_disable = true
 			end,
 			post_hook = function()
 				require("cmp").setup({ enabled = true })
-				require('ultimate-autopair').enable()
+				-- require('ultimate-autopair').enable()
+				vim.g.minipairs_disable = false
 			end,
 			custom_key_maps = {
 				{ "n", "<Leader>al", function() require("multiple-cursors").align() end },

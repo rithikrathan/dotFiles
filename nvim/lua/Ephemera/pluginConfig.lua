@@ -75,7 +75,7 @@ local lspkind = require("lspkind")
 -- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
 vim.g.cmp_enabled = true --default value for completion
-vim.g.cmp_ghost = false
+vim.g.cmp_ghost = true
 
 local function apply_cmp()
 	cmp.setup({
