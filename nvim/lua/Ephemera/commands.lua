@@ -295,28 +295,22 @@ vim.api.nvim_create_user_command("LiveTerm", function()
 		if not input or input == "" then return end
 		_G.MyTermCmd = input
 
-		-- 1. Open the terminal and save its info
 		vim.cmd("vsplit | term")
 		_G.MyTermBuf = vim.api.nvim_get_current_buf()
 		_G.MyTermChannel = vim.b.terminal_job_id
 
-		-- Jump focus back to your code window
 		vim.cmd("wincmd p")
 
 		local function run_and_pin()
 			if not _G.MyTermChannel or not vim.api.nvim_buf_is_valid(_G.MyTermBuf) then return end
 
-			-- 2. Snapshot the line count right BEFORE sending the command
 			local start_line = vim.api.nvim_buf_line_count(_G.MyTermBuf)
 
-			-- 3. Send the command and hit Enter
 			pcall(vim.fn.chansend, _G.MyTermChannel, _G.MyTermCmd .. "\r")
 
-			-- 4. Lock the cursor to the start line AND snap it to the top
 			vim.defer_fn(function()
 				for _, win in ipairs(vim.api.nvim_list_wins()) do
 					if vim.api.nvim_win_get_buf(win) == _G.MyTermBuf then
-						-- Move cursor to the snapshot line
 						pcall(vim.api.nvim_win_set_cursor, win, { start_line, 0 })
 
 						-- THE FIX: Force that specific window to scroll that line to the absolute top
@@ -328,10 +322,8 @@ vim.api.nvim_create_user_command("LiveTerm", function()
 			end, 50)
 		end
 
-		-- Run it the first time
 		run_and_pin()
 
-		-- 5. Set up the triggers
 		vim.api.nvim_create_augroup("LiveTermGroup", { clear = true })
 		vim.api.nvim_create_autocmd({ "BufWritePost", "QuickFixCmdPost" }, {
 			group = "LiveTermGroup",
@@ -340,3 +332,36 @@ vim.api.nvim_create_user_command("LiveTerm", function()
 		})
 	end)
 end, {})
+
+-- buffCommandModes
+vim.api.nvim_create_autocmd("CmdwinEnter", {
+	group = vim.api.nvim_create_augroup("MinimalCmdWin", { clear = true }),
+	pattern = "*",
+	callback = function(args)
+		vim.schedule(function()
+			if vim.api.nvim_buf_is_valid(args.buf) then
+				vim.api.nvim_win_set_height(0, 1)
+				vim.cmd("normal! G")
+				vim.cmd("startinsert!")
+			end
+		end)
+
+		-- 1. Identify the window type (':', '/', or '?')
+		local cmd_type = args.match
+
+		-- 2. Assign distinct filetypes based on the type
+		if cmd_type == ":" then
+			vim.bo[args.buf].filetype = "bufcmd"
+		elseif cmd_type == "/" or cmd_type == "?" then
+			vim.bo[args.buf].filetype = "bufsearch"
+		end
+
+		-- Window styling
+		vim.opt_local.number = false
+		vim.opt_local.relativenumber = false
+		vim.opt_local.signcolumn = "no"
+
+		vim.keymap.set("n", "<Esc>", "<Cmd>q<CR>", { buffer = args.buf, silent = true })
+		vim.keymap.set("i", "<Esc>", "<Esc><Cmd>q<CR>", { buffer = args.buf, silent = true })
+	end,
+})

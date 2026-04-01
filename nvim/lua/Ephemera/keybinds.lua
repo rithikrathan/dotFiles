@@ -4,6 +4,9 @@ vim.keymap.set("i", "<A-l>", "<Right>", { desc = "Move cursor right" })
 vim.keymap.set("i", "<A-j>", "<Down>", { desc = "Move cursor down" })
 vim.keymap.set("i", "<A-k>", "<Up>", { desc = "Move cursor up" })
 
+vim.keymap.set("n", "<leader>0", "q:", { desc = "bufferCommand" })
+vim.keymap.set("n", "<leader>9", "q/", { desc = "bufferSearch" })
+
 -- some vertical navigation in insert mode
 vim.keymap.set("i", "<A-o>", '<Esc>o')
 vim.keymap.set("i", "<A-O>", '<Esc>O')

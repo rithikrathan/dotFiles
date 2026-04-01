@@ -20,6 +20,8 @@ local ft_map = {
 	["scratch"]         = { name = "ScratchPad", icon = "📝", color = "#ff9966" },
 	["note"]            = { name = "NotePad", icon = "📓", color = "#ff9966" },
 	["gnote"]           = { name = "Global_Note", icon = "📑", color = "#ff9966" },
+	["bufcmd"]          = { name = "Command", icon = "</>", color = "#09a409" },
+	["bufsearch"]       = { name = "Search", icon = "🔍", color = "#0990a2" },
 }
 
 _G.git_branch = ""
