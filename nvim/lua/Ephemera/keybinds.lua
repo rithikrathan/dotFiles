@@ -115,10 +115,10 @@ end)
 --     if path ~= "" then vim.cmd("edit " .. path) end
 -- end)
 
-vim.keymap.set("n", "<leader>fg", function()
+vim.keymap.set("n", "<leader>fw", function()
 	local pattern = vim.fn.input("Grep > ")
 	if pattern ~= "" then
-		vim.cmd("grep! -r " .. pattern .. " ."); vim.cmd("copen")
+		vim.cmd("grep -rn " .. pattern .. " ."); vim.cmd("copen")
 	end
 end)
 
@@ -210,10 +210,12 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help ta
 
 vim.keymap.set({ "n", "v" }, "<leader>va", vim.lsp.buf.code_action)
 
+-- not working
 vim.keymap.set("n", "<leader>gr", function()
 	builtin.grep_string({ search = vim.fn.input("Grep >") })
 end, { desc = "Telescope grep" })
 
+-- not working
 vim.keymap.set("n", "<leader>gq", function()
 	require("telescope.builtin").grep_string({
 		search = vim.fn.input("Grep > "),
@@ -233,7 +235,6 @@ end, { desc = "Grep → quickfix" })
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)                                                                --open a Git window
 vim.keymap.set("n", "<leader>gg", vim.cmd.GitGutterToggle)                                                    --Toggle gitgutter
 vim.keymap.set("n", "<leader>gt", "<cmd>GitGutterLineHighlightsToggle | GitGutterLineNrHighlightsToggle<CR>") --toggle git line highlights
-vim.keymap.set("n", "<leader>m", vim.cmd.MinimapToggle)
 vim.keymap.set("n", "<leader>tt", "<cmd>sp | term<CR>")
 
 -- Relative path copy of a buffer

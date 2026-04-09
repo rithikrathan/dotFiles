@@ -89,7 +89,7 @@ vim.g.cmp_ghost = true
 
 local function apply_cmp()
 	cmp.setup({
-		enabled = vim.g.cmp_enabled,
+		enabled = true,
 
 		snippet = {
 			expand = function(args)
@@ -100,7 +100,6 @@ local function apply_cmp()
 		completion = {
 			autocomplete = vim.g.cmp_enabled and { cmp.TriggerEvent.TextChanged } or false,
 		},
-
 		experimental = {
 			ghost_text = vim.g.cmp_ghost,
 		},
@@ -135,7 +134,7 @@ local function apply_cmp()
 			["<A-k>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
 			["<A-j>"] = cmp.mapping.select_next_item({ behavior = "select" }),
 			["<A-i>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
-			["<A-c>"] = cmp.mapping.complete(),
+			["<A-;>"] = cmp.mapping.complete(),
 
 			["<C-u>"] = cmp.mapping.scroll_docs(-4),
 			["<C-d>"] = cmp.mapping.scroll_docs(4),

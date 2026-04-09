@@ -286,6 +286,7 @@ end, {
 })
 
 -- LiveTerminal session
+
 _G.MyTermChannel = nil
 _G.MyTermCmd = nil
 _G.MyTermBuf = nil
@@ -304,22 +305,26 @@ vim.api.nvim_create_user_command("LiveTerm", function()
 		local function run_and_pin()
 			if not _G.MyTermChannel or not vim.api.nvim_buf_is_valid(_G.MyTermBuf) then return end
 
-			local start_line = vim.api.nvim_buf_line_count(_G.MyTermBuf)
-
-			pcall(vim.fn.chansend, _G.MyTermChannel, _G.MyTermCmd .. "\r")
+			pcall(vim.fn.chansend, _G.MyTermChannel, "\x03")
 
 			vim.defer_fn(function()
-				for _, win in ipairs(vim.api.nvim_list_wins()) do
-					if vim.api.nvim_win_get_buf(win) == _G.MyTermBuf then
-						pcall(vim.api.nvim_win_set_cursor, win, { start_line, 0 })
+				if not _G.MyTermChannel or not vim.api.nvim_buf_is_valid(_G.MyTermBuf) then return end
 
-						-- THE FIX: Force that specific window to scroll that line to the absolute top
-						vim.api.nvim_win_call(win, function()
-							vim.cmd("normal! zt")
-						end)
+				local start_line = vim.api.nvim_buf_line_count(_G.MyTermBuf)
+
+				pcall(vim.fn.chansend, _G.MyTermChannel, _G.MyTermCmd .. "\r")
+
+				vim.defer_fn(function()
+					for _, win in ipairs(vim.api.nvim_list_wins()) do
+						if vim.api.nvim_win_get_buf(win) == _G.MyTermBuf then
+							pcall(vim.api.nvim_win_set_cursor, win, { start_line, 0 })
+							vim.api.nvim_win_call(win, function()
+								vim.cmd("normal! zt")
+							end)
+						end
 					end
-				end
-			end, 50)
+				end, 50)
+			end, 100)
 		end
 
 		run_and_pin()
