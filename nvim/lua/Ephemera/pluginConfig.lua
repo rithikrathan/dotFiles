@@ -187,7 +187,7 @@ cmp.setup.filetype("go", {
 -- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 -- treesitter
-require("nvim-treesitter.configs").setup({
+require("nvim-treesitter.config").setup({
 	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "python", "cpp", "java", "gdscript" },
 	sync_install = false,
 	auto_install = true,

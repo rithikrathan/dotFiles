@@ -87,9 +87,9 @@ function Modules.render_left_core()
     elseif m == 'c' then
         state, label = "Command", "COMMAND"
     elseif m == 'R' then
-        label = "REPLACE"
+        state, label = "Ins", "REPLACE"
     elseif m == 't' then
-        label = "TERMINAL"
+        state, label = "Command", "TERMINAL"
     end
 
     -- 1. MODE OVERRIDE
@@ -305,7 +305,14 @@ function Modules.get_harpoon_tabs()
     -- 1. Capture Dynamic Colors
     local m = vim.fn.mode()
     local state = "Norm"
-    if m == 'i' then state = "Ins" elseif m:match("^[vV\22]") then state = "Vis" end
+    if m == 'i' then
+        state = "Ins"
+    elseif m:match("^[vV\22]") then
+        state = "Vis"
+    elseif m:match("c") then
+        state =
+        "Command"
+    end
 
     -- Get the actual color values
     local mode_data = vim.api.nvim_get_hl(0, { name = "Mode" .. state, link = false })

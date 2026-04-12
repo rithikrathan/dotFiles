@@ -170,19 +170,13 @@ function M.setup(user_config)
         InfoVis      = { fg = colors.fg, bg = colors.pmenu_bg },
         SepVisB      = { fg = colors.pmenu_bg, bg = colors.bgl },
 
-        ModeCommand  = { fg = colors.bg, bg = colors.green1, italic = true, bold = true },
-        SepCommandA  = { fg = colors.kw, bg = colors.pmenu_bg },
-        InfoCommand  = { fg = colors.fg, bg = colors.pmenu_bg },
-        SepCommandB  = { fg = colors.pmenu_bg, bg = colors.bgl },
-
-        ModeCommand  = { fg = colors.bg, bg = colors.green2, italic = true, bold = true },
+        ModeCommand  = { fg = colors.bg, bg = colors.purple_light, italic = true, bold = true },
         SepCommandA  = { fg = colors.kw, bg = colors.pmenu_bg },
         InfoCommand  = { fg = colors.fg, bg = colors.pmenu_bg },
         SepCommandB  = { fg = colors.pmenu_bg, bg = colors.bgl },
 
         StatusBody   = { fg = colors.comment, bg = colors.bgl, bold = true, italic = true },
         SlRef        = { fg = colors.comment, bg = colors.bgl, bold = true, italic = true },
-
 
 
         -- =====================================

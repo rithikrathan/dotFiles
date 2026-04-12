@@ -207,26 +207,33 @@ vim.keymap.set("n", "<leader>fgi", builtin.git_files, { desc = "Telescope git fi
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+vim.keymap.set("n", "<leader>fg*", function()
+	builtin.grep_string({ search = vim.fn.expand("<cword>") })
+end, { desc = "Telescope grep word under cursor" })
 
 vim.keymap.set({ "n", "v" }, "<leader>va", vim.lsp.buf.code_action)
 
--- not working
 vim.keymap.set("n", "<leader>gr", function()
-	builtin.grep_string({ search = vim.fn.input("Grep >") })
+	vim.ui.input({ prompt = "Grep > " }, function(search)
+		if search and search ~= "" then builtin.grep_string({ search = search }) end
+	end)
 end, { desc = "Telescope grep" })
 
--- not working
 vim.keymap.set("n", "<leader>gq", function()
-	require("telescope.builtin").grep_string({
-		search = vim.fn.input("Grep > "),
-		attach_mappings = function(_, map)
-			map("i", "<CR>", function(prompt_bufnr)
-				require("telescope.actions").send_to_qflist(prompt_bufnr)
-				require("telescope.actions").open_qflist(prompt_bufnr)
-			end)
-			return true
-		end,
-	})
+	vim.ui.input({ prompt = "Grep > " }, function(search)
+		if search and search ~= "" then
+			require("telescope.builtin").grep_string({
+				search = search,
+				attach_mappings = function(_, map)
+					map("i", "<CR>", function(prompt_bufnr)
+						require("telescope.actions").send_to_qflist(prompt_bufnr)
+						require("telescope.actions").open_qflist(prompt_bufnr)
+					end)
+					return true
+				end,
+			})
+		end
+	end)
 end, { desc = "Grep → quickfix" })
 
 
