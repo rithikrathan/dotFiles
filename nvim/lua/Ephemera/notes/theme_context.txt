@@ -1,0 +1,58 @@
+# Ephemera Theme System Context
+
+## Overview
+Centralized theme system where themes are defined as JSON files, loaded by `colorScheme.lua`.
+
+## File Structure
+
+### Core Files
+- `lua/Ephemera/colorScheme.lua` - Central theme engine
+  - Loads `.json` theme files
+  - Applies all highlight groups
+  - `setup(theme_name)` - load and apply a theme
+  - `toggle_transparency()` - toggle transparent bg
+
+- `lua/Ephemera/themes/current.lua` - Stores current theme name
+  - Contains: `return { name = "ThemeName" }`
+
+- `lua/Ephemera/themes/*.json` - Theme color definitions
+  - Format: JSON with `transparent`, `glow`, `show_end_of_buffer`, and `colors` object
+
+### Legacy Files (backup)
+- `lua/Ephemera/themes/*.lua.bak` - Old Lua theme files (to be deleted)
+
+### Related Files
+- `lua/Ephemera/custom/themePicker.lua` - Telescope-based theme picker
+- `lua/Ephemera/init.lua` - Loads theme on startup
+
+## Theme JSON Format
+```json
+{
+  "transparent": true,
+  "glow": true,
+  "show_end_of_buffer": false,
+  "colors": {
+    "fg": "#hex",
+    "bg": "#hex",
+    ...
+  }
+}
+```
+
+## Required Color Keys
+fg, bg, bgl, black, white, eob, border, title, cursor, cursorLine, visual, line_nr, comment, string, func, kw, identifier, type, type_builtin, operator, bracket, preprocessor, bool, constant, search_highlight, search_bg, inc_search_bg, inc_search_fg, cur_search_bg, glow_color, pmenu_bg, pmenu_sel_bg, pmenu_fg, added, changed, removed, error, warning, hint, info, bufferline_selection, cyan, purple_light, quote_fg, orange1-4, red1-4, red_light, green1-4, blue1-4, purple1-4
+
+## Commands
+- `:Ephemera theme` - Open theme picker
+- `:ToggleTransparency` - Toggle transparent background
+
+## Theme Loading Flow
+1. `init.lua` requires `Ephemera.themes.current` to get theme name
+2. Calls `colorScheme.setup(theme_name)`
+3. `colorScheme.setup()` reads `themes/<name>.json`
+4. Parses JSON, stores colors in `M.config.colors`
+5. Calls `apply_highlights()` which generates and applies vim highlight commands
+
+## Commands Fixed
+- `lua/Ephemera/commands.lua` - Fixed require paths for themePicker and notepad
+- `lua/Ephemera/keybinds.lua` - Fixed require paths for scratchpad

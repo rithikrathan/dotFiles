@@ -269,10 +269,10 @@ end, { desc = "disable the fige notification" })
 
 vim.api.nvim_create_user_command('Ephemera', function(opts)
     local subcmd = opts.fargs[1]
-    local notepad = require("Ephemera.notepad")
+    local notepad = require("Ephemera.custom.notepad")
 
     if subcmd == "theme" then
-        require("Ephemera.themePicker").open()
+        require("Ephemera.custom.themePicker").open()
     elseif subcmd == "nnote" then
         local note_name = opts.fargs[2]
         if note_name and note_name ~= "" then

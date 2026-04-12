@@ -7,7 +7,7 @@ require("Ephemera.options")                               -- General vim.opt set
 require("Ephemera.lazy")                                  -- Plugin manager
 require("Ephemera.keybinds")                              -- Global keybindings
 local current_theme = require("Ephemera.themes.current")
-require("Ephemera.themes." .. current_theme.name).setup() -- color schemes set your theme here
+require("Ephemera.colorScheme").setup(current_theme.name)
 require("Ephemera.custom.welcome").setup()                -- Local welcomeScreen
 require("Ephemera.statusLine")                            -- Local statusline
 require("Ephemera.pluginConfig")                          -- Global pluginConfigs

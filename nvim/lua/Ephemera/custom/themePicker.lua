@@ -1,4 +1,5 @@
 local M = {}
+local colorScheme = require("Ephemera.colorScheme")
 
 local function get_available_themes()
 	local themes_dir = vim.fn.stdpath("config") .. "/lua/Ephemera/themes/"
@@ -10,10 +11,9 @@ local function get_available_themes()
 	}
 
 	for _, file in ipairs(vim.fn.readdir(themes_dir)) do
-		if file:match("%.lua$") then
-			local name = file:gsub("%.lua$", "")
-			local is_backup = name:match("%.bak$") or name:match("%.bakbak$")
-			if not exclude[name] and not is_backup then
+		if file:match("%.json$") then
+			local name = file:gsub("%.json$", "")
+			if not exclude[name] then
 				table.insert(themes, name)
 			end
 		end
@@ -58,10 +58,7 @@ function M.open()
 				if selection and selection.value ~= last_theme then
 					last_theme = selection.value
 					vim.schedule(function()
-						local ok, theme = pcall(require, "Ephemera.themes." .. last_theme)
-						if ok then
-							pcall(theme.setup)
-						end
+						pcall(colorScheme.setup, last_theme)
 					end)
 				end
 			end
@@ -118,23 +115,12 @@ function M.open()
 end
 
 function M.apply_theme(theme_name)
-	local ok, err = pcall(require, "Ephemera.themes." .. theme_name)
-	if not ok then
-		vim.notify("Failed to load theme: " .. theme_name .. "\n" .. err, vim.log.levels.ERROR)
-		return
-	end
-
-	ok = pcall(require("Ephemera.themes." .. theme_name).setup)
-	if not ok then
-		vim.notify("Failed to setup theme: " .. theme_name, vim.log.levels.ERROR)
-		return
-	end
+	colorScheme.setup(theme_name)
 
 	local current_file = vim.fn.stdpath("config") .. "/lua/Ephemera/themes/current.lua"
 	local content = string.format("return {\n  name = %q,\n}\n", theme_name)
 	vim.fn.writefile(vim.split(content, "\n"), current_file)
 
-	require("Ephemera.themes." .. theme_name).setup()
 	print("Theme applied: " .. theme_name)
 end
 

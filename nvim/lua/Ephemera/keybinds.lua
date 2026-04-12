@@ -8,8 +8,8 @@ vim.keymap.set("n", "<leader>0", "q:", { desc = "bufferCommand" })
 vim.keymap.set("n", "<leader>9", "q/", { desc = "bufferSearch" })
 
 -- some vertical navigation in insert mode
-vim.keymap.set("i", "<A-o>", '<Esc>o')
-vim.keymap.set("i", "<A-O>", '<Esc>O')
+vim.keymap.set("i", "<A-o>", '<Esc>o', { desc = "Insert line below" })
+vim.keymap.set("i", "<A-O>", '<Esc>O', { desc = "Insert line above" })
 
 -- Toggle github/copilot.vim plugin
 vim.keymap.set("n", "<leader>cp", function()
@@ -29,36 +29,36 @@ end, { desc = "Toggle Copilot (github/copilot.vim)" })
 -- treesitter conftext
 vim.keymap.set("n", "[c", function()
 	require("treesitter-context").go_to_context(vim.v.count1)
-end, { silent = true })
+end, { silent = true, desc = "Treesitter context jump" })
 
 -- Undotree
-vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "Toggle Undotree" })
 
 -- Basic Mappings
-vim.keymap.set({ "n", "v", "t", "i" }, "<A-n>", '<CR>', { remap = true })
+vim.keymap.set({ "n", "v", "t", "i" }, "<A-n>", '<CR>', { remap = true, desc = "Enter/confirm" })
 
 -- copy and paste with system clipboard
-vim.keymap.set("v", "<leader>y", '"+ygv', { remap = true })
-vim.keymap.set("n", "<leader>p", '"+p', { remap = true })
+vim.keymap.set("v", "<leader>y", '"+ygv', { remap = true, desc = "Yank to system clipboard" })
+vim.keymap.set("n", "<leader>p", '"+p', { remap = true, desc = "Paste from system clipboard" })
 
 -- vim.keymap.set({ "n", "v", "t", "i" }, "<F5>", ':w | nohl | make<CR>', { remap = true })
-vim.keymap.set("v", ">", ">gv")
-vim.keymap.set("v", "<", "<gv")
-vim.keymap.set({ "n", "i" }, "<A-[>", "zt")
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-vim.keymap.set({ "v", "i" }, "<leader><Tab>", "<Esc>", { noremap = true, silent = true })
-vim.keymap.set("t", "<leader><Tab>", "<C-\\><C-n>", { noremap = true, silent = true })
+vim.keymap.set("v", ">", ">gv", { desc = "Indent and reselect" })
+vim.keymap.set("v", "<", "<gv", { desc = "Dedent and reselect" })
+vim.keymap.set({ "n", "i" }, "<A-[>", "zt", { desc = "Scroll cursor to top" })
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Netrw file explorer" })
+vim.keymap.set({ "v", "i" }, "<leader><Tab>", "<Esc>", { noremap = true, silent = true, desc = "Escape to normal mode" })
+vim.keymap.set("t", "<leader><Tab>", "<C-\\><C-n>", { noremap = true, silent = true, desc = "Escape terminal to normal" })
 vim.keymap.set("n", "<leader>d", "yyp", { desc = "Duplicate current line" })
 vim.keymap.set("i", "<leader>tn", "<C-o>", { desc = "Temporary normal mode" })
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
-vim.keymap.set("n", "H", "^")
-vim.keymap.set("n", "L", "g_")
-vim.keymap.set("v", "<leader>dd", "y'>p")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
+vim.keymap.set("n", "n", "nzzzv", { desc = "Next search (centered)" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Prev search (centered)" })
+vim.keymap.set("n", "H", "^", { desc = "Go to line start" })
+vim.keymap.set("n", "L", "g_", { desc = "Go to line end (non-blank)" })
+vim.keymap.set("v", "<leader>dd", "y'>p", { desc = "Duplicate line below" })
 
 -- Wraps
 -- vim.keymap.set("v", "<leader>wp", ":s/\\%V.*\\%V/(&)/ | nohl<CR>")
@@ -68,22 +68,22 @@ vim.keymap.set("v", "<leader>dd", "y'>p")
 -- vim.keymap.set("v", "<leader>wb", ":s/\\%V.*\\%V/`&`/ | nohl<CR>")
 
 -- Misc Insert helpers
-vim.keymap.set("i", "<leader>fjk", "<><left>")
-vim.keymap.set("n", "ct", 'vitc')
-vim.keymap.set("i", "<A-=>", ' := ')
-vim.keymap.set("n", "vt", 'vit')
+vim.keymap.set("i", "<leader>fjk", "<><left>", { desc = "Wrap with <>" })
+vim.keymap.set("n", "ct", 'vitc', { desc = "Change inside tag" })
+vim.keymap.set("i", "<A-=>", ' := ', { desc = "Insert := " })
+vim.keymap.set("n", "vt", 'vit', { desc = "Visual select tag content" })
 
 -- Splits & Windows
-vim.keymap.set("n", "<leader>h", ":split<CR>")
-vim.keymap.set("n", "<leader>v", ":vsplit<CR>")
-vim.keymap.set("n", "<A-h>", "<C-w><C-h>")
-vim.keymap.set("n", "<A-l>", "<C-w><C-l>")
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>")
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>")
-vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<CR>")
-vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<CR>")
-vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<CR>")
-vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>")
+vim.keymap.set("n", "<leader>h", ":split<CR>", { desc = "Horizontal split" })
+vim.keymap.set("n", "<leader>v", ":vsplit<CR>", { desc = "Vertical split" })
+vim.keymap.set("n", "<A-h>", "<C-w><C-h>", { desc = "Move to left window" })
+vim.keymap.set("n", "<A-l>", "<C-w><C-l>", { desc = "Move to right window" })
+vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move to window below" })
+vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move to window above" })
+vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<CR>", { desc = "Increase split height" })
+vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<CR>", { desc = "Decrease split height" })
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease split width" })
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase split width" })
 
 -- Files & Finder (Native)
 vim.keymap.set("n", "<leader>nf", function()
@@ -96,14 +96,14 @@ vim.keymap.set("n", "<leader>nf", function()
 	else
 		print("Canceled.")
 	end
-end)
+end, { desc = "Create new file" })
 
-vim.keymap.set('n', '<leader>x', function() os.execute('xdg-open ' .. vim.fn.expand('%:p:h')) end)
+vim.keymap.set('n', '<leader>x', function() os.execute('xdg-open ' .. vim.fn.expand('%:p:h')) end, { desc = "Open current dir in file manager" })
 
 vim.keymap.set('n', '<leader>xx', function()
 	local app = vim.fn.input("Open with: ")
 	if app ~= "" then os.execute(app .. " " .. vim.fn.shellescape(vim.fn.expand('%:p')) .. " &") end
-end)
+end, { desc = "Open current file with app" })
 
 -- vim.opt.path:append("**")
 -- vim.opt.wildmenu = true
@@ -120,14 +120,14 @@ vim.keymap.set("n", "<leader>fw", function()
 	if pattern ~= "" then
 		vim.cmd("grep -rn " .. pattern .. " ."); vim.cmd("copen")
 	end
-end)
+end, { desc = "Grep pattern in quickfix" })
 
 -- Replace Word
 vim.keymap.set("n", "<leader>rw", function()
 	local word = vim.fn.expand("<cword>")
 	local replacement = vim.fn.input("Replace '" .. word .. "' with: ")
 	if replacement ~= "" then vim.cmd("%s/\\<" .. word .. "\\>/" .. replacement .. "/gc") end
-end)
+end, { desc = "Replace word globally" })
 
 -- Floating Terminal
 vim.keymap.set('n', '<leader>t', function()
@@ -136,7 +136,7 @@ vim.keymap.set('n', '<leader>t', function()
 	vim.keymap.set({ "n", "t" }, "<esc>", function() vim.api.nvim_win_close(win, true) end, { buffer = buf })
 	vim.fn.termopen(vim.o.shell, { cwd = file_dir })
 	vim.cmd('startinsert')
-end)
+end, { desc = "Open floating terminal" })
 
 -- Make Run
 vim.keymap.set("n", "<leader>r", function()
@@ -146,7 +146,7 @@ vim.keymap.set("n", "<leader>r", function()
 	local job = vim.fn.termopen(vim.o.shell)
 	vim.fn.chansend(job, "make run " .. arg .. "\n")
 	vim.cmd("startinsert")
-end)
+end, { desc = "Run make with args" })
 
 --LSP-zero keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -154,51 +154,51 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
 		local opts = { buffer = event.buf }
 		-- > change these in the future
-		vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover({border = 'rounded'})<cr>", opts)
-		vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
-		vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
-		vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
-		vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
-		vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
-		vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
-		vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-		vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
-		vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+		vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover({border = 'rounded'})<cr>", { desc = "LSP hover", buffer = event.buf })
+		vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", { desc = "LSP definition", buffer = event.buf })
+		vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", { desc = "LSP declaration", buffer = event.buf })
+		vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", { desc = "LSP implementation", buffer = event.buf })
+		vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", { desc = "LSP type definition", buffer = event.buf })
+		vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", { desc = "LSP references", buffer = event.buf })
+		vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", { desc = "LSP signature help", buffer = event.buf })
+		vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "LSP rename", buffer = event.buf })
+		vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", { desc = "LSP format", buffer = event.buf })
+		vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "LSP code action", buffer = event.buf })
 	end,
 })
 
 -- find files and dirs
 vim.keymap.set('n', '<leader>jdf', function()
 	vim.cmd("Files")
-end)
+end, { desc = "Fzf files (lf)" })
 
 --Harpoon with telescope setup and keymaps
 local harpoon = require("harpoon")
 
 vim.keymap.set("n", "<leader>a", function()
 	harpoon:list():add()
-end)
+end, { desc = "Harpoon add file" })
 vim.keymap.set("n", "<leader>s", function()
 	harpoon:list():remove()
-end)
+end, { desc = "Harpoon remove file" })
 vim.keymap.set("n", "<leader>1", function()
 	harpoon:list():select(1)
-end)
+end, { desc = "Harpoon goto 1" })
 vim.keymap.set("n", "<leader>2", function()
 	harpoon:list():select(2)
-end)
+end, { desc = "Harpoon goto 2" })
 vim.keymap.set("n", "<leader>3", function()
 	harpoon:list():select(3)
-end)
+end, { desc = "Harpoon goto 3" })
 vim.keymap.set("n", "<leader>4", function()
 	harpoon:list():select(4)
-end)
+end, { desc = "Harpoon goto 4" })
 vim.keymap.set("n", "<A-[>", function()
-	harpoon:list():prev() -- go to previous buffer
-end)
+	harpoon:list():prev()
+end, { desc = "Harpoon prev file" })
 vim.keymap.set("n", "<A-]>", function()
-	harpoon:list():next() -- go to previous buffer
-end)
+	harpoon:list():next()
+end, { desc = "Harpoon next file" })
 
 --Telescope keymaps
 local builtin = require("telescope.builtin")
@@ -211,7 +211,7 @@ vim.keymap.set("n", "<leader>fg*", function()
 	builtin.grep_string({ search = vim.fn.expand("<cword>") })
 end, { desc = "Telescope grep word under cursor" })
 
-vim.keymap.set({ "n", "v" }, "<leader>va", vim.lsp.buf.code_action)
+vim.keymap.set({ "n", "v" }, "<leader>va", vim.lsp.buf.code_action, { desc = "LSP code actions" })
 
 vim.keymap.set("n", "<leader>gr", function()
 	vim.ui.input({ prompt = "Grep > " }, function(search)
@@ -239,10 +239,10 @@ end, { desc = "Grep → quickfix" })
 
 
 --Plugin specific keymaps
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git)                                                                --open a Git window
-vim.keymap.set("n", "<leader>gg", vim.cmd.GitGutterToggle)                                                    --Toggle gitgutter
-vim.keymap.set("n", "<leader>gt", "<cmd>GitGutterLineHighlightsToggle | GitGutterLineNrHighlightsToggle<CR>") --toggle git line highlights
-vim.keymap.set("n", "<leader>tt", "<cmd>sp | term<CR>")
+vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open lazygit" })
+vim.keymap.set("n", "<leader>gg", vim.cmd.GitGutterToggle, { desc = "Toggle GitGutter" })
+vim.keymap.set("n", "<leader>gt", "<cmd>GitGutterLineHighlightsToggle | GitGutterLineNrHighlightsToggle<CR>", { desc = "Toggle git line highlights" })
+vim.keymap.set("n", "<leader>tt", "<cmd>sp | term<CR>", { desc = "Open terminal in split" })
 
 -- Relative path copy of a buffer
 vim.keymap.set('n', '<C-P>', function()
@@ -251,7 +251,7 @@ vim.keymap.set('n', '<C-P>', function()
 	local rel = vim.fn.fnamemodify(path, ':.')
 	print(rel)
 	vim.fn.setreg('+', vim.fn.shellescape(rel))
-end)
+end, { desc = "Copy relative file path" })
 
 vim.keymap.set('n', '<leader>X', function()
 	local dir = vim.fn.expand('%:p:h')   -- directory of current file
@@ -379,14 +379,15 @@ vim.keymap.set("n", "<leader>i", toggle_logic, { desc = "Smart Toggle Inverse" }
 
 -- testing new keymaps
 
---use this keybind to test some function
 vim.keymap.set("n", "]]]", function()
-	-- print(vim.fn.getcwd())
 	print(vim.fn.expand('%:p:h'))
-end)
+end, { desc = "Print current file directory" })
+
+-- Telescope keymaps search
+vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Telescope search keymaps" })
 
 -- Scratchpad
-vim.keymap.set("n", "<leader>ss", function() require("Ephemera.scratchpad").open() end)
-vim.keymap.set("n", "<leader>sq", function() require("Ephemera.scratchpad").close() end)
-vim.keymap.set("n", "<leader>sp", function() require("Ephemera.scratchpad").clone() end)
-vim.keymap.set("n", "<leader>sy", function() require("Ephemera.scratchpad").yank() end)
+vim.keymap.set("n", "<leader>ss", function() require("Ephemera.custom.scratchpad").open() end, { desc = "Scratchpad open" })
+vim.keymap.set("n", "<leader>sq", function() require("Ephemera.custom.scratchpad").close() end, { desc = "Scratchpad close" })
+vim.keymap.set("n", "<leader>sp", function() require("Ephemera.custom.scratchpad").clone() end, { desc = "Scratchpad clone" })
+vim.keymap.set("n", "<leader>sy", function() require("Ephemera.custom.scratchpad").yank() end, { desc = "Scratchpad yank" })
