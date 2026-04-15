@@ -10,6 +10,7 @@ local ft_map = {
     v     = "verilog",
     pyde  = "python",
     pde   = "processing",
+    -- pde   = "java",
     l     = "c",
     y     = "c",
     gnote = "gnote",

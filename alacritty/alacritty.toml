@@ -129,15 +129,8 @@ mods = "Control|Alt"
 chars = """
 nvim
 """
-key = "E"
-mods = "Control|Alt"
-
-[[keyboard.bindings]]
-chars = """
-nvim .
-"""
-key = "C"
-mods = "Control|Alt"
+key = "\\"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "nvim "
@@ -180,13 +173,13 @@ mods = "Control|Shift"
 
 [[keyboard.bindings]]
 chars = "\u0002p"
-key = "D"
-mods = "Control|Alt"
+key = "Left"
+mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u0002n"
-key = "F"
-mods = "Control|Alt"
+key = "Right"
+mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u0002p"
@@ -275,16 +268,10 @@ mods = "Shift"
 [mouse]
 hide_when_typing = true
 
-# [mouse.double_click]
-# threshold = 300
-#
-# [mouse.triple_click]
-# threshold = 300
-
 [window]
 # decorations = "full"
 decorations = "none"
-opacity = 0.64
+opacity = 0.86
 
 [window.dimensions]
 columns = 218
