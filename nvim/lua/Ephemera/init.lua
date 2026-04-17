@@ -14,9 +14,7 @@ require("Ephemera.custom.welcome").setup()                -- Local welcomeScreen
 require("Ephemera.custom.statusLine")                            -- Local statusline
 require("Ephemera.pluginConfig")                          -- Global pluginConfigs
 require("Ephemera.commands")                              -- Autocommands and user defined commands
-require("Ephemera.custom.scratchpad").setup()             -- Scratchpad setup
-require("Ephemera.custom.notepad").setup()                -- Notepad setup
-require("Ephemera.custom.man").setup()                    -- manual lookup buffer setup
+require("Ephemera.custom.buffer").setup()                -- scratchpad, notepad, reference
 
 -- global variables
 vim.g.use_git_plugins = false
