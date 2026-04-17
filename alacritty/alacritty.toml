@@ -273,6 +273,10 @@ hide_when_typing = true
 decorations = "none"
 opacity = 0.86
 
+[window.class]
+instance = "Alacritty"
+general = "Alacritty"
+
 [window.dimensions]
 columns = 218
 lines = 65

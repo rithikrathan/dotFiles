@@ -6,10 +6,12 @@ end
 require("Ephemera.options")                               -- General vim.opt settings
 require("Ephemera.lazy")                                  -- Plugin manager
 require("Ephemera.keybinds")                              -- Global keybindings
+
 local current_theme = require("Ephemera.themes.current")
 require("Ephemera.colorScheme").setup(current_theme.name)
+
 require("Ephemera.custom.welcome").setup()                -- Local welcomeScreen
-require("Ephemera.statusLine")                            -- Local statusline
+require("Ephemera.custom.statusLine")                            -- Local statusline
 require("Ephemera.pluginConfig")                          -- Global pluginConfigs
 require("Ephemera.commands")                              -- Autocommands and user defined commands
 require("Ephemera.custom.scratchpad").setup()             -- Scratchpad setup
@@ -27,7 +29,7 @@ _G.statusMessage = "@rathan"
 --godot stuffs
 --
 -- [ [  --server ./godothost --remote-send "<C-\><C-N>:e {file}<CR>:call cursor({line}, {col})<CR>" ] ]
---
+--  
 -- Automatically start Godot server if we are in a Godot project
 if vim.fn.filereadable(vim.fn.getcwd() .. '/project.godot') == 1 then
 	local server_name = './godothost'

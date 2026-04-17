@@ -134,6 +134,7 @@ end
 function notepad.setup()
 	vim.keymap.set("n", "<leader>gn", function() notepad.open_global() end)
 	vim.keymap.set("n", "<leader>nn", function() notepad.toggle() end)
+	vim.keymap.set("n", "<leader>np", function() notepad.picker() end)
 end
 
 return notepad
