@@ -148,7 +148,6 @@ return {
             { "m00qek/baleia.nvim", tag = "v1.3.0" },
         },
 
-        -- Add your custom keymaps here:
         keys = {
             {
                 "<F5>",
@@ -167,36 +166,34 @@ return {
                     local opts = vim.g.compile_mode or {}
 
                     if has_make then
-                        -- Set default to make for the current session/buffer
                         opts.default_command = "make"
                         vim.g.compile_mode = opts
                     else
-                        -- select empty default string instead of the extension stuffs
                         opts.default_command = ""
                         vim.g.compile_mode = opts
                     end
 
-                    -- Trigger compile (will prompt you, pre-filled with whatever we set above)
+                    -- Trigger compile
                     vim.cmd("Compile")
                 end,
                 desc = "Smart Compile (Checks for Makefile)"
             },
             { "<F6>",  "<cmd>Recompile<CR>", desc = "Recompile" },
-            -- Error Navigation Keymaps (Alt+N for Next, Alt+P for Previous)
             { "<A-N>", "<cmd>NextError<CR>", desc = "Next Compile Error" },
             { "<A-P>", "<cmd>PrevError<CR>", desc = "Prev Compile Error" },
         },
         config = function()
+            local compile_mode = require("compile-mode")
+
             ---@module "compile-mode"
             ---@type CompileModeOpts
             vim.g.compile_mode = {
                 default_command = "",
-                -- Use `baleia` for parsing ANSI escape codes in the output.
                 baleia_setup = true,
                 bang_expansion = true,
                 error_regexp_table = {},
                 error_ignore_file_list = {},
-                error_threshold = require("compile-mode").level.WARNING,
+                error_threshold = compile_mode.level.WARNING,
                 auto_jump_to_first_error = false,
                 error_locus_highlight = 500,
                 use_diagnostics = false,
@@ -216,8 +213,27 @@ return {
                 debug = false,
                 use_pseudo_terminal = true,
             }
+
+            -- Autocmd to handle Escape: Interrupts the process and quits the split
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "compilation",
+                callback = function()
+                    local function interrupt_and_close()
+                        -- Kill the background process (make, processing, etc.)
+                        pcall(function() compile_mode.interrupt() end)
+                        -- Close the compilation split
+                        vim.cmd("q!")
+                    end
+
+                    -- Normal mode mapping
+                    vim.keymap.set("n", "<Esc>", interrupt_and_close, { buffer = true, silent = true })
+                    -- Terminal mode mapping (needed for use_pseudo_terminal)
+                    vim.keymap.set("t", "<Esc>", interrupt_and_close, { buffer = true, silent = true })
+                end,
+            })
         end
     },
+
     -- csv stuff
     {
         "hat0uma/csvview.nvim",

@@ -270,27 +270,16 @@ end, { desc = "disable the fige notification" })
 
 vim.api.nvim_create_user_command('Ephemera', function(opts)
     local subcmd = opts.fargs[1]
-    local notepad = require("Ephemera.custom.notepad")
 
     if subcmd == "theme" then
         require("Ephemera.custom.themePicker").open()
-    elseif subcmd == "nnote" then
-        local note_name = opts.fargs[2]
-        if note_name and note_name ~= "" then
-            notepad.open(note_name)
-        else
-            vim.notify("Usage: Ephemera nnote <note_name>", vim.log.levels.WARN)
-        end
-    elseif subcmd == "onote" then
-        notepad.picker()
     else
         vim.notify("Unknown subcommand: " .. subcmd, vim.log.levels.WARN)
     end
 end, {
-    nargs = "+",
+    nargs = "*",
     complete = function(_, cmd)
-        local subs = { "theme", "nnote", "onote" }
-        return vim.tbl_filter(function(s) return s:find("^" .. cmd) end, subs)
+        return vim.tbl_filter(function(s) return s:find("^" .. cmd) end, { "theme" })
     end,
     desc = "Ephemera commands",
 })

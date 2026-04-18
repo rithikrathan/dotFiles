@@ -1,5 +1,5 @@
--- ============================================================================
 --  STATUSLINE
+-- ============================================================================
 -- ============================================================================
 
 -- --- 1. LEFT INFO SECTION (WITH FILETYPE MAP) ---
@@ -19,7 +19,7 @@ local ft_map = {
     ["help"]            = { name = "Help", icon = "󰋖", color = "#d3869b" },
     ["scratch"]         = { name = "ScratchPad", icon = "📝", color = "#ff9966" },
     ["note"]            = { name = "NotePad", icon = "📑", color = "#ff9966" },
-    ["Reference"]       = { name = "Manual", icon = "📓", color = "#ff9966" },
+    ["Reference"]       = { name = "Reference", icon = "📓", color = "#ff9966" },
     ["gnote"]           = { name = "Global_Note", icon = "📑", color = "#ff9966" },
     -- NOTE:these are search and command in text buffer  so we can use
     -- vim motions not to be confused with the lsp stuffs
