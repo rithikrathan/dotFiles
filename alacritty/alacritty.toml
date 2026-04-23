@@ -174,12 +174,12 @@ mods = "Control|Shift"
 [[keyboard.bindings]]
 chars = "\u0002p"
 key = "Left"
-mods = "Control"
+mods = "Command|Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002n"
 key = "Right"
-mods = "Control"
+mods = "Command|Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002p"

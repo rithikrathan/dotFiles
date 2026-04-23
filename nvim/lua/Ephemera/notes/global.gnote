@@ -1,0 +1,41 @@
+FUNCTION DrawPythagoreanTree(x, y, size, angle, depth):
+    IF depth == 0: 
+        RETURN
+
+    // 1. Calculate the four corners of the current square
+    // Using trigonometry to allow for rotation
+    Point p1 = (x, y)
+    Point p2 = (x + cos(angle) * size, y + sin(angle) * size)
+    Point p3 = (p2.x - sin(angle) * size, p2.y + cos(angle) * size)
+    Point p4 = (x - sin(angle) * size, y + cos(angle) * size)
+
+    // 2. Draw the square
+    DrawPolygon(p1, p2, p3, p4)
+
+    // 3. Recursive step (The "Animation" check)
+    // Only draw children if we haven't hit our current animation limit
+    IF depth > 1:
+        // Calculate the peak of the right triangle sitting on p4-p3
+        // For a classic 45-degree tree, side length is size * (sqrt(2)/2)
+        float nextSize = size * 0.707 
+        
+        // Left Branch
+        DrawPythagoreanTree(p4.x, p4.y, nextSize, angle + 45°, depth - 1)
+        
+        // Right Branch
+        // The starting point is shifted by the vector of the left branch's width
+        DrawPythagoreanTree(p4.x + cos(angle+45°)*nextSize, 
+                           p4.y + sin(angle+45°)*nextSize, 
+                           nextSize, angle - 45°, depth - 1)
+
+WHILE WindowIsOpen:
+    ClearScreen()
+    
+    // Animate by gradually increasing the depth over time
+    // Or animate by slightly changing the angle (swaying effect)
+    currentDepth = (FrameCount / 10) % MAX_DEPTH
+    swayAngle = sin(FrameCount * 0.05) * 5°
+    
+    DrawPythagoreanTree(BaseX, BaseY, InitialSize, 0 + swayAngle, currentDepth)
+    
+    UpdateDisplay()
