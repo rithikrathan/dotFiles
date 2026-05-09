@@ -5,7 +5,6 @@ return {
     -- autopairs
     {
         'echasnovski/mini.pairs',
-        event = "VeryLazy",
         opts = {},
         init = function()
             vim.api.nvim_create_user_command('ToggleAutopair', function()
@@ -150,7 +149,7 @@ return {
 
         keys = {
             {
-                "<F5>",
+                "<F6>",
                 function()
                     -- Get the directory of the current file and the current working directory
                     local current_dir = vim.fn.expand("%:p:h")
@@ -178,7 +177,7 @@ return {
                 end,
                 desc = "Smart Compile (Checks for Makefile)"
             },
-            { "<F6>",  "<cmd>Recompile<CR>", desc = "Recompile" },
+            { "<F5>",  "<cmd>Recompile<CR>", desc = "Recompile" },
             { "<A-N>", "<cmd>NextError<CR>", desc = "Next Compile Error" },
             { "<A-P>", "<cmd>PrevError<CR>", desc = "Prev Compile Error" },
         },

@@ -149,7 +149,7 @@ local function ref_open()
             vim.api.nvim_buf_set_lines(ref_buf, 0, -1, false, vim.split(output, "\n", { plain = true }))
             vim.bo.filetype = "Reference"
             vim.bo.buflisted = false
-            vim.bo.modifiable = false
+            vim.bo.modifiable = true
             vim.bo.swapfile = false
             vim.bo.buftype = "nofile"
         end

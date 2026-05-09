@@ -271,7 +271,7 @@ hide_when_typing = true
 [window]
 # decorations = "full"
 decorations = "none"
-opacity = 0.86
+opacity = 0.76
 
 [window.dimensions]
 columns = 218
