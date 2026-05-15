@@ -1,7 +1,7 @@
 # SOURCE_PATH:DESTINATION_FOLDER
-/home/rathan/.config/alacritty:alacritty
-/home/rathan/.config/nvim:nvim
-/home/rathan/.config/rofi:rofi
-/home/rathan/.tmux.conf:.tmux.conf
-/home/rathan/poshThemes:poshThemes
-/home/rathan/.local/share/gedit/styles/Ra_theme.xml:Ra_theme.xml
+/home/rithik/.config/alacritty:alacritty
+/home/rithik/.config/nvim:nvim
+/home/rithik/.config/rofi:rofi
+/home/rithik/.tmux.conf:.tmux.conf
+/home/rithik/poshThemes:poshThemes
+/home/rithik/.local/share/gedit/styles/Ra_theme.xml:Ra_theme.xml
