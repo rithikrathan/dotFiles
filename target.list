@@ -5,3 +5,15 @@
 /home/rithik/.tmux.conf:.tmux.conf
 /home/rithik/poshThemes:poshThemes
 /home/rithik/.local/share/gedit/styles/Ra_theme.xml:Ra_theme.xml
+# /home/rithik/.config/btop:Ephemera/btop
+# /home/rithik/.config/fastfetch:Ephemera/fastfetch
+# /home/rithik/.config/fish:Ephemera/fish
+# /home/rithik/.config/foot:Ephemera/foot
+# /home/rithik/.config/hypr:Ephemera/hypr
+# /home/rithik/.config/uwsm:Ephemera/uwsm
+# /home/rithik/.config/starship.toml:Ephemera/starship.toml
+# /home/rithik/.config/micro:Ephemera/micro
+# /home/rithik/.config/Thunar:Ephemera/thunar
+# /home/rithik/.config/Code/User:Ephemera/vscode
+# /home/rithik/.config/caelestia:Ephemera-config
+# /home/rithik/.local/share/caelestia:Ephemera-source

@@ -303,9 +303,9 @@ return {
     },
 
     -- Registers
-    {
-        "tversteeg/registers.nvim",
-        event = "VeryLazy",
-        config = true,
-    },
+    -- {
+    --     "tversteeg/registers.nvim",
+    --     event = "VeryLazy",
+    --     config = true,
+    -- },
 }

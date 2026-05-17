@@ -26,7 +26,7 @@ white = "#ffa100"
 yellow = "#d54949"
 
 [colors.primary]
-background = "#010203"
+background = "#000000"
 foreground = "#ffdfdf"
 
 [cursor]
@@ -42,7 +42,7 @@ COLORTERM = "truecolor"
 TERM = "xterm-256color"
 
 [font]
-size = 14.0
+size = 16
 
 [font.bold]
 family = "Inconsolata LGC Nerd Font Mono"
@@ -271,7 +271,8 @@ hide_when_typing = true
 [window]
 # decorations = "full"
 decorations = "none"
-opacity = 0.76
+opacity = 1
+dynamic_padding = true
 
 [window.dimensions]
 columns = 218

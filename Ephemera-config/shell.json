@@ -1,0 +1,126 @@
+{
+    "appearance": {
+        "anim": {
+            "durations": {
+                "scale": 0.9961397753021148
+            }
+        },
+        "font": {
+            "family": {
+                "sans": "Nimbus Sans [URW ]"
+            },
+            "size": {
+                "scale": 1.10822891198044
+            }
+        },
+        "padding": {
+            "scale": 0.9305136384474328
+        },
+        "rounding": {
+            "scale": 0.9634548611111112
+        },
+        "spacing": {
+            "scale": 0.7441454475308642
+        },
+        "transparency": {
+            "base": 0.4955246913580247,
+            "enabled": false,
+            "layers": 0.7602816358024691
+        }
+    },
+    "background": {
+        "desktopClock": {
+            "background": {
+                "enabled": true,
+                "opacity": 0.48817926720727844
+            },
+            "enabled": true,
+            "invertColors": true,
+            "position": "top-right",
+            "shadow": {
+                "blur": 0.41029094827586204,
+                "enabled": false,
+                "opacity": 0.2116731598143236
+            }
+        },
+        "visualiser": {
+            "enabled": true,
+            "spacing": 0.5911891049848942
+        }
+    },
+    "bar": {
+        "activeWindow": {
+            "compact": true,
+            "inverted": false
+        },
+        "clock": {
+            "background": false,
+            "showDate": false,
+            "showIcon": false
+        },
+        "dragThreshold": 9,
+        "persistent": false,
+        "popouts": {
+            "activeWindow": true,
+            "statusIcons": true,
+            "tray": true
+        },
+        "scrollActions": {
+            "volume": true
+        },
+        "status": {
+            "showAudio": true,
+            "showKbLayout": true,
+            "showMicrophone": true,
+            "showNetwork": true,
+            "showWifi": true
+        },
+        "tray": {
+            "background": true
+        },
+        "workspaces": {
+            "activeIndicator": true,
+            "maxWindowIcons": 1,
+            "occupiedBg": true,
+            "showWindows": true,
+            "shown": 3
+        }
+    },
+    "border": {
+        "rounding": 22,
+        "thickness": 4
+    },
+    "dashboard": {
+        "dragThreshold": 31
+    },
+    "launcher": {
+        "favouriteApps": [
+            "Alacritty",
+            "app.zen_browser.zen",
+            "org.gnome.Nautilus",
+            "com.spotify.Client",
+            "Dopamine"
+        ],
+        "showOnHover": true,
+        "useFuzzy": {
+            "actions": true,
+            "apps": true,
+            "schemes": true,
+            "variants": true,
+            "wallpapers": true
+        },
+        "vimKeybinds": true
+    },
+    "notifs": {
+        "openExpanded": true
+    },
+    "services": {
+        "showLyrics": true
+    },
+    "utilities": {
+        "toasts": {
+            "dndChanged": true,
+            "nowPlaying": true
+        }
+    }
+}

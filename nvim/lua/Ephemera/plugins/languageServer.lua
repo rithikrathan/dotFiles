@@ -236,6 +236,7 @@ return {
 		dependencies = {
 			'nvim-lua/plenary.nvim',
 			'nvim-treesitter/nvim-treesitter',
+            "lewis6991/async.nvim"
 		},
 
 		cmd = 'Refactor',
@@ -312,7 +313,7 @@ return {
 			require('refactoring').setup(opts)
 
 			-- Optional: Load Telescope extension if you use Telescope
-			require('telescope').load_extension('refactoring')
+			-- require('telescope').load_extension('refactoring')
 		end,
 	}
 }

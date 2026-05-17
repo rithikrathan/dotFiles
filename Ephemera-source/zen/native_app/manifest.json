@@ -1,0 +1,7 @@
+{
+    "name": "Ephemerafox",
+    "description": "Native app for EphemeraFox extension.",
+    "path": "{{ $lib }}/Ephemerafox",
+    "type": "stdio",
+    "allowed_extensions": ["Ephemerafox@Ephemera.org"]
+}

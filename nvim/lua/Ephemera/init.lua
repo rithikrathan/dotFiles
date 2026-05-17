@@ -19,8 +19,8 @@ require("Ephemera.custom.buffer").setup()  -- scratchpad, notepad, reference
 -- global variables
 vim.g.use_git_plugins = false
 vim.g.minipairs_disable = true
-vim.g.is_transparent = false
-vim.g.cmp_enabled = false
+vim.g.is_transparent = true
+vim.g.cmp_enabled = true
 
 -- some variables
 _G.statusMessage = "@rathan"

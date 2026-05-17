@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+    "name": "EphemeraFox",
+    "version": "2.0",
+    "description": "A Firefox theme for the Ephemera dotfiles.",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "Ephemerafox@Ephemera.org"
+        }
+    },
+    "background": {
+        "scripts": ["dist/extension.js"]
+    },
+    "permissions": ["nativeMessaging", "theme"]
+}
