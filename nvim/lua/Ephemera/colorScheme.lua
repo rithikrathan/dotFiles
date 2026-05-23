@@ -71,6 +71,11 @@ local function get_highlight_groups()
         InfoCommand                 = { fg = colors.fg, bg = colors.pmenu_bg },
         SepCommandB                 = { fg = colors.pmenu_bg, bg = colors.bgl },
 
+        ModeRead                    = { fg = colors.bg, bg = colors.purple2, italic = true, bold = true },
+        SepReadA                    = { fg = colors.purple2, bg = colors.pmenu_bg },
+        InfoRead                    = { fg = colors.fg, bg = colors.pmenu_bg },
+        SepReadB                    = { fg = colors.pmenu_bg, bg = colors.bgl },
+
         StatusBody                  = { fg = colors.comment, bg = colors.bgl, bold = true, italic = true },
         SlRef                       = { fg = colors.comment, bg = colors.bgl, bold = true, italic = true },
 

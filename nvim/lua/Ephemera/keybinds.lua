@@ -172,7 +172,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
             { desc = "LSP signature help", buffer = event.buf })
         vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "LSP rename", buffer = event.buf })
-        vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>",
+        vim.keymap.set({ "n","i", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>",
             { desc = "LSP format", buffer = event.buf })
         vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>",
             { desc = "LSP code action", buffer = event.buf })
@@ -389,6 +389,11 @@ local function toggle_logic()
 end
 
 vim.keymap.set("n", "<leader>i", toggle_logic, { desc = "Smart Toggle Inverse" })
+
+-- Toggle Read Mode
+vim.keymap.set("n", "<A-z>", function()
+  require("Ephemera.custom.readMode").toggle()
+end, { desc = "Toggle Read Mode" })
 
 -- testing new keymaps
 vim.keymap.set("n", "]]]", function()

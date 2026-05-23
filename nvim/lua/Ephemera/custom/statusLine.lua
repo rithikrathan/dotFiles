@@ -108,7 +108,10 @@ function Modules.render_left_core()
     -- The unified boolean for your statusline
     local has_multicursor = has_extmark_cur or has_jake_cur
 
-    if vim.b.venn_enabled then
+    if vim.g.read_mode then
+        label, state = "READ", "Read"
+        is_custom = true
+    elseif vim.b.venn_enabled then
         label, state = "VENN", "Venn"
         is_custom = true
     elseif has_multicursor then

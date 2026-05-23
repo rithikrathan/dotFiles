@@ -300,6 +300,11 @@ end, {
   desc = "Ephemera commands",
 })
 
+-- Toggle Read Mode
+vim.api.nvim_create_user_command('ToggleReadMode', function()
+  require("Ephemera.custom.readMode").toggle()
+end, { desc = "Toggle Read Mode (focus reading dense paragraphs)" })
+
 -- LiveTerminal session
 
 _G.MyTermChannel = nil
