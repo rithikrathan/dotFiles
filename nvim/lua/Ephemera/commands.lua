@@ -102,16 +102,24 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Banner highlight
-local banner_augroup = vim.api.nvim_create_augroup("EphemeraBanner", { clear = true })
-local banner_pat = [[^\s*.\{-\}\s*=-=-=-=-=-=-=-=\s*\[.\{-\}\]\s*=-=-=-=-=-=-=-=\s*$]]
-
-vim.api.nvim_create_autocmd({ "BufWinEnter", "WinNew" }, {
-  group = banner_augroup,
-  callback = function()
-    pcall(vim.fn.matchadd, "EphemeraBanner", banner_pat, 200)
-  end,
-})
+-- Banner highlight (buffer-scoped decorations — no per-redraw cost)
+-- _G.EphemeraBannerNS = vim.api.nvim_create_namespace("EphemeraBanner")
+-- 
+-- local function highlight_banner_lines(buf)
+--   local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+--   for i, line in ipairs(lines) do
+--     if line:match("%s*%S*%s*=-=-=-=-=-=-=-= %[.*%] =-=-=-=-=-=-=-=") then
+--       vim.api.nvim_buf_add_highlight(buf, _G.EphemeraBannerNS, "EphemeraBanner", i - 1, 0, -1)
+--     end
+--   end
+-- end
+-- 
+-- vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+--   callback = function(args)
+--     if vim.bo[args.buf].buftype ~= "" then return end
+--     highlight_banner_lines(args.buf)
+--   end,
+-- })
 
 -- ============================================================================
 --  USER DEFINED COMMANDS:
