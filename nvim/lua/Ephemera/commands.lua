@@ -102,6 +102,17 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Banner highlight
+local banner_augroup = vim.api.nvim_create_augroup("EphemeraBanner", { clear = true })
+local banner_pat = [[^\s*.\{-\}\s*=-=-=-=-=-=-=-=\s*\[.\{-\}\]\s*=-=-=-=-=-=-=-=\s*$]]
+
+vim.api.nvim_create_autocmd({ "BufWinEnter", "WinNew" }, {
+  group = banner_augroup,
+  callback = function()
+    pcall(vim.fn.matchadd, "EphemeraBanner", banner_pat, 200)
+  end,
+})
+
 -- ============================================================================
 --  USER DEFINED COMMANDS:
 -- ============================================================================
@@ -390,3 +401,4 @@ vim.api.nvim_create_autocmd("CmdwinEnter", {
     vim.keymap.set("i", "<Esc>", "<Esc><Cmd>q<CR>", { buffer = args.buf, silent = true })
   end,
 })
+

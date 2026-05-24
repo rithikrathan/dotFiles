@@ -173,6 +173,16 @@ mods = "Control|Shift"
 
 [[keyboard.bindings]]
 chars = "\u0002p"
+key = "Left"
+mods = "Command|Alt"
+
+[[keyboard.bindings]]
+chars = "\u0002n"
+key = "Right"
+mods = "Command|Alt"
+
+[[keyboard.bindings]]
+chars = "\u0002p"
 key = "LBracket"
 mods = "Command"
 

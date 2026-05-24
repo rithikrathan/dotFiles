@@ -79,6 +79,8 @@
 		"purple1": "#ff00ff",
 		"purple2": "#bd93f9",
 		"purple3": "#c678dd",
-		"purple4": "#9d7cd8"
+		"purple4": "#9d7cd8",
+
+		"banner": "#FFED00"
 	}
 }

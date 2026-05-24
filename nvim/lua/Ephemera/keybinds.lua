@@ -174,6 +174,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "LSP rename", buffer = event.buf })
         vim.keymap.set({ "n","i", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>",
             { desc = "LSP format", buffer = event.buf })
+        vim.keymap.set({ "n","i", "x" }, "<A-f>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>",
+            { desc = "LSP format", buffer = event.buf })
         vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>",
             { desc = "LSP code action", buffer = event.buf })
     end,
@@ -412,3 +414,12 @@ vim.keymap.set("n", "<leader>sp", function() require("Ephemera.custom.scratchpad
     { desc = "Scratchpad clone" })
 vim.keymap.set("n", "<leader>sy", function() require("Ephemera.custom.scratchpad").yank() end,
     { desc = "Scratchpad yank" })
+
+-- Insert banner
+vim.keymap.set('n', '<leader>b', function()
+  local cs = vim.bo.commentstring ~= '' and vim.bo.commentstring or '# %s'
+  local text = vim.fn.input('Banner: ')
+  if text == '' then return end
+  local banner = ('=-=-=-=-=-=-=-= [ %s ] =-=-=-=-=-=-=-='):format(text:upper())
+  vim.fn.append(vim.fn.line('.'), (cs:gsub('%%s', banner)))
+end, { desc = 'Insert banner below cursor' })

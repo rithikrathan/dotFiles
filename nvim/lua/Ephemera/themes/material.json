@@ -67,6 +67,7 @@
 		"type_builtin": "#ff9e64",
 		"visual": "#2d2d3d",
 		"warning": "#ffcb6b",
-		"white": "#ffffff"
+		"white": "#ffffff",
+		"banner": "#FFED00"
 	}
 }

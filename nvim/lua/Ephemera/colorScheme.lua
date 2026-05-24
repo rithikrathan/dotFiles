@@ -224,6 +224,8 @@ local function get_highlight_groups()
         CmpItemKindEvent            = { fg = colors.kw },
         CmpItemKindOperator         = { fg = colors.kw },
         CmpItemKindTypeParameter    = { fg = colors.kw },
+
+        EphemeraBanner              = { fg = colors.banner, bold = true, italic = true },
     }
 end
 
