@@ -1,0 +1,16 @@
+[
+  {
+    "options": {
+      "hdri-file": "/home/rithik/softwares/f3d-portable/hdri/ferndale_studio.hdr",
+      "hdri-skybox": true,
+      "hdri-ambient": true,
+      "tone-mapping": true,
+      "ambient-occlusion": true,
+      "anti-aliasing": "fxaa",
+      "grid": true,
+      "axis": true,
+      "edges": true,
+      "camera-view-angle": 60
+    }
+  }
+]
