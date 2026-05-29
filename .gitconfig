@@ -1,0 +1,30 @@
+[user]
+	name = Rathan
+	email = rithikrathan.c@gmail.com
+[core]
+	editor = nvim
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[init]
+	defaultBranch = master
+
+[delta]
+    features = custom-theme
+[delta "custom-theme"]
+    dark = true
+    file-style = "#ebdbb2" "#000000"
+    file-decoration-style = "#d65d0e" box
+    line-numbers = true
+    line-numbers-left-style = "#a89984" "#000000"
+    line-numbers-right-style = "#a89984" "#000000"
+    line-numbers-minus-style = "#cc241d" "#000000"
+    line-numbers-plus-style = "#98971a" "#000000"
+    minus-style = normal "#1a0a0a"
+    minus-emph-style = normal "#261212"
+    plus-style = normal "#0a1a0a"
+    plus-emph-style = normal "#122612"
+    syntax-theme = none
