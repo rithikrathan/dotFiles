@@ -28,7 +28,7 @@ _G.statusMessage = "@rathan"
 --godot stuffs
 --
 -- [ [  --server ./godothost --remote-send "<C-\><C-N>:e {file}<CR>:call cursor({line}, {col})<CR>" ] ]
---
+
 -- Automatically start Godot server if we are in a Godot project
 if vim.fn.filereadable(vim.fn.getcwd() .. '/project.godot') == 1 then
     local server_name = './godothost'

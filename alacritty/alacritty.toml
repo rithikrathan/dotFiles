@@ -42,7 +42,7 @@ COLORTERM = "truecolor"
 TERM = "xterm-256color"
 
 [font]
-size = 16
+size = 14
 
 [font.bold]
 family = "Inconsolata LGC Nerd Font Mono"
