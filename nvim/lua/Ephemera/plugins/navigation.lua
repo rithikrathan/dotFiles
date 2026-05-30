@@ -54,6 +54,12 @@ return {
                 },
                 view_options = {
                     show_hidden = true,
+                    is_always_hidden = function(name, bufnr)
+                        local dir = require("oil").get_current_dir(bufnr)
+                        return dir ~= nil and vim.fn.systemlist(
+                            "git -C " .. vim.fn.shellescape(dir) .. " check-ignore " .. vim.fn.shellescape(name)
+                        )[1] ~= nil
+                    end,
                     sort = {
                         { "type", "asc" },
                         { "name", "asc" },
