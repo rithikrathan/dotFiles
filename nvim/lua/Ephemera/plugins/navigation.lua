@@ -3,16 +3,17 @@ return {
         "stevearc/oil.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
+            local gitignore_cache = {}
             require("oil").setup({
 
                 default_file_explorer = false,
-                -- The highlights above will automwtically color these columns
 
                 columns = {
                     "permissions",
                     "size",
                     "icon",
                 },
+                skip_confirm_for_simple_edits = true,
 
                 win_options = {
                     wrap = false,
@@ -51,14 +52,30 @@ return {
                     ["gs"] = "actions.change_sort",
                     ["gx"] = "actions.open_external",
                     ["g."] = "actions.toggle_hidden",
+                    ["<leader>gh"] = function()
+                        local bufnr = vim.api.nvim_get_current_buf()
+                        vim.b[bufnr].oil_gitignore_hide = not vim.b[bufnr].oil_gitignore_hide
+                        gitignore_cache = {}
+                        require("oil.actions").refresh.callback()
+                    end,
                 },
                 view_options = {
                     show_hidden = true,
                     is_always_hidden = function(name, bufnr)
+                        if not vim.b[bufnr].oil_gitignore_hide then
+                            return false
+                        end
                         local dir = require("oil").get_current_dir(bufnr)
-                        return dir ~= nil and vim.fn.systemlist(
-                            "git -C " .. vim.fn.shellescape(dir) .. " check-ignore " .. vim.fn.shellescape(name)
-                        )[1] ~= nil
+                        if not dir then return false end
+                        local key = dir .. "\0" .. name
+                        if gitignore_cache[key] ~= nil then
+                            return gitignore_cache[key]
+                        end
+                        local ok, result = pcall(vim.fn.systemlist,
+                            "git -C " .. vim.fn.shellescape(dir) .. " check-ignore " .. vim.fn.shellescape(name) .. " 2>/dev/null")
+                        local ignored = ok and #result > 0 and result[1] ~= ""
+                        gitignore_cache[key] = ignored
+                        return ignored
                     end,
                     sort = {
                         { "type", "asc" },
