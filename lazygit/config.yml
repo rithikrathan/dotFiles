@@ -3,17 +3,17 @@ os:
 gui:
   theme:
     activeBorderColor:
-      - "#d65d0e"
+      - "#e02840"
       - bold
     inactiveBorderColor:
-      - "#333333"
+      - "#555555"
     searchingActiveBorderColor:
       - "#d79921"
       - bold
     optionsTextColor:
       - "#a89984"
     selectedLineBgColor:
-      - "#262626"
+      - "#1a1a1a"
     cherryPickedCommitFgColor:
       - "#ebdbb2"
     cherryPickedCommitBgColor:
