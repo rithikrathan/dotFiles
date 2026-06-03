@@ -11,6 +11,9 @@ export FZF_DEFAULT_OPTS="
 "
 
 
+# Zen Browser
+alias zen-browser='flatpak run app.zen_browser.zen'
+
 # Open nvim with Oil for any path passed in
 viex() {
   local target="${1:-.}"

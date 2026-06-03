@@ -2,5 +2,5 @@ configuration{
 	show-icons:true;
 	sidebar-mode:false;
 }
-@theme "/home/rathan/.config/rofi/themes/submarine.rasi"
+@theme "/home/rithik/.config/rofi/themes/submarine.rasi"
 //@theme "/home/rathan/.local/share/rofi/themes/simple-tokyonight.rasi"
