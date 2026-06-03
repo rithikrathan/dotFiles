@@ -7,9 +7,33 @@ if [[ ! -f "$CONFIG_FILE" ]]; then
     exit 1
 fi
 
-options="$(printf "close(forced)\n%s" "$(jq -r '.[].name' "$CONFIG_FILE")")"
-selected=$(echo "$options" | rofi -dmenu -i -p "Workspace Setup")
+declare -A ICONS
+ICONS["Game Dev"]=""
+ICONS["Coding"]=""
+ICONS["Meeting"]=""
+ICONS["3D"]=""
+ICONS["Writing"]=""
+ICONS["Minimal"]=""
+ICONS["close(forced)"]=""
+
+icon_for() {
+    echo "${ICONS[$1]:- }"
+}
+
+options=""
+while IFS= read -r name; do
+    icon=$(icon_for "$name")
+    options="${options}${icon}     ${name}\n"
+done < <(printf "close(forced)\n%s" "$(jq -r '.[].name' "$CONFIG_FILE")")
+options="${options%\\n}"
+
+pkill -x bemenu 2>/dev/null
+
+selected=$(echo -e "$options" | bemenu-caelestia -p "Workspace Setup" -l 8 -c -W 0.35)
+
 [[ -z "$selected" ]] && exit 0
+
+selected="${selected##* }"
 
 if [[ "$selected" == "close(forced)" ]]; then
     hyprctl clients -j | jq -r '.[].address' | while read -r addr; do
@@ -22,17 +46,16 @@ fi
 preset=$(jq -c --arg sel "$selected" '.[] | select(.name == $sel)' "$CONFIG_FILE")
 [[ -z "$preset" ]] && exit 1
 
+first_ws=$(echo "$preset" | jq -r '.apps[0].w')
+
 echo "$preset" | jq -c '.apps[]' | while read -r app; do
     ws=$(echo "$app" | jq -r '.w')
     cmd=$(echo "$app" | jq -r '.cmd')
-
     hyprctl dispatch workspace "$ws"
     sleep 0.15
     hyprctl dispatch exec "$cmd"
     sleep 0.4
 done
 
-first_ws=$(echo "$preset" | jq -r '.apps[0].w')
 hyprctl dispatch workspace "$first_ws"
-
 notify-send "Workspace Setup" "\"$selected\" ready"
