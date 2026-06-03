@@ -7,8 +7,17 @@ if [[ ! -f "$CONFIG_FILE" ]]; then
     exit 1
 fi
 
-selected=$(jq -r '.[].name' "$CONFIG_FILE" | rofi -dmenu -p "Workspace Setup")
+options="$(printf "close(forced)\n%s" "$(jq -r '.[].name' "$CONFIG_FILE")")"
+selected=$(echo "$options" | rofi -dmenu -i -p "Workspace Setup")
 [[ -z "$selected" ]] && exit 0
+
+if [[ "$selected" == "close(forced)" ]]; then
+    hyprctl clients -j | jq -r '.[].address' | while read -r addr; do
+        hyprctl dispatch closewindow "address:$addr"
+    done
+    notify-send "Workspace Setup" "All windows closed (forced)"
+    exit 0
+fi
 
 preset=$(jq -c --arg sel "$selected" '.[] | select(.name == $sel)' "$CONFIG_FILE")
 [[ -z "$preset" ]] && exit 1

@@ -4,8 +4,9 @@
     "apps": [
       { "w": 1, "cmd": "godot" },
       { "w": 2, "cmd": "alacritty" },
-      { "w": 3, "cmd": "flatpak run app.zen_browser.zen" },
-      { "w": 4, "cmd": "flatpak run com.spotify.Client" }
+      { "w": 3, "cmd": "WAYLAND_DISPLAY= blender" },
+      { "w": 4, "cmd": "flatpak run app.zen_browser.zen" },
+      { "w": 5, "cmd": "flatpak run com.spotify.Client" }
     ]
   },
   {
@@ -13,13 +14,24 @@
     "apps": [
       { "w": 1, "cmd": "alacritty" },
       { "w": 2, "cmd": "flatpak run app.zen_browser.zen" },
-      { "w": 3, "cmd": "flatpak run com.spotify.Client" }
+      { "w": 3, "cmd": "flatpak run com.github.flxzt.rnote" },
+      { "w": 4, "cmd": "flatpak run com.spotify.Client" }
     ]
   },
   {
     "name": "Meeting",
     "apps": [
-      { "w": 1, "cmd": "flatpak run app.zen_browser.zen" }
+      { "w": 1, "cmd": "flatpak run app.zen_browser.zen" },
+      { "w": 2, "cmd": "flatpak run com.github.flxzt.rnote" }
+    ]
+  },
+  {
+    "name": "3D",
+    "apps": [
+      { "w": 1, "cmd": "alacritty" },
+      { "w": 2, "cmd": "WAYLAND_DISPLAY= blender" },
+      { "w": 3, "cmd": "flatpak run app.zen_browser.zen" },
+      { "w": 4, "cmd": "flatpak run com.spotify.Client" }
     ]
   },
   {
