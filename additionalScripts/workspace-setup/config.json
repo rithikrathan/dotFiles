@@ -1,12 +1,9 @@
 [
   {
-    "name": "Game Dev",
+    "name": "Minimal",
     "apps": [
-      { "w": 1, "cmd": "godot" },
-      { "w": 2, "cmd": "alacritty" },
-      { "w": 3, "cmd": "WAYLAND_DISPLAY= blender" },
-      { "w": 4, "cmd": "flatpak run app.zen_browser.zen" },
-      { "w": 5, "cmd": "flatpak run com.spotify.Client" }
+      { "w": 1, "cmd": "alacritty" },
+      { "w": 2, "cmd": "flatpak run com.spotify.Client" }
     ]
   },
   {
@@ -19,10 +16,12 @@
     ]
   },
   {
-    "name": "Meeting",
+    "name": "Game Dev",
     "apps": [
-      { "w": 1, "cmd": "flatpak run app.zen_browser.zen" },
-      { "w": 2, "cmd": "flatpak run com.github.flxzt.rnote" }
+      { "w": 1, "cmd": "godot" },
+      { "w": 2, "cmd": "alacritty" },
+      { "w": 3, "cmd": "flatpak run app.zen_browser.zen" },
+      { "w": 4, "cmd": "flatpak run com.spotify.Client" }
     ]
   },
   {
@@ -35,17 +34,43 @@
     ]
   },
   {
-    "name": "Writing",
+    "name": "Meeting",
     "apps": [
       { "w": 1, "cmd": "flatpak run app.zen_browser.zen" },
-      { "w": 2, "cmd": "flatpak run com.spotify.Client" }
+      { "w": 2, "cmd": "flatpak run com.github.flxzt.rnote" },
+      { "w": 3, "cmd": "flatpak run com.discordapp.Discord" }
     ]
   },
   {
-    "name": "Minimal",
+    "name": "Writing",
+    "apps": [
+      { "w": 1, "cmd": "flatpak run app.zen_browser.zen" },
+      { "w": 2, "cmd": "flatpak run org.onlyoffice.desktopeditors" },
+      { "w": 3, "cmd": "flatpak run com.github.flxzt.rnote" }
+    ]
+  },
+  {
+    "name": "Study",
+    "apps": [
+      { "w": 1, "cmd": "flatpak run app.zen_browser.zen" },
+      { "w": 2, "cmd": "flatpak run org.onlyoffice.desktopeditors" },
+      { "w": 3, "cmd": "flatpak run com.github.flxzt.rnote" }
+    ]
+  },
+  {
+    "name": "Dev Tools",
     "apps": [
       { "w": 1, "cmd": "alacritty" },
-      { "w": 2, "cmd": "flatpak run app.zen_browser.zen" }
+      { "w": 2, "cmd": "flatpak run app.zen_browser.zen" },
+      { "w": 3, "cmd": "flatpak run me.iepure.devtoolbox" }
+    ]
+  },
+  {
+    "name": "Design",
+    "apps": [
+      { "w": 1, "cmd": "flatpak run org.inkscape.Inkscape" },
+      { "w": 2, "cmd": "flatpak run com.github.flxzt.rnote" },
+      { "w": 3, "cmd": "flatpak run com.spotify.Client" }
     ]
   }
 ]

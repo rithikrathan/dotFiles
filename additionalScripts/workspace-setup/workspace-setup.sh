@@ -9,11 +9,14 @@ fi
 
 declare -A ICONS
 ICONS["Game Dev"]=""
+ICONS["Minimal"]=""
 ICONS["Coding"]=""
 ICONS["Meeting"]=""
 ICONS["3D"]=""
 ICONS["Writing"]=""
-ICONS["Minimal"]=""
+ICONS["Study"]=""
+ICONS["Dev Tools"]=""
+ICONS["Design"]=""
 ICONS["close(forced)"]=""
 
 icon_for() {
@@ -29,7 +32,7 @@ options="${options%\\n}"
 
 pkill -x bemenu 2>/dev/null
 
-selected=$(echo -e "$options" | bemenu-caelestia -p "Workspace Setup" -l 8 -c -W 0.35)
+selected=$(echo -e "$options" | bemenu-caelestia -l 8 -c -W 0.38)
 
 [[ -z "$selected" ]] && exit 0
 
@@ -57,5 +60,8 @@ echo "$preset" | jq -c '.apps[]' | while read -r app; do
     sleep 0.4
 done
 
+summary=$(echo "$preset" | jq -r '.apps[] | .cmd | split(" ") | last | split("/") | last')
+
 hyprctl dispatch workspace "$first_ws"
-notify-send "Workspace Setup" "\"$selected\" ready"
+notify-send "Workspace Setup" "$selected
+$summary"
