@@ -308,13 +308,17 @@ vim.api.nvim_create_user_command('Ephemera', function(opts)
 
   if subcmd == "theme" then
     require("Ephemera.custom.themePicker").open()
+  elseif subcmd == "header" then
+    require("Ephemera.custom.header").add()
+  elseif subcmd == "updateHeader" then
+    require("Ephemera.custom.header").update()
   else
     vim.notify("Unknown subcommand: " .. subcmd, vim.log.levels.WARN)
   end
 end, {
   nargs = "*",
   complete = function(_, cmd)
-    return vim.tbl_filter(function(s) return s:find("^" .. cmd) end, { "theme" })
+    return vim.tbl_filter(function(s) return s:find("^" .. cmd) end, { "theme", "header", "updateHeader" })
   end,
   desc = "Ephemera commands",
 })

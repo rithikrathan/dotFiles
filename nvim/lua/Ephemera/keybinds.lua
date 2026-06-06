@@ -422,6 +422,5 @@ vim.keymap.set('n', '<leader>b', function()
   if text == '' then return end
   local banner = ('=-=-=-=-=-=-=-= [ %s ] =-=-=-=-=-=-=-='):format(text:upper())
   vim.fn.append(vim.fn.line('.'), (cs:gsub('%%s', banner)))
-  local ns = _G.EphemeraBannerNS or vim.api.nvim_create_namespace("EphemeraBanner")
-  vim.api.nvim_buf_add_highlight(0, ns, "EphemeraBanner", vim.fn.line('.') + 1, 0, -1)
+
 end, { desc = 'Insert banner below cursor' })
