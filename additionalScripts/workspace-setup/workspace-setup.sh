@@ -36,7 +36,7 @@ selected=$(echo -e "$options" | bemenu-caelestia -l 8 -c -W 0.38)
 
 [[ -z "$selected" ]] && exit 0
 
-selected="${selected##* }"
+read -r _ selected <<< "$selected"
 
 if [[ "$selected" == "close(forced)" ]]; then
     hyprctl clients -j | jq -r '.[].address' | while read -r addr; do
