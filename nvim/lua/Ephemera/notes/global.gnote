@@ -1,3 +1,15 @@
 [x] Configure Nvim for godot
-[ ]  fix banner and header part in nvim
+[x]  fix banner and header part in nvim
 [ ]  make formatter work with gd script
+
+var stamina := 100.0
+const MAX_STAMINA := 100.0
+const DRAIN_RATE := 30.0   # per second
+const REGEN_RATE := 20.0
+
+func _process(delta):
+    if is_running:
+        stamina = move_toward(stamina, 0.0, DRAIN_RATE * delta)
+    else:
+        stamina = move_toward(stamina, MAX_STAMINA, REGEN_RATE * delta)
+Stamina is the time remaining — stamina / DRAIN_RATE = seconds left of sprint.
