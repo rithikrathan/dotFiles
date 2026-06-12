@@ -1,11 +1,4 @@
 # SOURCE_PATH:DESTINATION_FOLDER
-/home/rithik/.config/alacritty:alacritty
-/home/rithik/.config/nvim:nvim
-/home/rithik/.config/rofi:rofi
-/home/rithik/.tmux.conf:.tmux.conf
-/home/rithik/.tmux/:.tmux/
-/home/rithik/poshThemes:poshThemes
-/home/rithik/.local/share/gedit/styles/Ra_theme.xml:Ra_theme.xml
 # /home/rithik/.config/btop:Ephemera/btop
 # /home/rithik/.config/fastfetch:Ephemera/fastfetch
 # /home/rithik/.config/fish:Ephemera/fish
@@ -16,8 +9,17 @@
 # /home/rithik/.config/micro:Ephemera/micro
 # /home/rithik/.config/Thunar:Ephemera/thunar
 # /home/rithik/.config/Code/User:Ephemera/vscode
-/home/rithik/.config/f3d:f3d
 # /home/rithik/.config/caelestia:Ephemera-config
 # /home/rithik/.local/share/caelestia:Ephemera-source
+
+/home/rithik/.config/alacritty:alacritty
+/home/rithik/.config/nvim:nvim
+/home/rithik/.config/rofi:rofi
+/home/rithik/.tmux.conf:.tmux.conf
+/home/rithik/.tmux/:.tmux/
+/home/rithik/poshThemes:poshThemes
+/home/rithik/.local/share/gedit/styles/Ra_theme.xml:Ra_theme.xml
+/home/rithik/.config/f3d:f3d
 /home/rithik/.config/lazygit:lazygit
 /home/rithik/.config/superfile:superfile
+
