@@ -424,3 +424,17 @@ vim.keymap.set('n', '<leader>b', function()
   vim.fn.append(vim.fn.line('.'), (cs:gsub('%%s', banner)))
 
 end, { desc = 'Insert banner below cursor' })
+
+vim.keymap.set("n", "<Esc>", function()
+  local qf_win = vim.fn.getqflist({ winid = 0 }).winid
+  if qf_win ~= 0 then
+    vim.cmd("cclose")
+  else
+    vim.cmd("nohlsearch")
+  end
+end, { desc = "Close qf or clear search highlight" })
+
+vim.keymap.set("n", "<leader>qf", function()
+  local qf_win = vim.fn.getqflist({ winid = 0 }).winid
+  if qf_win ~= 0 then vim.cmd("cclose") else vim.cmd("copen") end
+end, { desc = "Toggle quickfix list" })

@@ -99,34 +99,6 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "qf",
   callback = function()
     vim.opt_local.statusline = "%!v:lua.EphemeraStatusLine()"
-    vim.keymap.set("n", "<Esc>", "<Cmd>cclose<CR>", { buffer = true, silent = true, desc = "Close quickfix" })
-
-    vim.schedule(function()
-      if not vim.api.nvim_win_is_valid(0) then return end
-      local qf_win = vim.api.nvim_get_current_win()
-      local wins = vim.api.nvim_list_wins()
-
-      local editor_win = nil
-      for _, win in ipairs(wins) do
-        if win ~= qf_win then editor_win = win; break end
-      end
-
-      if editor_win then
-        for _, win in ipairs(vim.api.nvim_list_wins()) do
-          if win ~= qf_win and win ~= editor_win and vim.api.nvim_win_is_valid(win) then
-            vim.api.nvim_win_close(win, true)
-          end
-        end
-      else
-        vim.cmd("vsplit")
-        editor_win = vim.api.nvim_get_current_win()
-        vim.api.nvim_set_current_win(qf_win)
-      end
-
-      vim.cmd("wincmd H")
-      local half = math.floor(vim.o.columns / 2)
-      vim.api.nvim_win_set_width(qf_win, half)
-    end)
   end,
 })
 

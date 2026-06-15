@@ -113,8 +113,7 @@ return {
                     load_buffers = false,
                 },
                 follow = {
-                    -- When quickfix window is open, scroll to closest item to the cursor
-                    enabled = false,
+                    enabled = true,
                 },
                 -- Map of quickfix item type to icon
                 type_icons = {
