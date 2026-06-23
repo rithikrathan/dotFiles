@@ -201,7 +201,7 @@ M.reference = {
 
 function M.setup()
     vim.keymap.set("n", "<leader>ss", function() M.scratchpad.open() end)
-    vim.keymap.set("n", "<leader>sq", function() M.scratchpad.delete() end)
+    vim.keymap.set("n", "<leader>sx", function() M.scratchpad.delete() end)
     vim.keymap.set("n", "<leader>sp", function() M.scratchpad.copy() end)
 
     vim.keymap.set("n", "<leader>gn", function() M.notepad.open() end)

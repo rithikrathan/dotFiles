@@ -172,14 +172,24 @@ key = "R"
 mods = "Control|Shift"
 
 [[keyboard.bindings]]
-chars = "\u0002p"
+chars = "\u0002\u001b[D"
 key = "Left"
-mods = "Command|Alt"
+mods = "Control"
 
 [[keyboard.bindings]]
-chars = "\u0002n"
+chars = "\u0002\u001b[C"
 key = "Right"
-mods = "Command|Alt"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0002\u001b[A"
+key = "Up"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0002\u001b[B"
+key = "Down"
+mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u0002p"
@@ -271,8 +281,9 @@ hide_when_typing = true
 [window]
 # decorations = "full"
 decorations = "none"
-opacity = 0.80
+# opacity = 0.80
 # opacity = 1
+opacity = 0.9
 dynamic_padding = true
 
 [window.dimensions]

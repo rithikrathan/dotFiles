@@ -5,9 +5,7 @@
 ![Title](screenshots/title.png)
 
 ---
-
 ## The Ephemera Theme
-
 ![Theme Preview](screenshots/1.png)
 
 The Ephemera theme is a **deep, dark, moody** color scheme with:

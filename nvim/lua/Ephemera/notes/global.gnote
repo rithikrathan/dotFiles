@@ -2,14 +2,19 @@
 [x]  fix banner and header part in nvim
 [ ]  make formatter work with gd script
 
-var stamina := 100.0
-const MAX_STAMINA := 100.0
-const DRAIN_RATE := 30.0   # per second
-const REGEN_RATE := 20.0
+[ ]  make an ssh based portfolio instead of a website
 
-func _process(delta):
-    if is_running:
-        stamina = move_toward(stamina, 0.0, DRAIN_RATE * delta)
-    else:
-        stamina = move_toward(stamina, MAX_STAMINA, REGEN_RATE * delta)
-Stamina is the time remaining — stamina / DRAIN_RATE = seconds left of sprint.
+makehuman2  project notes:
+    1. opengl/camera.py     line 235 handles camera zoom 
+    2. opengl/camera.py     line 381 handles camera rotation rotation(xAngle, yAngle)
+            > Horizontal rotation (lines 395-397): Rotates the camera position around the cameraDir (up axis) using xAngle
+            > Vertical rotation (lines 401-403): Rotates the resulting position around the rightVector using yAngle
+            > Angles come from arcBallRotation (line 304-305): xAngle = (last_mousex - x) * deltaAngleX, yAngle = (last_mousey - y) * deltaAngleY
+            > deltaAngleX = 2π / viewport_width, deltaAngleY = π / viewport_height (lines 419-420) — so a full drag across the screen = full 360° horizontal / 180° vertical rotation
+
+
+makehuman2 Changes:
+    gui/graphwindow.py - line 89 passing negative direction to make scroll up zoom-in 
+
+
+

@@ -62,7 +62,6 @@ return {
 			pre_hook = function()
 				require("cmp").setup({ enabled = false })
 				-- require('ultimate-autopair').disable()
-				vim.g.minipairs_disable = true
 			end,
 			post_hook = function()
 				require("cmp").setup({ enabled = true })

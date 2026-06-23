@@ -4,6 +4,9 @@ return {
     -- { "jbyuki/venn.nvim", ft = { "markdown", "text" } },
     { "jbyuki/venn.nvim" }, -- so it works with all kind of files???
 
+    { "bullets-vim/bullets.vim" }, -- handle bullets in markdowns
+
+    { "LukasKorotaj/luasnip-markdown-snippets.nvim" }, -- markdown snippets
 
     -- for colours
     {
@@ -102,5 +105,7 @@ return {
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
         opts = {},
         ft = { "markdown", "Reference", "gnote", "note", "scratch" }
-    },
+    }
 }
+
+    
