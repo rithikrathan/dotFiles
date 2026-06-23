@@ -25,7 +25,7 @@ Thumbs.db
 # Ignore version control metadata
 *.orig
 *.rej
-
+lazy-lock.json
 # Ignore archives and compressed files
 *.zip
 *.tar
