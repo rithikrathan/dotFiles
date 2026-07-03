@@ -174,22 +174,22 @@ mods = "Control|Shift"
 [[keyboard.bindings]]
 chars = "\u0002\u001b[D"
 key = "Left"
-mods = "Control"
+mods = "Control | shift"
 
 [[keyboard.bindings]]
 chars = "\u0002\u001b[C"
 key = "Right"
-mods = "Control"
+mods = "Control | shift"
 
 [[keyboard.bindings]]
 chars = "\u0002\u001b[A"
 key = "Up"
-mods = "Control"
+mods = "Control | shift"
 
 [[keyboard.bindings]]
 chars = "\u0002\u001b[B"
 key = "Down"
-mods = "Control"
+mods = "Control | shift"
 
 [[keyboard.bindings]]
 chars = "\u0002p"
@@ -283,7 +283,7 @@ hide_when_typing = true
 decorations = "none"
 # opacity = 0.80
 # opacity = 1
-opacity = 0.9
+opacity = 0.98
 dynamic_padding = true
 
 [window.dimensions]

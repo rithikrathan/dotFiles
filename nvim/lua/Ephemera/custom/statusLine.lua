@@ -42,7 +42,7 @@ function _G.EphemeraStatusLine()
     local middle_part  = (_G.AnimState.output or "")
 
     -- 3. RIGHT SIDE: Stats & Additional
-    local stat_content = Modules.get_stat_section()
+    local stat_content = Modules.stat_section()
     local add_content  = Modules.get_additional_section()
 
     local right_part   = stat_content .. " " .. add_content .. " "
@@ -271,8 +271,8 @@ end
 -- --- 2. STAT SECTION ---
 _G.StatState = { mode = 1 }
 
-function Modules.get_stat_section()
-    local mode = _G.StatState.mode
+function Modules.stat_section()
+    local mode = _G.StatState and _G.StatState.mode or 1
 
     if mode == 1 then     -- position and percentage
         return " %l:%c %p%% "
@@ -281,12 +281,12 @@ function Modules.get_stat_section()
         Modules.set_bridge_hl("SlDiagErr", "DiagnosticError", "StatusBody", false)
         Modules.set_bridge_hl("SlDiagWarn", "DiagnosticWarn", "StatusBody", false)
 
-        local err  = Modules.get_diag(vim.diagnostic.severity.ERROR)
-        local warn = Modules.get_diag(vim.diagnostic.severity.WARN)
+        local err  = Modules.get_diag(vim.diagnostic.severity.ERROR) or 0
+        local warn = Modules.get_diag(vim.diagnostic.severity.WARN) or 0
         return string.format(" %%#SlDiagErr#✖ %d %%#SlDiagWarn#⚠ %d %%#StatusBody#", err, warn)
     elseif mode == 3 then -- current language server connected
         local clients = vim.lsp.get_active_clients({ bufnr = 0 })
-        local lsp_name = (#clients > 0) and clients[1].name or "❌"
+        local lsp_name = (clients and #clients > 0) and clients[1].name or "❌"
         return "🖧 " .. lsp_name .. ""
     elseif mode == 4 then -- filetype
         return " %y "
@@ -369,12 +369,12 @@ function Modules.get_harpoon_tabs()
 end
 
 function Modules.get_additional_section()
-    local mode = _G.AddState.mode
+    local mode = _G.AddState and _G.AddState.mode or 1
 
     if mode == 1 then     -- harpoon buffer marks
         return Modules.get_harpoon_tabs()
     elseif mode == 2 then -- key logger, meh not the perfect
-        local log = _G.AddState.key_log
+        local log = (_G.AddState and _G.AddState.key_log) or { "   ", "   ", "   ", "   " }
         Modules.set_bridge_hl("SlRose", "keyword", "StatusBody", false)
         local rose_group = "SlRose"
         return string.format("┆ %%#%s#%s%%#StatusBody# %s %s %s ", rose_group, log[1], log[2], log[3], log[4])
@@ -471,8 +471,6 @@ vim.api.nvim_create_user_command("SlAnimMode", function(o) _G.SetAnimMode(o.args
 -- --- 6. UTILS, GIT & BINDINGS ---
 function Modules.get_diag(severity)
     if vim.diagnostic.get_count then return vim.diagnostic.get_count(0, { severity = severity }) end
-    local diags = vim.diagnostic.get(0, { severity = severity })
-    return diags and #diags or 0
 end
 
 local function update_git()

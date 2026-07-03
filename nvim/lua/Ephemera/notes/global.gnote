@@ -4,6 +4,56 @@
 
 [ ]  make an ssh based portfolio instead of a website
 
+RoguePM - rogued project notes: 
+    use sled::{Db, Tree, IVec};
+
+    pub fn init_database(path: &str) -> sled::Result<Db> {
+        sled::open(path)
+    }
+
+    pub fn set(tree: &Tree, key: impl AsRef<[u8]>, value: impl AsRef<[u8]>) -> sled::Result<Option<IVec>> {
+        tree.insert(key, value)
+    }
+
+    pub fn get(tree: &Tree, key: impl AsRef<[u8]>) -> sled::Result<Option<IVec>> {
+        tree.get(key)
+    }
+
+    pub fn delete(tree: &Tree, key: impl AsRef<[u8]>) -> sled::Result<Option<IVec>> {
+        tree.remove(key)
+    }
+
+    pub fn dump_tree(tree: &Tree) -> sled::Result<Vec<(IVec, IVec)>> {
+        tree.iter().collect::<sled::Result<Vec<_>>>()
+    }
+
+What it stores
+1. Own identity (my_identity) — device_id, TLS cert+key, SSH keypair. Generated once, survives restarts.
+2. Paired peers (paired/{device_id}) — hostname, IP, pairing timestamp. Loaded into memory on startup so previously paired peers are known immediately (even before mDNS rediscovers them).
+3. TLS cert pinning (paired/{id}.cert_fingerprint) — TOFU (Trust On First Use): on first pair, the peer's TLS cert fingerprint is stored. Future connections verify the fingerprint to detect MITM.
+4. Peer project lists (peer_lists/{device_id}) — remote peers' project paths, synced during pairing and periodically. Bash queries via rogue list --remote.
+5. Own project list (my_list) — this machine's project paths for sharing with peers.
+6. Path leases (leases/{path_hash}) — distributed path-locking: which peer holds a write lease on each exported path, with TTL.
+
+Init sequence:
+    1. Parse CLI args (clap) for --db-path, --port, --socket-path
+    2. Open sled at ~/.rogued/Data/rogueData (expand ~ manually)
+    3. Generate/load device_id from sled
+    4. Load paired peers from sled into state
+    5. Register mDNS service (add device_id to TXT properties)
+    6. Spawn tcp_listener (tokio::spawn)
+    7. Spawn handle_unix_sockets (tokio::spawn)
+    8. discover_hosts — on ServiceResolved, if peer is Paired, call auto_connect
+Unix socket dispatch — reworked to match on request type via serde:
+    - ping → Pong!
+    - discoverHost → return full peer table with states
+    - pair { hostname } → lookup peer, call initiate_pair
+    - accept { hostname } → call resolve_pending(hostname, true)
+    - reject { hostname } → call resolve_pending(hostname, false)
+    - pending → list pending requests
+    - forget { hostname } → remove from paired + sled
+
+
 makehuman2  project notes:
     1. opengl/camera.py     line 235 handles camera zoom 
     2. opengl/camera.py     line 381 handles camera rotation rotation(xAngle, yAngle)
@@ -15,6 +65,5 @@ makehuman2  project notes:
 
 makehuman2 Changes:
     gui/graphwindow.py - line 89 passing negative direction to make scroll up zoom-in 
-
 
 

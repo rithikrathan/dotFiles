@@ -11,6 +11,7 @@ declare -A ICONS
 ICONS["Game Dev"]=""
 ICONS["Minimal"]=""
 ICONS["Coding"]=""
+ICONS["Coding [Remote]"]=""
 ICONS["Meeting"]=""
 ICONS["3D"]=""
 ICONS["Writing"]=""

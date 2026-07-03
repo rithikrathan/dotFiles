@@ -11,8 +11,17 @@
     "apps": [
       { "w": 1, "cmd": "alacritty" },
       { "w": 2, "cmd": "flatpak run app.zen_browser.zen" },
-      { "w": 3, "cmd": "flatpak run com.github.flxzt.rnote" },
-      { "w": 4, "cmd": "flatpak run com.spotify.Client" }
+      { "w": 3, "cmd": "flatpak run com.spotify.Client" }
+    ]
+  },
+
+  {
+    "name": "Coding [Remote]",
+    "apps": [
+      { "w": 1, "cmd": "alacritty" },
+      { "w": 2, "cmd": "alacritty" },
+      { "w": 4, "cmd": "flatpak run com.spotify.Client" },
+      { "w": 3, "cmd": "flatpak run app.zen_browser.zen" }
     ]
   },
   {
